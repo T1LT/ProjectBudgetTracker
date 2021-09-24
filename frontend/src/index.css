@@ -1,0 +1,28 @@
+#budgettext {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+}
+
+#percentage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+}
+
+#appbar {
+  margin-bottom: 1%;
+}
+
+#dash {
+  display: flex;
+}
+
+#right {
+  height: 25vh;
+  width: 25vw;
+}
