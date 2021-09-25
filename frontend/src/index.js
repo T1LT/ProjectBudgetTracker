@@ -36,6 +36,7 @@ const Main = () => {
           </div>
           <div id="right">
             <Doughnut
+              id="donut"
               data={{
                 labels: ["Architect", "DBA", "Developers", "Misc"],
                 datasets: [

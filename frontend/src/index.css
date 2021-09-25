@@ -3,7 +3,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  height: 40vh;
+  width: 20vw;
 }
 
 #percentage {
@@ -11,7 +12,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  height: 40vh;
+  width: 20vw;
 }
 
 #appbar {
@@ -20,9 +22,10 @@
 
 #dash {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#right {
-  height: 25vh;
-  width: 25vw;
+#donut {
+  height: 35vh;
 }
