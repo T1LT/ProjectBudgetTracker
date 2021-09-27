@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #budgettext {
   display: flex;
   flex-direction: column;
@@ -33,3 +34,8 @@
   height: 35vh;
   /* border: 1px solid black; */
 }
+=======
+#appbar {
+  margin-bottom: 1%;
+}
+>>>>>>> 8a08cf5596229ca6855aa58bfa9d62531f39e296

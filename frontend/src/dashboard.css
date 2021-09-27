@@ -1,0 +1,28 @@
+#budgettext{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+    width: 20vw;
+}
+  
+#percentage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+    width: 20vw;
+}
+
+#dash{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+#donut{
+    height: 35vh;
+}
+  
