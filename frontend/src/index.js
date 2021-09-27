@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import Box from "@mui/material/Box";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Box,
+} from "@mui/material";
 import Dashboard from "./Dashboard";
+import Reports from "./Reports";
 import "./index.css";
 import "./reset.css";
 
@@ -27,10 +30,11 @@ const Main = () => {
     switch (tab) {
       case "Dashboard":
         return <Dashboard />;
-      // case "transactions": return <Transactions />;
-      // case "reports": return <Reports />;
-      // case "projects": return <Projects />;
-      // case "settings": return <Settings />;
+      // case "Transactions": return <Transactions />;
+      case "Reports":
+        return <Reports />;
+      // case "Projects": return <Projects />;
+      // case "Settings": return <Settings />;
       default:
         return null;
     }
@@ -71,7 +75,7 @@ const Main = () => {
           ))}
         </List>
       </Drawer>
-      <Box id="content" sx={{ position: "relative" }}>
+      <Box id="content">
         <Toolbar />
         {renderdiv()}
       </Box>
