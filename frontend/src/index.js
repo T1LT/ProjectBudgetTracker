@@ -70,7 +70,10 @@ const Main = () => {
         <List>
           {states.map((text) => (
             <ListItem disablePadding>
-              <ListItemButton onClick={() => settab(text)}>
+              <ListItemButton
+                onClick={() => settab(text)}
+                selected={tab === text}
+              >
                 <ListItemText>{text}</ListItemText>
               </ListItemButton>
             </ListItem>
