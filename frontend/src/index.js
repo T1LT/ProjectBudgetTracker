@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import Dashboard from "./Components/Dashboard";
 import Reports from "./Components/Reports";
+import Settings from "./Components/Settings";
 import "./index.css";
 import "./reset.css";
 
@@ -34,7 +35,8 @@ const Main = () => {
       case "Reports":
         return <Reports />;
       // case "Projects": return <Projects />;
-      // case "Settings": return <Settings />;
+      case "Settings":
+        return <Settings />;
       default:
         return null;
     }
