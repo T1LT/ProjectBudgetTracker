@@ -12,8 +12,8 @@ import {
   ListItemText,
   Box,
 } from "@mui/material";
-import Dashboard from "./Dashboard";
-import Reports from "./Reports";
+import Dashboard from "./Components/Dashboard";
+import Reports from "./Components/Reports";
 import "./index.css";
 import "./reset.css";
 
