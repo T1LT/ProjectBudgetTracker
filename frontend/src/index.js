@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -27,6 +27,7 @@ const Main = () => {
     "Projects",
     "Settings",
   ];
+  const [tab, settab] = useState(states[0]);
   return (
     <Router>
       <AppBar
@@ -54,20 +55,33 @@ const Main = () => {
       >
         <Toolbar />
         <List>
-          {states.map((text) => (
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemText>
-                  <Link to={`/${text}`} id="link">{text.toUpperCase()}</Link>
-                </ListItemText>
-              </ListItemButton>
-            </ListItem>
-          ))}
+          {states.map((text) => {
+            return text === "Dashboard" ? (
+              <ListItem disablePadding component={Link} to="/">
+                <ListItemButton
+                  onClick={() => settab(text)}
+                  selected={tab === text}
+                >
+                  <ListItemText>{text}</ListItemText>
+                </ListItemButton>
+              </ListItem>
+            ) : (
+              <ListItem disablePadding component={Link} to={`/${text}`}>
+                <ListItemButton
+                  onClick={() => settab(text)}
+                  selected={tab === text}
+                >
+                  <ListItemText>{text}</ListItemText>
+                </ListItemButton>
+              </ListItem>
+            );
+          })}
         </List>
       </Drawer>
       <Box id="content">
         <Toolbar />
         <Switch>
+          <Route exact path="/" component={Dashboard} />
           <Route exact path="/Dashboard" component={Dashboard} />
           {/* <Route exact path="/Transactions" component={Transactions} /> */}
           <Route exact path="/Reports" component={Reports} />
