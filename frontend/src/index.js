@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -26,23 +27,8 @@ const Main = () => {
     "Projects",
     "Settings",
   ];
-  const [tab, settab] = useState(states[0]);
-  const renderdiv = () => {
-    switch (tab) {
-      case "Dashboard":
-        return <Dashboard />;
-      // case "Transactions": return <Transactions />;
-      case "Reports":
-        return <Reports />;
-      // case "Projects": return <Projects />;
-      case "Settings":
-        return <Settings />;
-      default:
-        return null;
-    }
-  };
   return (
-    <>
+    <Router>
       <AppBar
         position="fixed"
         id="appbar"
@@ -70,11 +56,10 @@ const Main = () => {
         <List>
           {states.map((text) => (
             <ListItem disablePadding>
-              <ListItemButton
-                onClick={() => settab(text)}
-                selected={tab === text}
-              >
-                <ListItemText>{text}</ListItemText>
+              <ListItemButton>
+                <ListItemText>
+                  <Link to={`/${text}`} id="link">{text.toUpperCase()}</Link>
+                </ListItemText>
               </ListItemButton>
             </ListItem>
           ))}
@@ -82,9 +67,15 @@ const Main = () => {
       </Drawer>
       <Box id="content">
         <Toolbar />
-        {renderdiv()}
+        <Switch>
+          <Route exact path="/Dashboard" component={Dashboard} />
+          {/* <Route exact path="/Transactions" component={Transactions} /> */}
+          <Route exact path="/Reports" component={Reports} />
+          {/* <Route exact path="/Projects" component={Projects} /> */}
+          <Route exact path="/Settings" component={Settings} />
+        </Switch>
       </Box>
-    </>
+    </Router>
   );
 };
 
