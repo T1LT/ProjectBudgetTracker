@@ -39,7 +39,7 @@ const Main = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Project Budget Tracker
           </Typography>
-          <Button color="inherit">Login</Button>
+          {/* <Button color="inherit">Login</Button> */}
         </Toolbar>
       </AppBar>
       <Drawer
