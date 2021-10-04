@@ -109,7 +109,10 @@ const Main = () => {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, ...(open && { display: "none" }) }}
+            sx={{
+              flexGrow: 1,
+              ...(open && { display: "none" }),
+            }}
           >
             Project Budget Tracker
           </Typography>
@@ -150,7 +153,11 @@ const Main = () => {
                 </ListItemButton>
               </ListItem>
             ) : (
-              <ListItem disablePadding component={Link} to={`/${text}`}>
+              <ListItem
+                disablePadding
+                component={Link}
+                to={`/${text.toLowerCase()}`}
+              >
                 <ListItemButton
                   onClick={() => settab(text)}
                   selected={tab === text}
@@ -162,15 +169,15 @@ const Main = () => {
           })}
         </List>
       </Drawer>
-      <MainComp open={open}>
+      <MainComp open={open} id="MainComp">
         <Toolbar />
         <Switch>
           <Route exact path="/" component={Dashboard} />
-          <Route exact path="/Dashboard" component={Dashboard} />
+          <Route exact path="/dashboard" component={Dashboard} />
           {/* <Route exact path="/Transactions" component={Transactions} /> */}
-          <Route exact path="/Reports" component={Reports} />
+          <Route exact path="/reports" component={Reports} />
           {/* <Route exact path="/Projects" component={Projects} /> */}
-          <Route exact path="/Settings" component={Settings} />
+          <Route exact path="/settings" component={Settings} />
         </Switch>
       </MainComp>
     </Router>

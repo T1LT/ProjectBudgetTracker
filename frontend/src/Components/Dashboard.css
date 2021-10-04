@@ -19,3 +19,9 @@
 #donut {
   height: 35vh;
 }
+
+#dash {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
