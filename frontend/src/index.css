@@ -1,13 +1,5 @@
-#appbar {
-  margin-bottom: 1%;
-}
-
 #dash {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-#content {
-  position: relative;
 }
