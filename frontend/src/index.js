@@ -179,9 +179,9 @@ const Main = () => {
         <Switch>
           <Route exact path="/" component={Dashboard} />
           <Route exact path="/dashboard" component={Dashboard} />
-          {/* <Route exact path="/Transactions" component={Transactions} /> */}
+          <Route exact path="/Transactions" component={Transactions} />
           <Route exact path="/reports" component={Reports} />
-          {/* <Route exact path="/Projects" component={Projects} /> */}
+          <Route exact path="/Projects" component={Projects} />
           <Route exact path="/settings" component={Settings} />
         </Switch>
       </MainComp>
