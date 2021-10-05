@@ -17,6 +17,8 @@ import MuiAppBar from "@mui/material/AppBar";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import Transactions from "./Components/Transactions";
+import Projects from "./Components/Projects";
 import Dashboard from "./Components/Dashboard";
 import Reports from "./Components/Reports";
 import Settings from "./Components/Settings";
@@ -94,7 +96,10 @@ const Main = () => {
       <AppBar
         position="fixed"
         open={open}
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, marginBottom: "1%" }}
+        sx={{
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          marginBottom: "1%",
+        }}
       >
         <Toolbar>
           <IconButton
