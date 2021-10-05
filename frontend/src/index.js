@@ -12,6 +12,8 @@ import {
   ListItemText,
   Box,
 } from "@mui/material";
+import Transactions from "./Components/Transactions";
+import Projects from "./Components/Projects";
 import Dashboard from "./Components/Dashboard";
 import Reports from "./Components/Reports";
 import Settings from "./Components/Settings";
@@ -31,10 +33,12 @@ const Main = () => {
     switch (tab) {
       case "Dashboard":
         return <Dashboard />;
-      // case "Transactions": return <Transactions />;
+      case "Transactions": 
+        return <Transactions />;
       case "Reports":
         return <Reports />;
-      // case "Projects": return <Projects />;
+      case "Projects": 
+        return <Projects />;
       case "Settings":
         return <Settings />;
       default:
@@ -81,7 +85,7 @@ const Main = () => {
         </List>
       </Drawer>
       <Box id="content">
-        <Toolbar />
+      <Toolbar />
         {renderdiv()}
       </Box>
     </>
