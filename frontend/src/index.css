@@ -1,0 +1,30 @@
+#navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1% 1%;
+  background-color: #0274d1;
+  color: white;
+}
+
+#navleft {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+}
+
+#navright {
+  display: flex;
+  justify-content: flex-end;
+  width: 40%;
+}
+
+h6 {
+  font-weight: bold;
+  font-size: large;
+}
+
+#projectselect {
+  width: 25%;
+  cursor: pointer;
+  margin-right: 1%;
+}

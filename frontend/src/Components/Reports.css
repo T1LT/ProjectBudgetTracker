@@ -1,5 +1,7 @@
 #bar {
-  position: static;
-  width: 120vh;
-  height: 120vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+  width: 70%;
 }

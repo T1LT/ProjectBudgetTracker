@@ -1,11 +1,9 @@
-import { Container, Toolbar } from "@mui/material";
 import React from "react";
 import "./Settings.css";
 
 const Settings = () => {
   return (
-    <Container id="settings">
-      <Toolbar />
+    <>
       <div id="currency">
         <label>Set currency: </label>
         <br />
@@ -36,7 +34,7 @@ const Settings = () => {
         <br />
         <input type="button" value="Download" />
       </div>
-    </Container>
+    </>
   );
 };
 
