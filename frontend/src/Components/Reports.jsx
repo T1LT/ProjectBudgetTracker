@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import "./Reports.css";
+import { tabContext } from "../index";
 
 const Reports = () => {
+  const settab = useContext(tabContext);
+  useEffect(() => {
+    settab("repo");
+  }, [settab]);
   return (
     <div id="bar">
       <Bar

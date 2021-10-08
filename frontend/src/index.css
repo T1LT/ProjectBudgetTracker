@@ -4,12 +4,14 @@
   padding: 1% 1%;
   background-color: #0274d1;
   color: white;
+  margin-bottom: 2.5%;
 }
 
 #navleft {
   display: flex;
   justify-content: space-between;
   width: 50%;
+  font-size: 1rem;
 }
 
 #navright {
@@ -23,6 +25,12 @@ h6 {
   font-size: large;
 }
 
+form h1 {
+  font-weight: bold;
+  font-size: 1.75rem;
+  margin-bottom: 7.5%;
+}
+
 #projectselect {
   width: 25%;
   cursor: pointer;
@@ -33,6 +41,7 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 30%;
 }
 
 #projname,
@@ -55,6 +64,24 @@ form {
   border: 0;
   font-size: x-large;
   cursor: pointer;
+}
+
+.Modal {
+  position: absolute;
+  top: 20%;
+  left: 23%;
+  right: auto;
+  bottom: auto;
+  width: 50%;
+  height: 50%;
+  /* margin-right: -50%;
+  transform: translate(-50%, -50%); */
+  padding: 2%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .Overlay {
@@ -81,7 +108,6 @@ form {
 
 @media (max-width: 1200px) {
   #navleft {
-    font-size: small;
     width: 60%;
   }
 
@@ -92,11 +118,15 @@ form {
   #projectselect {
     width: 30%;
   }
+
+  form {
+    width: 60%;
+  }
 }
 
 @media (max-width: 500px) {
   #navleft {
-    font-size: x-small;
+    font-size: 0.6rem;
     width: 90%;
   }
 
@@ -106,5 +136,14 @@ form {
 
   #projectselect {
     width: 30%;
+  }
+
+  form {
+    width: 70%;
+  }
+
+  .Modal {
+    width: 60%;
+    left: 18%;
   }
 }

@@ -1,7 +1,48 @@
 #bar {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 70%;
-  width: 70%;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 85vh;
+  width: 100vw;
+}
+
+canvas {
+  height: 80% !important;
+  width: 80% !important;
+}
+
+@media (max-width: 1400px) {
+  canvas {
+    height: 60% !important;
+  }
+}
+
+@media (max-width: 1000px) {
+  canvas {
+    height: 50% !important;
+  }
+}
+
+@media (max-width: 800px) {
+  canvas {
+    height: 40% !important;
+  }
+}
+
+@media (max-width: 650px) {
+  canvas {
+    height: 30% !important;
+  }
+}
+
+@media (max-width: 500px) {
+  canvas {
+    height: 25% !important;
+  }
+}
+
+@media (max-width: 400px) {
+  canvas {
+    height: 20% !important;
+  }
 }

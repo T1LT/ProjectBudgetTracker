@@ -11,6 +11,7 @@ import "./index.css";
 import "./reset.css";
 
 Modal.setAppElement("#root");
+export const tabContext = React.createContext();
 
 const Main = () => {
   const [tab, settab] = useState("dash");
@@ -23,20 +24,6 @@ const Main = () => {
     borderBottom: "1px solid white",
     paddingBottom: "3px",
   };
-  const modalStyles = {
-    content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-      padding: "2%",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "space-between",
-    },
-  };
   const openForm = () => {
     setshowingForm(true);
   };
@@ -48,39 +35,27 @@ const Main = () => {
       <div id="navbar">
         <div id="navleft">
           <h6>Project Budget Tracker</h6>
-          <Link
-            to="/"
-            style={tab === "dash" ? style2 : style1}
-            onClick={() => settab("dash")}
-          >
+          <Link to="/" style={tab === "dash" ? style2 : style1}>
             Dashboard
           </Link>
           <Link
             to="/transactions"
             style={tab === "tran" ? style2 : style1}
-            onClick={() => settab("tran")}
+            onClick={() => settab("tran")} //remove
           >
             Transactions
           </Link>
-          <Link
-            to="/reports"
-            style={tab === "repo" ? style2 : style1}
-            onClick={() => settab("repo")}
-          >
+          <Link to="/reports" style={tab === "repo" ? style2 : style1}>
             Reports
           </Link>
           <Link
             to="/projects"
             style={tab === "proj" ? style2 : style1}
-            onClick={() => settab("proj")}
+            onClick={() => settab("proj")} //remove
           >
             Projects
           </Link>
-          <Link
-            to="/settings"
-            style={tab === "sett" ? style2 : style1}
-            onClick={() => settab("sett")}
-          >
+          <Link to="/settings" style={tab === "sett" ? style2 : style1}>
             Settings
           </Link>
         </div>
@@ -98,12 +73,15 @@ const Main = () => {
       <Modal
         isOpen={showingForm}
         onRequestClose={closeForm}
-        style={modalStyles}
         closeTimeoutMS={200}
+        className="Modal"
         overlayClassName="Overlay"
         ariaHideApp={false}
       >
         <form>
+          <center>
+            <h1>Add a Project</h1>
+          </center>
           <label for="projname">Project Name: </label>
           <input type="text" id="projname" required />
           <label for="projdate">Start Date: </label>
@@ -121,13 +99,15 @@ const Main = () => {
           &times;
         </button>
       </Modal>
-      <Switch>
-        <Route exact path="/" component={Dashboard} />
-        <Route exact path="/transactions" component={Transactions} />
-        <Route exact path="/reports" component={Reports} />
-        <Route exact path="/projects" component={Projects} />
-        <Route exact path="/settings" component={Settings} />
-      </Switch>
+      <tabContext.Provider value={settab}>
+        <Switch>
+          <Route exact path="/" component={Dashboard} />
+          <Route exact path="/transactions" component={Transactions} />
+          <Route exact path="/reports" component={Reports} />
+          <Route exact path="/projects" component={Projects} />
+          <Route exact path="/settings" component={Settings} />
+        </Switch>
+      </tabContext.Provider>
     </Router>
   );
 };
