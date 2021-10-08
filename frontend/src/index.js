@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
+import Modal from "react-modal";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import Transactions from "./Components/Transactions";
 import Projects from "./Components/Projects";
@@ -9,8 +10,11 @@ import Settings from "./Components/Settings";
 import "./index.css";
 import "./reset.css";
 
+Modal.setAppElement("#root");
+
 const Main = () => {
   const [tab, settab] = useState("dash");
+  const [showingForm, setshowingForm] = useState(false);
   const style1 = { textDecoration: "none", color: "white" };
   const style2 = {
     textDecoration: "none",
@@ -18,6 +22,26 @@ const Main = () => {
     fontWeight: "bold",
     borderBottom: "1px solid white",
     paddingBottom: "3px",
+  };
+  const modalStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      padding: "2%",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+    },
+  };
+  const openForm = () => {
+    setshowingForm(true);
+  };
+  const closeForm = () => {
+    setshowingForm(false);
   };
   return (
     <Router>
@@ -66,9 +90,37 @@ const Main = () => {
             <option value="Project 2">Project 2</option>
             <option value="Project 3">Project 3</option>
           </select>
-          <button id="projectbutton">+ Add Project</button>
+          <button id="projectbutton" onClick={openForm}>
+            + Add
+          </button>
         </div>
       </div>
+      <Modal
+        isOpen={showingForm}
+        onRequestClose={closeForm}
+        style={modalStyles}
+        closeTimeoutMS={200}
+        overlayClassName="Overlay"
+        ariaHideApp={false}
+      >
+        <form>
+          <label for="projname">Project Name: </label>
+          <input type="text" id="projname" required />
+          <label for="projdate">Start Date: </label>
+          <input type="date" id="projdate" required />
+          <label for="projmanager">Project Manager: </label>
+          <input type="text" id="projmanager" required />
+          <label for="projbudget">Project Budget: </label>
+          <input type="number" step="any" id="projbudget" />
+          <center>
+            <input type="submit" id="projsubmit" />
+            <input type="reset" />
+          </center>
+        </form>
+        <button onClick={closeForm} id="closeButton">
+          &times;
+        </button>
+      </Modal>
       <Switch>
         <Route exact path="/" component={Dashboard} />
         <Route exact path="/transactions" component={Transactions} />
