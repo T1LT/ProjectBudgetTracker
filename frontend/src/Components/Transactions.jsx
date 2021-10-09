@@ -208,20 +208,6 @@ const EnhancedTableToolbar = (props) => {
           Transaction Table
         </Typography>
       )}
-
-      {/* {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )} */}
       <Modal
         isOpen={isopen}
         onRequestClose={closeModal}
@@ -280,7 +266,7 @@ const EnhancedTableToolbar = (props) => {
           &times;
         </button>
       </Modal>
-      <Tooltip title="Filter list">
+      <Tooltip title="Add Transaction">
         <IconButton>
           <AddIcon onClick={openModal} />
         </IconButton>
