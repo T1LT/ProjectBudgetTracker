@@ -1,195 +1,195 @@
 #budgettext {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 40vh;
-  width: 20vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 40vh;
+	width: 20vw;
 }
 
 #left {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 #totaltext {
-  font-size: 2em;
+	font-size: 2em;
 }
 
 #totalamt {
-  color: green;
-  font-size: 4em;
-  padding: 2.5%;
+	color: green;
+	font-size: 4em;
+	padding: 2.5%;
 }
 
 #inctext {
-  font-size: 2em;
+	font-size: 2em;
 }
 
 #incamt {
-  color: red;
-  font-size: 4em;
-  padding: 2.5%;
+	color: red;
+	font-size: 4em;
+	padding: 2.5%;
 }
 
 #percentamt {
-  color: #00bfff;
-  font-size: 4em;
-  padding: 2.5%;
+	color: #00bfff;
+	font-size: 4em;
+	padding: 2.5%;
 }
 
 #percenttext {
-  font-size: 2em;
+	font-size: 2em;
 }
 
 #percentage {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 40vh;
-  width: 20vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 40vh;
+	width: 20vw;
 }
 
 /* IMPORTANT: ADD !important TO OVERRIDE CHARTJS RESPONSIVENESS*/
 #donut {
-  width: 600px !important;
-  height: 600px !important;
+	width: 500px !important;
+	height: 500px !important;
 }
 
 #dash {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 @media (max-width: 1400px) {
-  #totaltext {
-    font-size: 1.5em;
-  }
+	#totaltext {
+		font-size: 1.5em;
+	}
 
-  #inctext {
-    font-size: 1.5em;
-  }
+	#inctext {
+		font-size: 1.5em;
+	}
 
-  #percenttext {
-    font-size: 1.5em;
-  }
+	#percenttext {
+		font-size: 1.5em;
+	}
 }
 
 @media (max-width: 1200px) {
-  #donut {
-    width: 500px !important;
-    height: 500px !important;
-  }
+	#donut {
+		width: 500px !important;
+		height: 500px !important;
+	}
 
-  #totalamt {
-    font-size: 3em;
-  }
+	#totalamt {
+		font-size: 3em;
+	}
 
-  #incamt {
-    font-size: 3em;
-  }
+	#incamt {
+		font-size: 3em;
+	}
 
-  #percentamt {
-    font-size: 3em;
-  }
+	#percentamt {
+		font-size: 3em;
+	}
 
-  #left {
-    height: 500px;
-  }
+	#left {
+		height: 500px;
+	}
 
-  #dash {
-    margin-top: 10%;
-  }
+	#dash {
+		margin-top: 10%;
+	}
 }
 
 @media (max-width: 1000px) {
-  #donut {
-    width: 400px !important;
-    height: 400px !important;
-  }
+	#donut {
+		width: 400px !important;
+		height: 400px !important;
+	}
 
-  #dash {
-    margin-top: 20%;
-  }
+	#dash {
+		margin-top: 20%;
+	}
 
-  #left {
-    height: 400px;
-  }
+	#left {
+		height: 400px;
+	}
 
-  #totaltext {
-    font-size: 1.25em;
-  }
+	#totaltext {
+		font-size: 1.25em;
+	}
 
-  #inctext {
-    font-size: 1.25em;
-  }
+	#inctext {
+		font-size: 1.25em;
+	}
 
-  #percenttext {
-    font-size: 1.25em;
-  }
+	#percenttext {
+		font-size: 1.25em;
+	}
 }
 
 @media (max-width: 850px) {
-  #totaltext {
-    font-size: 1em;
-  }
+	#totaltext {
+		font-size: 1em;
+	}
 
-  #inctext {
-    font-size: 1em;
-  }
+	#inctext {
+		font-size: 1em;
+	}
 
-  #percenttext {
-    font-size: 1em;
-  }
+	#percenttext {
+		font-size: 1em;
+	}
 
-  #totalamt {
-    font-size: 2.5em;
-  }
+	#totalamt {
+		font-size: 2.5em;
+	}
 
-  #incamt {
-    font-size: 2.5em;
-  }
+	#incamt {
+		font-size: 2.5em;
+	}
 
-  #percentamt {
-    font-size: 2.5em;
-  }
+	#percentamt {
+		font-size: 2.5em;
+	}
 
-  #dash {
-    margin-top: 25%;
-  }
+	#dash {
+		margin-top: 25%;
+	}
 }
 
 @media (max-width: 700px) {
-  #dash {
-    flex-direction: column;
-    margin-top: 10%;
-  }
+	#dash {
+		flex-direction: column;
+		margin-top: 10%;
+	}
 
-  #left {
-    height: 250px;
-  }
+	#left {
+		height: 250px;
+	}
 }
 
 @media (max-width: 675px) {
-  #budgettext {
-    width: 40vw;
-  }
+	#budgettext {
+		width: 40vw;
+	}
 
-  #percentage {
-    width: 40vw;
-  }
+	#percentage {
+		width: 40vw;
+	}
 }
 
 @media (max-width: 400px) {
-  #donut {
-    width: 300px !important;
-    height: 300px !important;
-  }
+	#donut {
+		width: 300px !important;
+		height: 300px !important;
+	}
 
-  #left {
-    height: 300px;
-  }
+	#left {
+		height: 300px;
+	}
 }

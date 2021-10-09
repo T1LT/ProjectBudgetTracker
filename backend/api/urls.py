@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import dashboard, home, project_names, reports, transactions, projects
+from .views import dashboard, home, reports, transactions, projects, add_project
 
 urlpatterns = [
     path('', home),
@@ -7,5 +7,6 @@ urlpatterns = [
     path('project/<id>/transactions/', transactions),
     path('project/<id>/report/', reports),
     path('projects/', projects),
-    path('projects/names/', project_names)
+    path('projects/add-project/', add_project)
+    # path('projects/names/', project_names)
 ]

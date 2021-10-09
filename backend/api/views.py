@@ -50,9 +50,13 @@ def projects(request):
     serializer = ProjectSerializer(Project.objects.all(), many = True)
     return Response(serializer.data)
 
-@api_view(["GET"])
-def project_names(request):
-    project_names = {}
-    for record in Project.objects.values_list('name','id'):
-        project_names[record[0]] = record[1]
-    return Response(project_names)
+# @api_view(["GET"])
+# def project_names(request):
+#     project_names = {}
+#     for record in Project.objects.values_list('name','id'):
+#         project_names[record[0]] = record[1]
+#     return Response(project_names)
+
+def add_project(request):
+    if request.method == 'POST':
+        print("nice")
