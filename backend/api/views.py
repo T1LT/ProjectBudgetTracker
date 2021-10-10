@@ -6,6 +6,14 @@ from rest_framework.response import Response
 from .models import Project, Transaction, TransactionType
 from .serializers import ProjectSerializer, TransactionSerializer
 
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import ensure_csrf_cookie
+
+
+
+
+
+
 
 def home(request):
     return HttpResponse("<h1>nice</h1>")
@@ -57,6 +65,12 @@ def projects(request):
 #         project_names[record[0]] = record[1]
 #     return Response(project_names)
 
+@api_view(["POST"])
 def add_project(request):
+    print("method called")
+    print("method called")
     if request.method == 'POST':
         print("nice")
+        print("nice")
+        print("nice")
+    return HttpResponse("nice")

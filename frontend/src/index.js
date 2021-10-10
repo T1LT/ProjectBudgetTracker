@@ -7,6 +7,7 @@ import Projects from "./Components/Projects";
 import Dashboard from "./Components/Dashboard";
 import Reports from "./Components/Reports";
 import Settings from "./Components/Settings";
+import axios from "axios";
 import "./index.css";
 import "./reset.css";
 
@@ -16,6 +17,14 @@ export const tabContext = React.createContext();
 const Main = () => {
 	const [tab, settab] = useState("dash");
 	const [showingForm, setshowingForm] = useState(false);
+
+	const [projectData, setProjectData] = useState({
+		projname: "",
+		projdate: "",
+		projmanager: "",
+		projbudget: 0,
+	});
+
 	const style1 = { textDecoration: "none", color: "white" };
 	const style2 = {
 		textDecoration: "none",
@@ -30,6 +39,28 @@ const Main = () => {
 	const closeForm = () => {
 		setshowingForm(false);
 	};
+
+	const handleChange = (event) => {
+		setProjectData({
+			...projectData,
+			[event.target.name]: event.target.value,
+		});
+	};
+	const addProject = (event) => {
+		event.preventDefault();
+		const url = "http://localhost:8000/api/projects/add-project/";
+		axios
+			.post(url, projectData, {
+				headers: { "content-type": "multipart/form-data" },
+			})
+			.then((response) => {
+				console.log(response);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
+
 	return (
 		<Router>
 			<div id="navbar">
@@ -76,6 +107,7 @@ const Main = () => {
 					</button>
 				</div>
 			</div>
+
 			<Modal
 				isOpen={showingForm}
 				onRequestClose={closeForm}
@@ -84,23 +116,50 @@ const Main = () => {
 				overlayClassName="Overlay"
 				ariaHideApp={false}
 			>
-				<form
-					method="post"
-					action="http://localhost:8000/api/projects/add-project/"
-				>
+				<form>
 					<center>
 						<h1>Add a Project</h1>
 					</center>
-					<label for="projname">Project Name: </label>
-					<input type="text" id="projname" required />
-					<label for="projdate">Start Date: </label>
-					<input type="date" id="projdate" required />
-					<label for="projmanager">Project Manager: </label>
-					<input type="text" id="projmanager" required />
-					<label for="projbudget">Project Budget: </label>
-					<input type="number" step="any" id="projbudget" />
+					<label htmlFor="projname">Project Name: </label>
+					<input
+						type="text"
+						id="projname"
+						name="projname"
+						onChange={handleChange}
+						required
+					/>
+					<label htmlFor="projdate">Start Date: </label>
+					<input
+						type="date"
+						id="projdate"
+						name="projdate"
+						onChange={handleChange}
+						required
+					/>
+					<label htmlFor="projmanager">Project Manager: </label>
+					<input
+						type="text"
+						id="projmanager"
+						name="projmanager"
+						onChange={handleChange}
+						required
+					/>
+					<label htmlFor="projbudget">Project Budget: </label>
+					<input
+						type="number"
+						step="any"
+						id="projbudget"
+						name="projbudget"
+						onChange={handleChange}
+					/>
 					<center>
-						<input type="submit" id="projsubmit" />
+						<button
+							type="submit"
+							onClick={addProject}
+							id="projsubmit"
+						>
+							Submit
+						</button>
 						<input type="reset" />
 					</center>
 				</form>
