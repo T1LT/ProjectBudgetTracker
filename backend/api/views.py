@@ -62,7 +62,6 @@ def projects(request):
 @api_view(["POST"])
 def add_project(request):
     if request.method == 'POST':
-        print()
         project_details = Project(
             name = request.data['projname'],
             start_date = datetime(*map(int, request.data['projdate'].split('-'))),
@@ -71,3 +70,7 @@ def add_project(request):
         )
         project_details.save()
     return HttpResponse(status = 200)
+
+@api_view(["POST"])
+def add_transaction(request):
+    pass
