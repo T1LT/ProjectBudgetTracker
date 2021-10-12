@@ -50,15 +50,14 @@ const Main = () => {
 		event.preventDefault();
 		const url = "http://localhost:8000/api/projects/add-project/";
 		axios
-			.post(url, projectData, {
-				headers: { "content-type": "multipart/form-data" },
-			})
+			.post(url, projectData)
 			.then((response) => {
 				console.log(response);
 			})
 			.catch((error) => {
 				console.log(error);
 			});
+		closeForm();
 	};
 
 	return (

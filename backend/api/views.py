@@ -6,13 +6,7 @@ from rest_framework.response import Response
 from .models import Project, Transaction, TransactionType
 from .serializers import ProjectSerializer, TransactionSerializer
 
-from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.csrf import ensure_csrf_cookie
-
-
-
-
-
+from datetime import datetime
 
 
 def home(request):
@@ -67,10 +61,13 @@ def projects(request):
 
 @api_view(["POST"])
 def add_project(request):
-    print("method called")
-    print("method called")
     if request.method == 'POST':
-        print("nice")
-        print("nice")
-        print("nice")
-    return HttpResponse("nice")
+        print()
+        project_details = Project(
+            name = request.data['projname'],
+            start_date = datetime(*map(int, request.data['projdate'].split('-'))),
+            manager = request.data['projmanager'],
+            budget = request.data['projbudget']
+        )
+        project_details.save()
+    return HttpResponse(status = 200)
