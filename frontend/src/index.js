@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import Modal from "react-modal";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
@@ -17,13 +17,21 @@ export const tabContext = React.createContext();
 const Main = () => {
 	const [tab, settab] = useState("dash");
 	const [showingForm, setshowingForm] = useState(false);
-
+	const [projectId, setProjectId] = useState(1);
+	const [projectNames, setProjectNames] = useState({});
 	const [projectData, setProjectData] = useState({
 		projname: "",
 		projdate: "",
 		projmanager: "",
 		projbudget: 0,
 	});
+
+	useEffect(async () => {
+		const url = `http://localhost:8000/api/projects/names/`;
+		const response = await axios.get(url);
+		const allProjects = response.data;
+		setProjectNames(allProjects);
+	}, []);
 
 	const style1 = { textDecoration: "none", color: "white" };
 	const style2 = {
@@ -60,6 +68,9 @@ const Main = () => {
 		closeForm();
 	};
 
+	const handleProjectId = (event) => {
+		setProjectId(event.target.value);
+	};
 	return (
 		<Router>
 			<div id="navbar">
@@ -96,10 +107,16 @@ const Main = () => {
 					</Link>
 				</div>
 				<div id="navright">
-					<select id="projectselect">
-						<option value="Project 1">Project 1</option>
-						<option value="Project 2">Project 2</option>
-						<option value="Project 3">Project 3</option>
+					<select
+						id="projectselect"
+						value={projectId}
+						onChange={handleProjectId}
+					>
+						{Object.keys(projectNames).map((project) => (
+							<option key={project} value={project}>
+								{projectNames[project]}
+							</option>
+						))}
 					</select>
 					<button id="projectbutton" onClick={openForm}>
 						+ Add
@@ -166,7 +183,10 @@ const Main = () => {
 					&times;
 				</button>
 			</Modal>
-			<tabContext.Provider value={settab}>
+
+			<h1>{projectNames[projectId]}</h1>
+
+			<tabContext.Provider value={{ settab, projectId }}>
 				<Switch>
 					<Route exact path="/" component={Dashboard} />
 					<Route
