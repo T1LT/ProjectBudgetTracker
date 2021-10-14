@@ -1,3 +1,5 @@
-- dashboard content
-- tags domain
-- react router
+- allow transactions upto max limit only
+- allow updations in project table
+- add title to reports graph
+- change nav bar to hamburger menu
+- increase font size of heading
