@@ -4,7 +4,7 @@
   padding: 1% 1%;
   background-color: #0274d1;
   color: white;
-  margin-bottom: 2.5%;
+  margin-bottom: 1%;
 }
 
 #navleft {
@@ -14,15 +14,28 @@
   font-size: 1rem;
 }
 
-#navright {
+#projectdiv {
   display: flex;
-  justify-content: flex-end;
-  width: 40%;
+  justify-content: center;
+  width: 50%;
+  border: 2px solid rgba(105, 105, 105, 0.5);
+  border-radius: 5px;
+  padding: 1%;
+}
+
+#projectdiv h1 {
+  margin-right: 10%;
+}
+
+.projectheader {
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-bottom: 1%;
 }
 
 h6 {
   font-weight: bold;
-  font-size: large;
+  font-size: 1.2rem;
 }
 
 form h1 {
@@ -106,17 +119,31 @@ form {
   opacity: 0;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
   #navleft {
-    width: 60%;
+    width: 70%;
   }
 
-  h6 {
-    display: none;
+  #projectdiv {
+    width: 60%;
+  }
+}
+
+@media (max-width: 1200px) {
+  #navleft {
+    width: 70%;
   }
 
   #projectselect {
     width: 30%;
+  }
+
+  #projectdiv {
+    width: 60%;
+  }
+
+  .projectheader {
+    font-size: 2em;
   }
 
   form {
@@ -124,14 +151,59 @@ form {
   }
 }
 
+@media (max-width: 1000px) {
+  #navleft {
+    width: 80%;
+  }
+}
+
+@media (max-width: 850px) {
+  #navleft {
+    width: 95%;
+  }
+
+  .projectheader {
+    font-size: 1.75em;
+  }
+
+  #projectdiv {
+    margin-top: 2%;
+  }
+}
+
+@media (max-width: 700px) {
+  h6 {
+    display: none;
+  }
+
+  .projectheader {
+    font-size: 1.5em;
+  }
+
+  #projectdiv {
+    width: 70%;
+  }
+}
+
+@media (max-width: 600px) {
+  .projectheader {
+    font-size: 1.25em;
+  }
+}
+
 @media (max-width: 500px) {
   #navleft {
-    font-size: 0.6rem;
-    width: 90%;
+    font-size: 1em;
+    width: 100%;
   }
 
   h6 {
     display: none;
+  }
+
+  .projectheader {
+    font-size: 1em;
+    margin-top: 1%;
   }
 
   #projectselect {
@@ -145,5 +217,23 @@ form {
   .Modal {
     width: 60%;
     left: 18%;
+  }
+}
+
+@media (max-width: 460px) {
+  .projectheader {
+    font-size: 0.8em;
+    margin-top: 1.5%;
+  }
+}
+
+@media (max-width: 420px) {
+  .projectheader {
+    font-size: 0.7em;
+    margin-top: 2%;
+  }
+
+  #navleft {
+    font-size: 0.8em;
   }
 }

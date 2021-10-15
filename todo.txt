@@ -1,12 +1,6 @@
-Nishant Racherla
+NR
 - allow transactions upto max limit only
 - allow updations in project table
-- style title in reports tab
-- change nav bar to hamburger menu
-- increase font size of heading
-- project name in each tab
-- donut chart in dashboard (stunt)
-- donut not rendering on initial visit
 
 --------------------------------------------------
 

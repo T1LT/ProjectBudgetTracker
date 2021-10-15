@@ -71,6 +71,7 @@ const Main = () => {
   const handleProjectId = (event) => {
     setProjectId(event.target.value);
   };
+
   return (
     <Router>
       <div id="navbar">
@@ -99,22 +100,6 @@ const Main = () => {
           <Link to="/settings" style={tab === "sett" ? style2 : style1}>
             Settings
           </Link>
-        </div>
-        <div id="navright">
-          <select
-            id="projectselect"
-            value={projectId}
-            onChange={handleProjectId}
-          >
-            {Object.keys(projectNames).map((project) => (
-              <option key={project} value={project}>
-                {projectNames[project]}
-              </option>
-            ))}
-          </select>
-          <button id="projectbutton" onClick={openForm}>
-            + Add
-          </button>
         </div>
       </div>
 
@@ -174,9 +159,25 @@ const Main = () => {
           &times;
         </button>
       </Modal>
-
-      <h1>{projectNames[projectId]}</h1>
-
+      <center>
+        <div id="projectdiv">
+          <h1 className="projectheader">{projectNames[projectId]}</h1>
+          <select
+            id="projectselect"
+            value={projectId}
+            onChange={handleProjectId}
+          >
+            {Object.keys(projectNames).map((project) => (
+              <option key={project} value={project}>
+                {projectNames[project]}
+              </option>
+            ))}
+          </select>
+          <button id="projectbutton" onClick={openForm}>
+            + Add Project
+          </button>
+        </div>
+      </center>
       <tabContext.Provider value={{ settab, projectId }}>
         <Switch>
           <Route exact path="/" component={Dashboard} />

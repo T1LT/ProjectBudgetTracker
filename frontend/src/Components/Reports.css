@@ -1,14 +1,21 @@
 #bar {
   display: flex;
+  flex-direction: column !important;
   justify-content: center !important;
   align-items: center !important;
   height: 85vh;
-  width: 100vw;
+  width: 95vw;
+  margin-top: -3%;
+}
+
+h1 {
+  font-size: 1.5em;
+  margin-top: 1%;
 }
 
 canvas {
-  height: 80% !important;
-  width: 80% !important;
+  height: 70% !important;
+  width: 70% !important;
 }
 
 @media (max-width: 1400px) {
@@ -21,17 +28,29 @@ canvas {
   canvas {
     height: 50% !important;
   }
+
+  h1 {
+    font-size: 1.25em;
+  }
 }
 
 @media (max-width: 800px) {
   canvas {
     height: 40% !important;
   }
+
+  h1 {
+    font-size: 1.15em;
+  }
 }
 
 @media (max-width: 650px) {
   canvas {
     height: 30% !important;
+  }
+
+  h1 {
+    font-size: 1em;
   }
 }
 
