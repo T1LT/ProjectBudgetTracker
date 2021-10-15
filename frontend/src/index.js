@@ -18,6 +18,7 @@ const Main = () => {
   const [tab, settab] = useState("dash");
   const [showingForm, setshowingForm] = useState(false);
   const [projectId, setProjectId] = useState(1);
+  const [counter, setCounter] = useState(0);
   const [projectNames, setProjectNames] = useState({});
   const [projectData, setProjectData] = useState({
     projname: "",
@@ -31,7 +32,7 @@ const Main = () => {
     const response = await axios.get(url);
     const allProjects = response.data;
     setProjectNames(allProjects);
-  }, []);
+  }, [counter]);
 
   const style1 = { textDecoration: "none", color: "white" };
   const style2 = {
@@ -65,6 +66,7 @@ const Main = () => {
       .catch((error) => {
         console.log(error);
       });
+    setCounter(counter + 1);
     closeForm();
   };
 
