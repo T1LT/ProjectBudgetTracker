@@ -180,6 +180,10 @@ form {
     font-size: 1.5em;
   }
 
+  #navleft {
+    justify-content: space-around;
+  }
+
   #projectdiv {
     width: 70%;
   }
