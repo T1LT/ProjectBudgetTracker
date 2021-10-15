@@ -73,8 +73,7 @@ def add_project(request):
     if request.method == 'POST':
         project_details = Project(
             name=request.data['projname'],
-            start_date=datetime(
-                *map(int, request.data['projdate'].split('-'))),
+            start_date=datetime(*map(int, request.data['projdate'].split('-'))),
             manager=request.data['projmanager'],
             budget=request.data['projbudget']
         )
@@ -85,11 +84,12 @@ def add_project(request):
 @api_view(["POST"])
 def add_transaction(request):
     if request.method == 'POST':
+        print(request.data)
         transaction_details = Transaction(
             name=request.data["transaction-name"],
-            type=request.data["transaction-type"],
+            type=TransactionType.objects.get(name = request.data["transaction-type"]),
             amount=request.data["transaction-amount"],
-            date=request.data["transaction-date"],
+            date=datetime(*map(int, request.data['transaction-date'].split('-'))),
             project=Project.objects.get(id=request.data["project_id"]),
         )
         transaction_details.save()

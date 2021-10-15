@@ -1,3 +1,4 @@
+Nishant Racherla
 - allow transactions upto max limit only
 - allow updations in project table
 - style title in reports tab
@@ -6,3 +7,8 @@
 - project name in each tab
 - donut chart in dashboard (stunt)
 - donut not rendering on initial visit
+
+--------------------------------------------------
+
+bk
+- Change the DateTimeField to DateField
