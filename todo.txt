@@ -8,10 +8,12 @@ NR
 --------------------------------------------------
 
 bk
-- Send (budget - incurred expenses) with transaction table api call 
+- Send (budget - incurred expenses) with transaction table api call
 
 --------------------------------------------------
 
 adarsh
 - starting 0s for date,month
 - allow transactions upto max limit only
+- fix the pagination
+- add transaction text
