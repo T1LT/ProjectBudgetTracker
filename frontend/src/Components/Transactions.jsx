@@ -107,14 +107,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const {
-    onSelectAllClick,
-    order,
-    orderBy,
-    numSelected,
-    rowCount,
-    onRequestSort,
-  } = props;
+  const { order, orderBy, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -153,7 +146,6 @@ EnhancedTableHead.propTypes = {
   onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
 };
 
 const EnhancedTableToolbar = (props) => {
@@ -247,7 +239,7 @@ const EnhancedTableToolbar = (props) => {
           <center>
             <h1>Add a Transaction</h1>
           </center>
-          <label for="transaction-name">Transaction Name: </label>
+          <label htmlFor="transaction-name">Transaction Name: </label>
           <input
             type="text"
             id="transaction-name"
@@ -255,7 +247,7 @@ const EnhancedTableToolbar = (props) => {
             onChange={handleChange}
             required
           />
-          <label for="transaction-date">Transaction Date: </label>
+          <label htmlFor="transaction-date">Transaction Date: </label>
           <input
             type="date"
             id="transaction-date"
@@ -263,7 +255,7 @@ const EnhancedTableToolbar = (props) => {
             onChange={handleChange}
             required
           />
-          <label for="transaction-type">Type of Transaction: </label>
+          <label htmlFor="transaction-type">Type of Transaction: </label>
           <select
             type="text"
             id="transaction-type"
@@ -288,7 +280,7 @@ const EnhancedTableToolbar = (props) => {
             <option value="Training">Training</option>
             <option value="Miscellaneous">Miscellaneous</option>
           </select>
-          <label for="transaction-amount">Transaction Amount: </label>
+          <label htmlFor="transaction-amount">Transaction Amount: </label>
           <input
             type="number"
             step="any"
@@ -319,8 +311,8 @@ const EnhancedTableToolbar = (props) => {
         </button>
       </Modal>
       <Tooltip title="Add Transaction">
-        <IconButton>
-          <AddIcon onClick={openModal} />
+        <IconButton onClick={openModal}>
+          <AddIcon />
         </IconButton>
       </Tooltip>
     </Toolbar>
@@ -441,7 +433,7 @@ const Transactions = () => {
                       date.getFullYear();
 
                     return (
-                      <TableRow>
+                      <TableRow key={index}>
                         <TableCell>{index + 1}</TableCell>
                         <TableCell align="center">{row.name}</TableCell>
                         <TableCell align="center">
