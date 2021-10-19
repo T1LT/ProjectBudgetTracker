@@ -1,6 +1,5 @@
 NR
-- allow transactions upto max limit only
-- allow updations in project table
+- add text when there is no graph data
 
 --------------------------------------------------
 
@@ -8,3 +7,9 @@ bk
 - Change the DateTimeField to DateField
 - Test transactions with diff project IDs
 - Send (budget - incurred expenses) with transaction table api call 
+
+--------------------------------------------------
+
+adarsh
+- allow transactions upto max limit only
+- allow updations in project table
