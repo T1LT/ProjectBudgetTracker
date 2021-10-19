@@ -289,12 +289,6 @@ const EnhancedTableToolbar = (props) => {
             onChange={handleChange}
             required
           />
-          {/* <input
-						type="hidden"
-						name="project_id"
-						value={projectId}
-						onChange={handleChange}
-					/> */}
           <center>
             <button
               type="submit"
