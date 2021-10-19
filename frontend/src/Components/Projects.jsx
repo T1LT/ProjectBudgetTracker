@@ -16,24 +16,20 @@ import React, { useContext, useEffect } from "react";
 import { tabContext } from "../index";
 import { visuallyHidden } from "@mui/utils";
 import { Container } from "@mui/material";
+import { useState } from "react";
 import "./Projects.css";
 import "../reset.css";
+import axios from "axios";
 
-const data = [
-  ["Cupcake", 305, 3.7, 67, 4.3],
-  ["Donut", 452, 25.0, 51, 4.9],
-  ["Eclair", 262, 16.0, 24, 6.0],
-];
-
-const rows = data.map((element) => {
-  return {
-    projectId: element[0],
-    projectName: element[1],
-    projectDate: element[2],
-    projectManager: element[3],
-    projectBudget: element[4],
-  };
-});
+// const rows = projectData.map((element) => {
+//   return {
+//     projectId: element[0],
+//     projectName: element[1],
+//     projectDate: element[2],
+//     projectManager: element[3],
+//     projectBudget: element[4],
+//   };
+// });
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -65,31 +61,31 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: "project-id",
+    id: "id",
     numeric: false,
     disablePadding: true,
     label: "Project ID",
   },
   {
-    id: "project-name",
+    id: "name",
     numeric: true,
     disablePadding: false,
     label: "Project Name",
   },
   {
-    id: "project-date",
+    id: "start_date",
     numeric: true,
     disablePadding: false,
     label: "Project Start Date",
   },
   {
-    id: "project-manager",
+    id: "manager",
     numeric: true,
     disablePadding: false,
     label: "Project Manager",
   },
   {
-    id: "project-budget",
+    id: "budget",
     numeric: true,
     disablePadding: false,
     label: "Project Budget",
@@ -105,12 +101,10 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox"></TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
-            padding={headCell.disablePadding ? "none" : "normal"}
+            align={headCell.numeric ? "center" : "left"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
@@ -164,6 +158,12 @@ const Projects = () => {
   const [orderBy, setOrderBy] = React.useState("calories");
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [projectData, setProjectData] = useState([]);
+  useEffect(async () => {
+    const response = await axios.get("http://localhost:8000/api/projects/");
+    setProjectData(response.data);
+    console.log(response.data);
+  }, []);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -181,7 +181,7 @@ const Projects = () => {
   };
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - projectData.length) : 0;
 
   const { settab, projectId } = useContext(tabContext);
   useEffect(() => {
@@ -205,40 +205,26 @@ const Projects = () => {
                 onRequestSort={handleRequestSort}
               />
               <TableBody>
-                {stableSort(rows, getComparator(order, orderBy))
+                {stableSort(projectData, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
                     const labelId = `enhanced-table-checkbox-${index}`;
+                    const date = new Date(row.start_date);
+                    const format = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
 
                     return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.name}
-                      >
-                        <TableCell padding="checkbox">
-                          <Checkbox
-                            color="primary"
-                            inputProps={{
-                              "aria-labelledby": labelId,
-                            }}
-                          />
+                      <TableRow>
+                        <TableCell component="th" id={labelId} scope="row">
+                          {row.id}
                         </TableCell>
-                        <TableCell
-                          component="th"
-                          id={labelId}
-                          scope="row"
-                          padding="none"
-                        >
-                          {row.projectId}
+                        <TableCell align="center">{row.name}</TableCell>
+                        <TableCell align="center">{format}</TableCell>
+                        <TableCell align="center">
+                          {row.manager}
                         </TableCell>
-                        <TableCell align="right">{row.projectName}</TableCell>
-                        <TableCell align="right">{row.projectDate}</TableCell>
-                        <TableCell align="right">
-                          {row.projectManager}
+                        <TableCell align="center">
+                          ${new Intl.NumberFormat().format(row.budget)}
                         </TableCell>
-                        <TableCell align="right">{row.projectBudget}</TableCell>
                       </TableRow>
                     );
                   })}
@@ -257,7 +243,7 @@ const Projects = () => {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={rows.length}
+            count={projectData.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
