@@ -154,6 +154,7 @@ const EnhancedTableToolbar = (props) => {
 };
 
 const Projects = () => {
+  const { settab, projectId, counter } = useContext(tabContext);
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [page, setPage] = React.useState(0);
@@ -163,7 +164,7 @@ const Projects = () => {
     const response = await axios.get("http://localhost:8000/api/projects/");
     setProjectData(response.data);
     console.log(response.data);
-  }, []);
+  }, [projectId, counter]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -183,7 +184,6 @@ const Projects = () => {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - projectData.length) : 0;
 
-  const { settab, projectId } = useContext(tabContext);
   useEffect(() => {
     settab("proj");
   }, [settab]);

@@ -180,7 +180,7 @@ const Main = () => {
           </button>
         </div>
       </center>
-      <tabContext.Provider value={{ settab, projectId }}>
+      <tabContext.Provider value={{ settab, projectId, counter }}>
         <Switch>
           <Route exact path="/" component={Dashboard} />
           <Route exact path="/transactions" component={Transactions} />

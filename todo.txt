@@ -1,3 +1,7 @@
+Team
+
+- update transaction and project records
+
 NR
 - add text when there is no graph data
 
@@ -11,4 +15,3 @@ bk
 adarsh
 - starting 0s for date,month
 - allow transactions upto max limit only
-- allow updations in project table

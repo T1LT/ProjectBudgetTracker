@@ -157,7 +157,7 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
-  const { settab, projectId } = useContext(tabContext);
+  const { settab, projectId, counter } = useContext(tabContext);
   const { numSelected } = props;
   const [transactionType, setTransactionType] = useState("Architect");
   const [transactionData, setTransactionData] = useState({
@@ -202,6 +202,7 @@ const EnhancedTableToolbar = (props) => {
       .catch((error) => {
         console.log(error);
       });
+    setTransactionCounter(transactionCounter+1);
     closeModal();
   };
 
@@ -329,7 +330,8 @@ EnhancedTableToolbar.propTypes = {
 };
 
 const Transactions = () => {
-  const { settab, projectId } = useContext(tabContext);
+  const { settab, projectId, counter } = useContext(tabContext);
+  const [transactionCounter, setTransactionCounter] = React.useState(0);
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -340,7 +342,7 @@ const Transactions = () => {
     const response = await axios.get(`http://localhost:8000/api/project/${projectId}/transactions`);
     setTransactionData(response.data);
     console.log(response.data);
-  }, [projectId]);
+  }, [projectId,counter,transactionCounter]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
