@@ -1,9 +1,8 @@
 Team
 - projects
 	- update feature
-- reports
-	- api integration
 - transaction:
+    - merge all the components
 	- update feature
 
 
