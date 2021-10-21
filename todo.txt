@@ -1,19 +1,24 @@
 Team
+- projects
+	- update feature
+- reports
+	- api integration
+- transaction:
+	- update feature
 
-- update transaction and project records
 
 NR
 - add text when there is no graph data
+- add loader
 
 --------------------------------------------------
 
 bk
-- Send (budget - incurred expenses) with transaction table api call
+-
 
 --------------------------------------------------
 
 adarsh
-- starting 0s for date,month
+- sorting feature
 - allow transactions upto max limit only
-- fix the pagination
-- add transaction text
+- starting 0s for date,month
