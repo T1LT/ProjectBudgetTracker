@@ -16,32 +16,15 @@ import {
   Tooltip,
   IconButton,
   Container,
+  Paper,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Modal from "react-modal";
-import Paper from "@mui/material/Paper";
-import Checkbox from "@mui/material/Checkbox";
 import { visuallyHidden } from "@mui/utils";
 import axios from "axios";
 import "./Transactions.css";
 import "../reset.css";
 import { tabContext } from "../index";
-
-const data = [
-  ["Cupcake", 305, 3.7, 67, 4.3],
-  ["Donut", 452, 25.0, 51, 4.9],
-  ["Eclair", 262, 16.0, 24, 6.0],
-];
-
-const rows = data.map((element) => {
-  return {
-    name: element[0],
-    calories: element[1],
-    fat: element[2],
-    carbs: element[3],
-    protein: element[4],
-  };
-});
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -59,8 +42,6 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
 function stableSort(array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
@@ -75,31 +56,31 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: "name",
+    id: "serial",
     numeric: false,
     disablePadding: true,
     label: "S.No.",
   },
   {
-    id: "calories",
+    id: "name",
     numeric: true,
     disablePadding: false,
     label: "Transaction Name",
   },
   {
-    id: "fat",
+    id: "amount",
     numeric: true,
     disablePadding: false,
     label: "Transaction Amount",
   },
   {
-    id: "carbs",
+    id: "date",
     numeric: true,
     disablePadding: false,
     label: "Transaction Date",
   },
   {
-    id: "protein",
+    id: "type",
     numeric: true,
     disablePadding: false,
     label: "Transaction Type",
@@ -379,9 +360,6 @@ const Transactions = () => {
     setPage(0);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
-
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -413,8 +391,6 @@ const Transactions = () => {
                 onRequestSort={handleRequestSort}
               />
               <TableBody>
-                {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-                 rows.slice().sort(getComparator(order, orderBy)) */}
                 {stableSort(transactionData, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
