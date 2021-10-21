@@ -388,11 +388,15 @@ const Transactions = () => {
 										page * rowsPerPage + rowsPerPage
 									)
 									.map((row, index) => {
+										{
+											console.log(row.date);
+										}
 										const date = new Date(row.date);
+										let month = date.getMonth() + 1;
 										const format =
 											date.getDate() +
 											"/" +
-											date.getMonth() +
+											month +
 											"/" +
 											date.getFullYear();
 
