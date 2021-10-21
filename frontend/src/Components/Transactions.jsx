@@ -324,7 +324,7 @@ const Transactions = () => {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = transactionData.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -361,7 +361,7 @@ const Transactions = () => {
   };
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - transactionData.length) : 0;
 
   useEffect(() => {
     settab("tran");
@@ -429,7 +429,7 @@ const Transactions = () => {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={rows.length}
+            count={transactionData.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
