@@ -7,10 +7,9 @@ Team
 
 
 NR
-- add text when there is no graph data
-- add loader
 - negative amount @ transaction
-- reload transaction after adding
+- fix reports hover stunt
+- add styling to note in dashboard
 
 --------------------------------------------------
 

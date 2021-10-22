@@ -159,6 +159,13 @@ const EnhancedTableToolbar = (props) => {
 	};
 
 	const handleChange = (event) => {
+		if (event.target.name === "transaction-amount") {
+			if (event.target.value[0] === "-") {
+				event.target.style.color = "red";
+			} else {
+				event.target.style.color = "black";
+			}
+		}
 		setTransactionData({
 			...transactionData,
 			[event.target.name]: event.target.value,

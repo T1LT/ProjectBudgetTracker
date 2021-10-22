@@ -12,11 +12,10 @@ const Reports = () => {
 		axios
 			.get(`http://localhost:8000/api/project/${projectId}/report/`)
 			.then((response) => {
-				let data = [];
-				for (let i = 1; i <= 12; i++) {
-					data.push(response.data[`${i}`]);
-				}
-				setReportData([...data]);
+				let data = Object.keys(response.data).map(
+					(key) => response.data[key]
+				);
+				setReportData(data);
 			})
 			.catch((error) => {
 				console.log(error);

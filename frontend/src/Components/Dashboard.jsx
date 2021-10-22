@@ -3,6 +3,7 @@ import { Doughnut } from "react-chartjs-2";
 import "./Dashboard.css";
 import { tabContext } from "../index";
 import axios from "axios";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Dashboard = () => {
 	const { settab, projectId } = useContext(tabContext);
@@ -10,6 +11,7 @@ const Dashboard = () => {
 	const [data, setData] = useState({});
 	const [labels, setLabels] = useState([]);
 	const [chartData, setChartData] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(async () => {
 		let temp1 = [];
@@ -18,6 +20,7 @@ const Dashboard = () => {
 		const response = await axios.get(url);
 		const apiData = response.data;
 		setData(apiData);
+		setIsLoading(false);
 		setLabels([]);
 		setChartData([]);
 		Object.keys(apiData["expenses"]).map((expense) => {
@@ -36,59 +39,75 @@ const Dashboard = () => {
 	}, [settab]);
 
 	return (
-		<div id="dash">
-			<div id="left">
-				<div id="budgettext">
-					<h2 id="totaltext">Total Budget</h2>
-					<h1 id="totalamt">
-						${new Intl.NumberFormat().format(data.budget)}
-					</h1>
-					<h2 id="inctext">Incurred Expenses</h2>
-					<h1 id="incamt">
-						$
-						{new Intl.NumberFormat().format(data.incurred_expenses)}
-					</h1>
-				</div>
-				<div id="percentage">
-					<h1 id="percentamt">
-						{((data.incurred_expenses / data.budget) * 100).toFixed(
-							2
+		<>
+			{!isLoading ? (
+				<div id="dash">
+					<div id="left">
+						<div id="budgettext">
+							<h2 id="totaltext">Total Budget</h2>
+							<h1 id="totalamt">
+								${new Intl.NumberFormat().format(data.budget)}
+							</h1>
+							<h2 id="inctext">Incurred Expenses</h2>
+							<h1 id="incamt">
+								$
+								{new Intl.NumberFormat().format(
+									data.incurred_expenses
+								)}
+							</h1>
+						</div>
+						<div id="percentage">
+							<h1 id="percentamt">
+								{(
+									(data.incurred_expenses / data.budget) *
+									100
+								).toFixed(2)}
+								%
+							</h1>
+							<h2 id="percenttext">spent</h2>
+						</div>
+					</div>
+					<div id="right">
+						{data["incurred_expenses"] ? (
+							<Doughnut
+								id="donut"
+								data={{
+									labels: [...labels],
+									datasets: [
+										{
+											data: [...chartData],
+											fill: true,
+											backgroundColor: [
+												"rgb(255, 99, 132)",
+												"rgb(54, 162, 235)",
+												"rgb(255, 205, 86)",
+												"rgb(75, 192, 192)",
+												"rgb(255, 159, 64)",
+												"rgb(153, 102, 255)",
+												"rgb(201, 203, 2)",
+											],
+										},
+									],
+								}}
+							/>
+						) : (
+							<p>Add transactions to render the graph.</p>
 						)}
-						%
-					</h1>
-					<h2 id="percenttext">spent</h2>
+					</div>
 				</div>
-			</div>
-			<div id="right">
-				<Doughnut
-					id="donut"
-					data={{
-						labels: [...labels],
-						datasets: [
-							{
-								data: [...chartData],
-								fill: true,
-								backgroundColor: [
-									"#d21f75",
-									"#e57438",
-									"#3d3689",
-									"#65338d",
-									"#4770b3",
-									"#267278",
-									"#50aed3",
-									"#48b24f",
-									"#569dd2",
-									"#569d79",
-									"#58595b",
-									"#e4b031",
-									"#cad93f",
-								],
-							},
-						],
+			) : (
+				<div
+					style={{
+						height: "70vh",
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
 					}}
-				/>
-			</div>
-		</div>
+				>
+					<CircularProgress />
+				</div>
+			)}
+		</>
 	);
 };
 
