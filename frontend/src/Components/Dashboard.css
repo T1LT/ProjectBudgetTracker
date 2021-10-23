@@ -52,6 +52,10 @@
   width: 20vw;
 }
 
+.no-data {
+  font-size: 1.75rem;
+}
+
 /* IMPORTANT: ADD !important TO OVERRIDE CHARTJS RESPONSIVENESS*/
 #donut {
   width: 500px !important;

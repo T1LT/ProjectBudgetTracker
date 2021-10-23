@@ -4,12 +4,11 @@ Team
 - transaction:
     - merge all the components
 	- update feature
+- add formulae
 
 
 NR
-- negative amount @ transaction
-- fix reports hover stunt
-- add styling to note in dashboard
+- revamp dashboard
 
 --------------------------------------------------
 
@@ -20,5 +19,4 @@ bk
 
 adarsh
 - sorting feature
-- allow transactions upto max limit only
 - starting 0s for date,month

@@ -69,6 +69,26 @@ form {
   margin-right: 5%;
 }
 
+.tempclass {
+  margin: inherit;
+}
+
+.errorClass:focus {
+  outline: none;
+}
+
+.labelError {
+  color: red;
+  font-weight: bold;
+}
+
+.errorClass {
+  border: 2px solid red !important;
+  border-radius: 3px;
+  /* color: red; */
+  /* font-weight: bold; */
+}
+
 #closeButton {
   position: absolute;
   top: 0;

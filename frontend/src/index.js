@@ -10,6 +10,7 @@ import Settings from "./Components/Settings";
 import axios from "axios";
 import "./index.css";
 import "./reset.css";
+import { Alert, AlertTitle } from "@mui/material";
 
 Modal.setAppElement("#root");
 export const tabContext = React.createContext();
@@ -20,6 +21,7 @@ const Main = () => {
   const [projectId, setProjectId] = useState(1);
   const [counter, setCounter] = useState(0);
   const [projectNames, setProjectNames] = useState({});
+  const [showError, setShowError] = useState(false);
   const [projectData, setProjectData] = useState({
     projname: "",
     projdate: "",
@@ -27,15 +29,17 @@ const Main = () => {
     projbudget: 0,
   });
 
-  useEffect(async () => {
-    const url = `http://localhost:8000/api/projects/names/`;
-    const response = await axios.get(url);
-    const allProjects = response.data;
-    setProjectNames(allProjects);
-    let p = localStorage.getItem("projectId");
-    if (p) {
-      setProjectId(p);
-    }
+  useEffect(() => {
+    (async () => {
+      const url = `http://localhost:8000/api/projects/names/`;
+      const response = await axios.get(url);
+      const allProjects = response.data;
+      setProjectNames(allProjects);
+      let p = localStorage.getItem("projectId");
+      if (p) {
+        setProjectId(p);
+      }
+    })();
   }, [counter]);
 
   const style1 = { textDecoration: "none", color: "white" };
@@ -51,9 +55,17 @@ const Main = () => {
   };
   const closeForm = () => {
     setshowingForm(false);
+    setShowError(false);
   };
 
   const handleChange = (event) => {
+    if (event.target.name === "projbudget") {
+      if (event.target.value[0] === "-") {
+        setShowError(true);
+      } else {
+        setShowError(false);
+      }
+    }
     setProjectData({
       ...projectData,
       [event.target.name]: event.target.value,
@@ -61,17 +73,19 @@ const Main = () => {
   };
   const addProject = (event) => {
     event.preventDefault();
-    const url = "http://localhost:8000/api/projects/add-project/";
-    axios
-      .post(url, projectData)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    setCounter(counter + 1);
-    closeForm();
+    if (!showError) {
+      const url = "http://localhost:8000/api/projects/add-project/";
+      axios
+        .post(url, projectData)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      setCounter(counter + 1);
+      closeForm();
+    }
   };
 
   const handleProjectId = (event) => {
@@ -146,15 +160,27 @@ const Main = () => {
             onChange={handleChange}
             required
           />
-          <label htmlFor="projbudget">Project Budget: </label>
+          <label
+            htmlFor="projbudget"
+            className={showError ? "labelError" : "tempclass"}
+          >
+            Project Budget:{" "}
+          </label>
           <input
             type="number"
             step="any"
             id="projbudget"
             name="projbudget"
             onChange={handleChange}
+            className={showError ? "errorClass" : "tempclass"}
             required
           />
+          {showError && (
+            <Alert severity="error">
+              <AlertTitle>Error</AlertTitle>
+              Enter a positive value for amount!
+            </Alert>
+          )}
           <center>
             <button type="submit" onClick={addProject} id="projsubmit">
               Submit

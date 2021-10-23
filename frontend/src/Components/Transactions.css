@@ -5,6 +5,26 @@ form {
   width: 30%;
 }
 
+.tempclass {
+  margin: inherit;
+}
+
+.errorClass:focus {
+  outline: none;
+}
+
+.labelError {
+  color: red;
+  font-weight: bold;
+}
+
+.errorClass {
+  border: 2px solid red !important;
+  border-radius: 3px;
+  /* color: red; */
+  /* font-weight: bold; */
+}
+
 #transaction-name,
 #transaction-date,
 #transaction-type,

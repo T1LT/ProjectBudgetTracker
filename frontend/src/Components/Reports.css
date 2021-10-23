@@ -3,9 +3,17 @@
   flex-direction: column !important;
   justify-content: center !important;
   align-items: center !important;
-  height: 85vh;
-  width: 95vw;
+  height: 50vh;
+  width: 65%;
   margin-top: -3%;
+}
+
+#outside {
+  width: 95vw;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
@@ -13,20 +21,15 @@ h1 {
   margin-top: 1%;
 }
 
-canvas {
-  height: 70% !important;
-  width: 70% !important;
-}
-
 @media (max-width: 1400px) {
-  canvas {
-    height: 60% !important;
+  #outside {
+    height: 80vh !important;
   }
 }
 
 @media (max-width: 1000px) {
-  canvas {
-    height: 50% !important;
+  #outside {
+    height: 75vh !important;
   }
 
   h1 {
@@ -35,8 +38,8 @@ canvas {
 }
 
 @media (max-width: 800px) {
-  canvas {
-    height: 40% !important;
+  #outside {
+    height: 70vh !important;
   }
 
   h1 {
@@ -45,8 +48,12 @@ canvas {
 }
 
 @media (max-width: 650px) {
-  canvas {
-    height: 30% !important;
+  #outside {
+    height: 65vh !important;
+  }
+
+  #bar {
+    width: 80%;
   }
 
   h1 {
@@ -55,13 +62,17 @@ canvas {
 }
 
 @media (max-width: 500px) {
-  canvas {
-    height: 25% !important;
+  #outside {
+    height: 65vh !important;
+  }
+
+  #bar {
+    width: 90%;
   }
 }
 
 @media (max-width: 400px) {
-  canvas {
-    height: 20% !important;
+  #outside {
+    height: 65vh !important;
   }
 }
