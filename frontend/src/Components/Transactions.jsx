@@ -327,7 +327,6 @@ const Transactions = () => {
         `http://localhost:8000/api/project/${projectId}/transactions`
       );
       setTransactionData(response.data);
-      //   console.log(response.data);
     })();
   }, [projectId, counter, transactionCounter]);
 
