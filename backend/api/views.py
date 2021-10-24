@@ -68,8 +68,8 @@ def project_names(request):
     return Response(project_names)
 
 
-@api_view(["POST"])
-def add_project(request):
+@api_view(["POST", "PUT", "DELETE"])
+def modify_project(request):
     if request.method == 'POST':
         project_details = Project(
             name=request.data['projname'],
@@ -78,6 +78,17 @@ def add_project(request):
             budget=request.data['projbudget']
         )
         project_details.save()
+
+    elif request.method == "PUT":
+        project_details = Project.objects.get(id = request.data["id"])
+        project_details.name = request.data["projname"]
+        project_details.start_date = datetime(*map(int, request.data['projdate'][:10].split('-')))
+        project_details.manager = request.data["projmanager"]
+        project_details.budget = request.data["projbudget"]
+        project_details.save()
+
+    elif request.method == "DELETE":
+        Project.objects.get(id = request.data["id"]).delete()
     return HttpResponse(status=200)
 
 
