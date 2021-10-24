@@ -9,7 +9,7 @@ const TransactionModal = ({
 	setTransactionType,
 	formTransactionData,
 	setFormTransactionData,
-	addTransaction,
+	handleTransaction,
 	showError,
 	setShowError,
 	caller,
@@ -20,12 +20,22 @@ const TransactionModal = ({
 				setShowError(true);
 			} else {
 				setShowError(false);
+				setFormTransactionData({
+					...formTransactionData,
+					[event.target.name]: event.target.value,
+				});
 			}
+		} else if (event.target.name === "transaction-date") {
+			setFormTransactionData({
+				...formTransactionData,
+				"transaction-date": event.target.value.slice(0, 10),
+			});
+		} else {
+			setFormTransactionData({
+				...formTransactionData,
+				[event.target.name]: event.target.value,
+			});
 		}
-		setFormTransactionData({
-			...formTransactionData,
-			[event.target.name]: event.target.value,
-		});
 	};
 
 	const handleTransactionType = (event) => {
@@ -50,6 +60,11 @@ const TransactionModal = ({
 					type="text"
 					id="transaction-name"
 					name="transaction-name"
+					defaultValue={
+						caller === "Edit"
+							? formTransactionData["transaction-name"]
+							: ""
+					}
 					onChange={handleChange}
 					required
 				/>
@@ -58,6 +73,14 @@ const TransactionModal = ({
 					type="date"
 					id="transaction-date"
 					name="transaction-date"
+					defaultValue={
+						caller === "Edit"
+							? formTransactionData["transaction-date"].slice(
+									0,
+									10
+							  )
+							: ""
+					}
 					onChange={handleChange}
 					required
 				/>
@@ -66,7 +89,11 @@ const TransactionModal = ({
 					type="text"
 					id="transaction-type"
 					name="transaction-type"
-					value={transactionType}
+					value={
+						caller === "Edit"
+							? formTransactionData["transaction-type"]
+							: transactionType
+					}
 					onChange={handleTransactionType}
 					required
 				>
@@ -97,6 +124,13 @@ const TransactionModal = ({
 					step="any"
 					id="transaction-amount"
 					name="transaction-amount"
+					defaultValue={
+						caller === "Edit"
+							? Number.parseFloat(
+									formTransactionData["transaction-amount"]
+							  )
+							: ""
+					}
 					onChange={handleChange}
 					className={showError ? "errorClass" : "tempclass"}
 					required
@@ -110,7 +144,7 @@ const TransactionModal = ({
 				<center>
 					<button
 						type="submit"
-						onClick={addTransaction}
+						onClick={handleTransaction}
 						id="transaction-submit"
 					>
 						Submit

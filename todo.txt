@@ -1,9 +1,6 @@
 Team
 - projects
 	- update feature
-- transaction:
-    - merge all the components
-	- update feature
 - add formulae
 
 

@@ -81,10 +81,9 @@ def add_project(request):
     return HttpResponse(status=200)
 
 
-@api_view(["POST"])
+@api_view(["POST", "PUT", "DELETE"])
 def add_transaction(request):
     if request.method == 'POST':
-        print(request.data)
         transaction_details = Transaction(
             name=request.data["transaction-name"],
             type=TransactionType.objects.get(name = request.data["transaction-type"]),
@@ -93,4 +92,14 @@ def add_transaction(request):
             project=Project.objects.get(id=request.data["project_id"]),
         )
         transaction_details.save()
+    elif request.method == "PUT":
+        transaction_details = Transaction.objects.get(id = request.data["transaction-id"])
+        transaction_details.name = request.data["transaction-name"]
+        transaction_details.amount = request.data["transaction-amount"]
+        transaction_details.type = TransactionType.objects.get(name = request.data["transaction-type"])
+        transaction_details.date = datetime(*map(int, request.data['transaction-date'][:10].split('-')))
+        transaction_details.save()
+    elif request.method == "DELETE":
+        Transaction.objects.get(id = request.data["transaction-id"]).delete()
+
     return HttpResponse(status=200)

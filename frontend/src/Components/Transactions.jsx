@@ -15,6 +15,7 @@ import {
 	IconButton,
 	Container,
 	Paper,
+	CircularProgress,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -118,7 +119,9 @@ function EnhancedTableHead(props) {
 						</TableSortLabel>
 					</TableCell>
 				))}
-				<TableCell sx={{ paddingLeft: 3.5 }}>Options</TableCell>
+				<TableCell sx={{ fontFamily: "Manrope", paddingLeft: 3.5 }}>
+					Options
+				</TableCell>
 			</TableRow>
 		</TableHead>
 	);
@@ -188,13 +191,22 @@ const Transactions = () => {
 		setShowError(false);
 	};
 
-	const addTransaction = (event) => {
+	const handleTransaction = (event) => {
 		event.preventDefault();
+
 		if (!showError) {
 			const url = "http://localhost:8000/api/projects/add-transaction/";
-			axios.post(url, formTransactionData).catch((error) => {
-				console.log(error);
-			});
+			console.log(caller);
+
+			if (caller === "Edit") {
+				axios.put(url, formTransactionData).catch((error) => {
+					console.log(error);
+				});
+			} else {
+				axios.post(url, formTransactionData).catch((error) => {
+					console.log(error);
+				});
+			}
 			setTransactionCounter(transactionCounter + 1);
 			closeModal();
 		}
@@ -234,7 +246,7 @@ const Transactions = () => {
 							setTransactionType={setTransactionType}
 							formTransactionData={formTransactionData}
 							setFormTransactionData={setFormTransactionData}
-							addTransaction={addTransaction}
+							handleTransaction={handleTransaction}
 							showError={showError}
 							setShowError={setShowError}
 							caller={caller}
@@ -316,6 +328,22 @@ const Transactions = () => {
 														onClick={() => {
 															openModal();
 															setCaller("Edit");
+															setFormTransactionData(
+																{
+																	"transaction-id":
+																		row.id,
+																	"transaction-name":
+																		row.name,
+																	"transaction-type":
+																		row.type,
+																	"transaction-amount":
+																		row.amount,
+																	"transaction-date":
+																		row.date,
+																	project_id:
+																		projectId,
+																}
+															);
 														}}
 													>
 														<EditIcon
@@ -324,7 +352,27 @@ const Transactions = () => {
 															}}
 														/>
 													</IconButton>
-													<IconButton>
+													<IconButton
+														onClick={() => {
+															axios
+																.delete(
+																	"http://localhost:8000/api/projects/add-transaction/",
+																	{
+																		data: {
+																			"transaction-id":
+																				row.id,
+																		},
+																	}
+																)
+																.catch(() => {
+																	console.error();
+																});
+															setTransactionCounter(
+																transactionCounter +
+																	1
+															);
+														}}
+													>
 														<DeleteIcon
 															sx={{
 																opacity: "70%",
