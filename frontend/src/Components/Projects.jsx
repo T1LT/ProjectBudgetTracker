@@ -28,13 +28,23 @@ import "../reset.css";
 import { tabContext } from "../index";
 
 function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
+  if (orderBy === "budget") {
+    if (parseInt(b[orderBy]) < parseInt(a[orderBy])) {
+      return -1;
+    }
+    if (parseInt(b[orderBy]) > parseInt(a[orderBy])) {
+      return 1;
+    }
+    return 0;
+  } else {
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
+    return 0;
   }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
 }
 
 function getComparator(order, orderBy) {
@@ -131,7 +141,7 @@ EnhancedTableHead.propTypes = {
   orderBy: PropTypes.string.isRequired,
 };
 
-const Transactions = () => {
+const Projects = () => {
   const { settab, projectId, counter, setCounter } = useContext(tabContext);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("serial");
@@ -218,8 +228,15 @@ const Transactions = () => {
   }, [settab]);
 
   return (
-    <Container>
-      <Box sx={{ width: "100%", marginTop: "5%" }}>
+    <Box
+      sx={{
+        width: "100%",
+        marginTop: "5%",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <Box sx={{ width: "80%" }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
           <Toolbar
             sx={{
@@ -329,11 +346,15 @@ const Transactions = () => {
                 {stableSort(projectData, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
-                    // const labelId = `enhanced-table-checkbox-${index}`;
                     const date = new Date(row.start_date);
-                    let month = date.getMonth() + 1;
-                    const format =
-                      date.getDate() + "/" + month + "/" + date.getFullYear();
+                    let actualmonth = date.getMonth() + 1;
+                    let day =
+                      date.getDate() >= 10
+                        ? date.getDate()
+                        : "0" + date.getDate();
+                    let month =
+                      actualmonth >= 10 ? actualmonth : "0" + actualmonth;
+                    const format = day + "/" + month + "/" + date.getFullYear();
                     return (
                       <TableRow key={index}>
                         <TableCell
@@ -430,8 +451,8 @@ const Transactions = () => {
           />
         </Paper>
       </Box>
-    </Container>
+    </Box>
   );
 };
 
-export default Transactions;
+export default Projects;

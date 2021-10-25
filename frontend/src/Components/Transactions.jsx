@@ -13,7 +13,6 @@ import {
   Box,
   Typography,
   IconButton,
-  Container,
   Paper,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -27,13 +26,23 @@ import { tabContext } from "../index";
 import TransactionModal from "./TransactionModal";
 
 function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
+  if (orderBy === "amount") {
+    if (parseInt(b[orderBy]) < parseInt(a[orderBy])) {
+      return -1;
+    }
+    if (parseInt(b[orderBy]) > parseInt(a[orderBy])) {
+      return 1;
+    }
+    return 0;
+  } else {
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
+    return 0;
   }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
 }
 
 function getComparator(order, orderBy) {
@@ -96,26 +105,34 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? "center" : "left"}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
+        {headCells.map((headCell) =>
+          headCell.id !== "serial" ? (
+            <TableCell
+              key={headCell.id}
+              align={headCell.numeric ? "center" : "left"}
+              sortDirection={orderBy === headCell.id ? order : false}
             >
+              <TableSortLabel
+                active={orderBy === headCell.id}
+                direction={orderBy === headCell.id ? order : "asc"}
+                onClick={createSortHandler(headCell.id)}
+              >
+                {headCell.label}
+                {orderBy === headCell.id ? (
+                  <Box component="span" sx={visuallyHidden}>
+                    {order === "desc"
+                      ? "sorted descending"
+                      : "sorted ascending"}
+                  </Box>
+                ) : null}
+              </TableSortLabel>
+            </TableCell>
+          ) : (
+            <TableCell sx={{ fontFamily: "Manrope" }}>
               {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
+            </TableCell>
+          )
+        )}
         <TableCell sx={{ fontFamily: "Manrope", paddingLeft: 3.5 }}>
           Options
         </TableCell>
@@ -219,8 +236,15 @@ const Transactions = () => {
   }, [settab]);
 
   return (
-    <Container>
-      <Box sx={{ width: "100%", marginTop: "5%" }}>
+    <Box
+      sx={{
+        width: "100%",
+        marginTop: "5%",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <Box sx={{ width: "80%" }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
           <Toolbar
             sx={{
@@ -275,12 +299,17 @@ const Transactions = () => {
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
                     const date = new Date(row.date);
-                    let month = date.getMonth() + 1;
-                    const format =
-                      date.getDate() + "/" + month + "/" + date.getFullYear();
+                    let actualmonth = date.getMonth() + 1;
+                    let day =
+                      date.getDate() >= 10
+                        ? date.getDate()
+                        : "0" + date.getDate();
+                    let month =
+                      actualmonth >= 10 ? actualmonth : "0" + actualmonth;
+                    const format = day + "/" + month + "/" + date.getFullYear();
                     return (
                       <TableRow key={index}>
-                        <TableCell>{index + 1}</TableCell>
+                        <TableCell>{page * rowsPerPage + index + 1}</TableCell>
                         <TableCell align="center" sx={{ paddingRight: 5 }}>
                           {row.name}
                         </TableCell>
@@ -370,7 +399,7 @@ const Transactions = () => {
           />
         </Paper>
       </Box>
-    </Container>
+    </Box>
   );
 };
 

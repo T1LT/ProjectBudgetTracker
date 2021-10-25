@@ -1,8 +1,4 @@
 Team
-- projects
-    - check the sorting
-- transactions
-    - check the sorting
 - add formulae
 - settings
     - start work
@@ -18,5 +14,4 @@ bk
 --------------------------------------------------
 
 adarsh
-- sorting feature
-- starting 0s for date,month
+- 
