@@ -60,7 +60,7 @@ const headCells = [
     id: "id",
     numeric: false,
     disablePadding: true,
-    label: "Project ID",
+    label: "S.No.",
   },
   {
     id: "name",
@@ -341,12 +341,18 @@ const Transactions = () => {
                           // id={labelId}
                           scope="row"
                         >
-                          {row.id}
+                          {index + 1}
                         </TableCell>
-                        <TableCell align="center">{row.name}</TableCell>
-                        <TableCell align="center">{format}</TableCell>
-                        <TableCell align="center">{row.manager}</TableCell>
-                        <TableCell align="center">
+                        <TableCell align="center" sx={{ paddingRight: 5 }}>
+                          {row.name}
+                        </TableCell>
+                        <TableCell align="center" sx={{ paddingRight: 5 }}>
+                          {format}
+                        </TableCell>
+                        <TableCell align="center" sx={{ paddingRight: 5 }}>
+                          {row.manager}
+                        </TableCell>
+                        <TableCell align="center" sx={{ paddingRight: 5 }}>
                           ${new Intl.NumberFormat().format(row.budget)}
                         </TableCell>
                         <TableCell>
@@ -370,19 +376,25 @@ const Transactions = () => {
                           </IconButton>
                           <IconButton
                             onClick={() => {
-                              axios
-                                .delete(
-                                  "http://localhost:8000/api/projects/modify-project/",
-                                  {
-                                    data: {
-                                      id: row.id,
-                                    },
-                                  }
+                              if (
+                                window.confirm(
+                                  "Are you sure you want to delete?"
                                 )
-                                .catch(() => {
-                                  console.error();
-                                });
-                              setCounter(counter - 1);
+                              ) {
+                                axios
+                                  .delete(
+                                    "http://localhost:8000/api/projects/modify-project/",
+                                    {
+                                      data: {
+                                        id: row.id,
+                                      },
+                                    }
+                                  )
+                                  .catch(() => {
+                                    console.error();
+                                  });
+                                setCounter(counter - 1);
+                              }
                             }}
                           >
                             <DeleteIcon

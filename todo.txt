@@ -1,13 +1,11 @@
 Team
 - projects
-    x update feature
-    x delete feature
-	- check the css in projects table
     - check the sorting
 - transactions
     - check the sorting
 - add formulae
-
+- settings
+    - start work
 
 NR
 - revamp dashboard

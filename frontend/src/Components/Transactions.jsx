@@ -316,19 +316,25 @@ const Transactions = () => {
                           </IconButton>
                           <IconButton
                             onClick={() => {
-                              axios
-                                .delete(
-                                  "http://localhost:8000/api/projects/add-transaction/",
-                                  {
-                                    data: {
-                                      "transaction-id": row.id,
-                                    },
-                                  }
+                              if (
+                                window.confirm(
+                                  "Are you sure you want to delete?"
                                 )
-                                .catch(() => {
-                                  console.error();
-                                });
-                              setTransactionCounter(transactionCounter + 1);
+                              ) {
+                                axios
+                                  .delete(
+                                    "http://localhost:8000/api/projects/add-transaction/",
+                                    {
+                                      data: {
+                                        "transaction-id": row.id,
+                                      },
+                                    }
+                                  )
+                                  .catch(() => {
+                                    console.error();
+                                  });
+                                setTransactionCounter(transactionCounter + 1);
+                              }
                             }}
                           >
                             <DeleteIcon
