@@ -6,7 +6,6 @@ import Transactions from "./Components/Transactions";
 import Projects from "./Components/Projects";
 import Dashboard from "./Components/Dashboard";
 import Reports from "./Components/Reports";
-import Settings from "./Components/Settings";
 import axios from "axios";
 import "./index.css";
 import "./reset.css";
@@ -118,9 +117,6 @@ const Main = () => {
           >
             Projects
           </Link>
-          <Link to="/settings" style={tab === "sett" ? style2 : style1}>
-            Settings
-          </Link>
         </div>
       </div>
 
@@ -217,7 +213,6 @@ const Main = () => {
           <Route exact path="/transactions" component={Transactions} />
           <Route exact path="/reports" component={Reports} />
           <Route exact path="/projects" component={Projects} />
-          <Route exact path="/settings" component={Settings} />
         </Switch>
       </tabContext.Provider>
     </Router>

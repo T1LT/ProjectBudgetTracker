@@ -18,6 +18,7 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DownloadIcon from "@mui/icons-material/Download";
 import { visuallyHidden } from "@mui/utils";
 import axios from "axios";
 import "./Transactions.css";
@@ -273,13 +274,43 @@ const Transactions = () => {
               caller={caller}
             />
             <IconButton
+              sx={{ borderRadius: 0, color: "black" }}
+              onClick={() => {
+                axios
+                  .get(
+                    `http://localhost:8000/api/project/${projectId}/download_csv/`,
+                    { responseType: "blob" }
+                  )
+                  .then((response) => {
+                    console.log(response);
+                    const url = window.URL.createObjectURL(
+                      new Blob([response.data])
+                    );
+                    const link = document.createElement("a");
+                    link.href = url;
+                    link.setAttribute(
+                      "download",
+                      `${projectId}_transactions.csv`
+                    );
+                    document.body.appendChild(link);
+                    link.click();
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
+              }}
+            >
+              <DownloadIcon sx={{ opacity: "70%" }} />
+              <Typography>Export CSV</Typography>
+            </IconButton>
+            <IconButton
               onClick={() => {
                 openModal();
                 setCaller("Add");
               }}
               sx={{ borderRadius: 0, color: "black" }}
             >
-              <AddIcon />
+              <AddIcon sx={{ opacity: "70%" }} />
               <Typography>Add Transaction</Typography>
             </IconButton>
           </Toolbar>

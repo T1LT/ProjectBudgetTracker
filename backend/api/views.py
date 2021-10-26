@@ -120,8 +120,8 @@ def add_transaction(request):
 def export_csv(request, id):
     transaction_details = Transaction.objects.filter(project_id = id)
 
-    response = HttpResponse(content_type = 'application/vnd.ms-excel')
-    response['Content-Disposition'] = f'attachment; filename={Project.objects.get(id = id).name}.xlsx'
+    response = HttpResponse(content_type = 'text/csv')
+    # response['Content-Disposition'] = f'attachment; filename={Project.objects.get(id = id).name}.csv'
     writer = csv.writer(response)
     writer.writerow(["S.No.","Transaction Name", "Transaction Amount", "Transaction Type"])
     for ind, x in enumerate(transaction_details):
