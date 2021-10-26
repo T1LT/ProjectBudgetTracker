@@ -1,0 +1,19 @@
+- take end date input
+- calculate the months between
+- divide the budget by months
+- AC - actual cost = inc exp
+- PV - planned value - comes from the monthly planned budget (assuming PV = EV)
+- BAC - budget at completion - total budget
+- EAC - estimate at completion
+- VAC - variance at completion
+- CV = EV - AC
+- CPI = EV / AC
+- EAC = BAC / CPI
+- VAC = BAC - EAC
+
+- if(CV < 0): project is overbudgetted
+- if(CPI < 1): project budget is overrun
+
+
+- ex: if PV = 1500, AC = 1400, BAC = 50000
+then CV = 100, CPI = 1.07, EAC = 46,666.67, VAC = 3,333.33

@@ -4,17 +4,18 @@ Team
     - start work
 
 NR
-- revamp dashboard
+- add cards to dashboard
+- prep frontend with monthly inputs etc
 
 --------------------------------------------------
 
 bk
--
+- prep backend acc to frontend
 
 --------------------------------------------------
 
 adarsh
-- 
+- chartjs double bar (https://stackoverflow.com/questions/28180871/grouped-bar-charts-in-chart-js)
 
 --------------------------------------------------
 pavan & bhanu

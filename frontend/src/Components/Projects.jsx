@@ -361,7 +361,7 @@ const Projects = () => {
                           // id={labelId}
                           scope="row"
                         >
-                          {index + 1}
+                          {page * rowsPerPage + index + 1}
                         </TableCell>
                         <TableCell align="center" sx={{ paddingRight: 5 }}>
                           {row.name}

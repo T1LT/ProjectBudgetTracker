@@ -21,6 +21,7 @@
   color: green;
   font-size: 4em;
   padding: 2.5%;
+  font-weight: bold;
 }
 
 #inctext {
@@ -31,12 +32,14 @@
   color: red;
   font-size: 4em;
   padding: 2.5%;
+  font-weight: bold;
 }
 
 #percentamt {
   color: #00bfff;
   font-size: 4em;
   padding: 2.5%;
+  font-weight: bold;
 }
 
 #percenttext {
