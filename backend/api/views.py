@@ -1,5 +1,5 @@
 from django.db.models.aggregates import Sum
-from django.http import HttpResponse
+from django.http import HttpResponse, response
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -7,6 +7,7 @@ from .models import Project, Transaction, TransactionType
 from .serializers import ProjectSerializer, TransactionSerializer
 
 from datetime import datetime
+import csv
 
 
 def home(request):
@@ -114,3 +115,15 @@ def add_transaction(request):
         Transaction.objects.get(id = request.data["transaction-id"]).delete()
 
     return HttpResponse(status=200)
+
+@api_view(["GET"])
+def export_csv(request, id):
+    transaction_details = Transaction.objects.filter(project_id = id)
+
+    response = HttpResponse(content_type = 'application/vnd.ms-excel')
+    response['Content-Disposition'] = f'attachment; filename={Project.objects.get(id = id).name}.xlsx'
+    writer = csv.writer(response)
+    writer.writerow(["S.No.","Transaction Name", "Transaction Amount", "Transaction Type"])
+    for ind, x in enumerate(transaction_details):
+        writer.writerow([ind+1, x.name, x.amount, x.date, x.type.name])
+    return response
