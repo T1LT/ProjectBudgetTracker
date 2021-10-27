@@ -17,14 +17,10 @@
 #projectdiv {
   display: flex;
   justify-content: center;
-  width: 50%;
-  border: 2px solid rgba(105, 105, 105, 0.5);
+  width: 100%;
+  /* border: 2px solid rgba(105, 105, 105, 0.5); */
   border-radius: 5px;
-  padding: 1%;
-}
-
-#projectdiv h1 {
-  margin-right: 10%;
+  padding: 1% 0;
 }
 
 .projectheader {
@@ -45,9 +41,33 @@ form h1 {
 }
 
 #projectselect {
-  width: 25%;
+  border: none;
+  width: 20%;
   cursor: pointer;
-  margin-right: 1%;
+  margin-right: 5%;
+  font-size: 2.5rem;
+}
+
+#projectselect option {
+  font-size: 0.9rem;
+}
+
+#projectselect:active,
+#projectselect:focus {
+  border: none;
+  outline: none;
+}
+
+.month-inputs {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  margin: 1% 0;
+}
+
+.next,
+.back {
+  margin-right: 5%;
 }
 
 form {
@@ -89,10 +109,83 @@ form {
   /* font-weight: bold; */
 }
 
+/* 
+* {
+  box-sizing: inherit;
+  transition-property: all;
+  transition-duration: 0.6s;
+  transition-timing-function: ease;
+} */
+
+button {
+  font-family: "Manrope", sans-serif;
+  background: white;
+  border: 0.125em solid black;
+  cursor: pointer;
+}
+
+select,
+input {
+  font-family: "Manrope", sans-serif;
+}
+
+.multi-button {
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+}
+.multi-button button {
+  background: white;
+  border: 0.125em solid black;
+  cursor: pointer;
+  font: 400 1rem "Manrope", sans-serif;
+  letter-spacing: 0.125em;
+  margin: 0.5rem;
+  padding: 0.75em 1em;
+  position: relative;
+  text-transform: uppercase;
+}
+.multi-button button:before,
+.multi-button button:after {
+  content: "";
+  position: absolute;
+  transition: all 0.125s ease-in-out;
+}
+.multi-button button.cut {
+  background: none;
+  border-color: transparent;
+}
+.multi-button button.cut:before,
+.multi-button button.cut:after {
+  transition: all 0.175s ease-in-out;
+}
+.multi-button button.cut:before {
+  background: black;
+  border: 0px dashed black;
+  left: -0.125em;
+  top: -0.125em;
+  right: -0.125em;
+  bottom: -0.125em;
+  z-index: -1;
+}
+.multi-button button.cut:hover:before,
+.multi-button button.cut:focus:before {
+  background: white;
+  border-width: 0.125em;
+}
+.multi-button button.cut:after {
+  background: white;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
 #closeButton {
   position: absolute;
   top: 0;
   right: 3px;
+  color: black;
   background-color: transparent;
   border: 0;
   font-size: x-large;
@@ -143,10 +236,6 @@ form {
   #navleft {
     width: 70%;
   }
-
-  #projectdiv {
-    width: 60%;
-  }
 }
 
 @media (max-width: 1200px) {
@@ -156,10 +245,6 @@ form {
 
   #projectselect {
     width: 30%;
-  }
-
-  #projectdiv {
-    width: 60%;
   }
 
   .projectheader {
@@ -196,16 +281,16 @@ form {
     display: none;
   }
 
+  #projectselect {
+    width: 40%;
+  }
+
   .projectheader {
     font-size: 1.5em;
   }
 
   #navleft {
     justify-content: space-around;
-  }
-
-  #projectdiv {
-    width: 70%;
   }
 }
 
@@ -231,7 +316,16 @@ form {
   }
 
   #projectselect {
-    width: 30%;
+    width: 50%;
+    font-size: 1.8rem;
+  }
+
+  #projectselect option {
+    font-size: 1rem;
+  }
+
+  .multi-button button {
+    font-size: 0.8rem;
   }
 
   form {

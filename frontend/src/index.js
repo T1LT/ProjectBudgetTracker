@@ -10,6 +10,7 @@ import axios from "axios";
 import "./index.css";
 import "./reset.css";
 import { Alert, AlertTitle } from "@mui/material";
+import { months } from "./utils.js";
 
 Modal.setAppElement("#root");
 export const tabContext = React.createContext();
@@ -21,6 +22,10 @@ const Main = () => {
   const [counter, setCounter] = useState(0);
   const [projectNames, setProjectNames] = useState({});
   const [showError, setShowError] = useState(false);
+  const [step, setStep] = useState(1);
+  const [monthBudget, setMonthBudget] = useState([
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  ]);
   const [projectData, setProjectData] = useState({
     projname: "",
     projdate: "",
@@ -55,6 +60,8 @@ const Main = () => {
   const closeForm = () => {
     setshowingForm(false);
     setShowError(false);
+    setStep(1);
+    setMonthBudget([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   };
 
   const handleChange = (event) => {
@@ -128,69 +135,102 @@ const Main = () => {
         overlayClassName="Overlay"
         ariaHideApp={false}
       >
-        <form>
-          <center>
-            <h1>Add a Project</h1>
-          </center>
-          <label htmlFor="projname">Project Name: </label>
-          <input
-            type="text"
-            id="projname"
-            name="projname"
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="projdate">Start Date: </label>
-          <input
-            type="date"
-            id="projdate"
-            name="projdate"
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="projmanager">Project Manager: </label>
-          <input
-            type="text"
-            id="projmanager"
-            name="projmanager"
-            onChange={handleChange}
-            required
-          />
-          <label
-            htmlFor="projbudget"
-            className={showError ? "labelError" : "tempclass"}
-          >
-            Project Budget:{" "}
-          </label>
-          <input
-            type="number"
-            step="any"
-            id="projbudget"
-            name="projbudget"
-            onChange={handleChange}
-            className={showError ? "errorClass" : "tempclass"}
-            required
-          />
-          {showError && (
-            <Alert severity="error">
-              <AlertTitle>Error</AlertTitle>
-              Enter a positive value for amount!
-            </Alert>
-          )}
-          <center>
-            <button type="submit" onClick={addProject} id="projsubmit">
-              Submit
-            </button>
-            <input type="reset" />
-          </center>
-        </form>
+        {step === 1 ? (
+          <form>
+            <center>
+              <h1>Add a Project</h1>
+            </center>
+            <label htmlFor="projname">Project Name: </label>
+            <input
+              type="text"
+              id="projname"
+              name="projname"
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="projdate">Start Date: </label>
+            <input
+              type="date"
+              id="projdate"
+              name="projdate"
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="projmanager">Project Manager: </label>
+            <input
+              type="text"
+              id="projmanager"
+              name="projmanager"
+              onChange={handleChange}
+              required
+            />
+            <label
+              htmlFor="projbudget"
+              className={showError ? "labelError" : "tempclass"}
+            >
+              Project Budget:{" "}
+            </label>
+            <input
+              type="number"
+              step="any"
+              id="projbudget"
+              name="projbudget"
+              onChange={handleChange}
+              className={showError ? "errorClass" : "tempclass"}
+              required
+            />
+            {showError && (
+              <Alert severity="error">
+                <AlertTitle>Error</AlertTitle>
+                Enter a positive value for amount!
+              </Alert>
+            )}
+            <center>
+              <button className="next" onClick={() => setStep(2)}>
+                Next
+              </button>
+              <button type="reset" value="Reset">
+                Reset
+              </button>
+            </center>
+          </form>
+        ) : (
+          <form>
+            <center>
+              <h1>
+                Total Budget:{" "}
+                {projectData["projbudget"] -
+                  monthBudget.reduce((a, b) => (a ? a : 0) + (b ? b : 0), 0)}
+              </h1>
+              {months.map((month, index) => (
+                <div className="month-inputs" key={index}>
+                  <label htmlFor={month}>{month}</label>
+                  <input
+                    type="number"
+                    defaultValue={monthBudget[index]}
+                    onChange={(event) => {
+                      let temp = [...monthBudget];
+                      temp[index] = parseInt(event.target.value);
+                      setMonthBudget(temp);
+                    }}
+                  />
+                </div>
+              ))}
+              <button className="back" onClick={() => setStep(1)}>
+                Back
+              </button>
+              <button type="submit" onClick={addProject} id="projsubmit">
+                Submit
+              </button>
+            </center>
+          </form>
+        )}
         <button onClick={closeForm} id="closeButton">
           &times;
         </button>
       </Modal>
       <center>
         <div id="projectdiv">
-          <h1 className="projectheader">{projectNames[projectId]}</h1>
           <select
             id="projectselect"
             value={projectId}
@@ -202,9 +242,11 @@ const Main = () => {
               </option>
             ))}
           </select>
-          <button id="projectbutton" onClick={openForm}>
-            + Add Project
-          </button>
+          <div className="multi-button">
+            <button id="projectbutton" className="cut" onClick={openForm}>
+              + Add Project
+            </button>
+          </div>
         </div>
       </center>
       <tabContext.Provider value={{ settab, projectId, counter, setCounter }}>

@@ -3,7 +3,7 @@ import { Doughnut } from "react-chartjs-2";
 import "./Dashboard.css";
 import { tabContext } from "../index";
 import axios from "axios";
-import CircularProgress from "@mui/material/CircularProgress";
+import { CircularProgress, Card, CardContent } from "@mui/material";
 
 const Dashboard = () => {
   const { settab, projectId } = useContext(tabContext);
@@ -45,22 +45,112 @@ const Dashboard = () => {
       {!isLoading ? (
         <div id="dash">
           <div id="left">
-            <div id="budgettext">
-              <h2 id="totaltext">Total Budget</h2>
-              <h1 id="totalamt">
-                ${new Intl.NumberFormat().format(data.budget)}
-              </h1>
-              <h2 id="inctext">Incurred Expenses</h2>
-              <h1 id="incamt">
-                ${new Intl.NumberFormat().format(data.incurred_expenses)}
-              </h1>
-            </div>
-            <div id="percentage">
-              <h1 id="percentamt">
-                {((data.incurred_expenses / data.budget) * 100).toFixed(2)}%
-              </h1>
-              <h2 id="percenttext">spent</h2>
-            </div>
+            <Card
+              variant="outlined"
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                boxShadow: 2,
+              }}
+            >
+              <CardContent sx={{ display: "grid", placeItems: "center" }}>
+                <h2 id="totaltext">Total Budget</h2>
+                <h1 id="totalamt">
+                  ${new Intl.NumberFormat().format(data.budget)}
+                </h1>
+                <h2 id="inctext">Incurred Expenses</h2>
+                <h1 id="incamt">
+                  ${new Intl.NumberFormat().format(data.incurred_expenses)}
+                </h1>
+              </CardContent>
+            </Card>
+            <Card
+              variant="outlined"
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                boxShadow: 2,
+              }}
+            >
+              <CardContent sx={{ display: "grid", placeItems: "center" }}>
+                <h1 id="percentamt">
+                  {((data.incurred_expenses / data.budget) * 100).toFixed(2)}%
+                </h1>
+                <h2 id="percenttext">Cost Variance</h2>
+              </CardContent>
+            </Card>
+            <Card
+              variant="outlined"
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                boxShadow: 2,
+              }}
+            >
+              <CardContent sx={{ display: "grid", placeItems: "center" }}>
+                <h1 id="percentamt">
+                  {((data.incurred_expenses / data.budget) * 100).toFixed(2)}%
+                </h1>
+                <h2 id="percenttext">Cost Performance Index</h2>
+              </CardContent>
+            </Card>
+            <Card
+              variant="outlined"
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                boxShadow: 2,
+              }}
+            >
+              <CardContent sx={{ display: "grid", placeItems: "center" }}>
+                <h1 id="percentamt">
+                  {((data.incurred_expenses / data.budget) * 100).toFixed(2)}%
+                </h1>
+                <h2 id="percenttext">spent</h2>
+              </CardContent>
+            </Card>
+            <Card
+              variant="outlined"
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                boxShadow: 2,
+              }}
+            >
+              <CardContent sx={{ display: "grid", placeItems: "center" }}>
+                <h1 id="percentamt">
+                  {((data.incurred_expenses / data.budget) * 100).toFixed(2)}%
+                </h1>
+                <h2 id="percenttext">Estimate at Completion</h2>
+              </CardContent>
+            </Card>
+            <Card
+              variant="outlined"
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                boxShadow: 2,
+              }}
+            >
+              <CardContent sx={{ display: "grid", placeItems: "center" }}>
+                <h1 id="percentamt">
+                  {((data.incurred_expenses / data.budget) * 100).toFixed(2)}%
+                </h1>
+                <h2 id="percenttext">Variance at Completion</h2>
+              </CardContent>
+            </Card>
           </div>
           <div id="right">
             {data["incurred_expenses"] ? (

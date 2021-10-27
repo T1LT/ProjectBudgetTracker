@@ -4,19 +4,19 @@ Team
     - start work
 
 NR
-- add cards to dashboard
+- add media queries
+- error when submitted/next page with no data
 - prep frontend with monthly inputs etc
 
 --------------------------------------------------
 
 bk
 - prep backend acc to frontend
+- download from api link filename stunt
+- after deleting a project, api stunt
 
 --------------------------------------------------
 
 adarsh
 - chartjs double bar (https://stackoverflow.com/questions/28180871/grouped-bar-charts-in-chart-js)
 
---------------------------------------------------
-pavan & bhanu
-- download from api link filename stunt

@@ -142,7 +142,9 @@ const TransactionModal = ({
           >
             Submit
           </button>
-          <input type="reset" />
+          <button type="reset" value="Reset">
+            Reset
+          </button>
         </center>
       </form>
       <button onClick={closeModal} id="closeButton">

@@ -129,7 +129,7 @@ function EnhancedTableHead(props) {
               </TableSortLabel>
             </TableCell>
           ) : (
-            <TableCell sx={{ fontFamily: "Manrope" }}>
+            <TableCell key={headCell.id} sx={{ fontFamily: "Manrope" }}>
               {headCell.label}
             </TableCell>
           )
