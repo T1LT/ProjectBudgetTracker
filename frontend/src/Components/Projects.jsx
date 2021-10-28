@@ -230,7 +230,7 @@ const Projects = () => {
     <Box
       sx={{
         width: "100%",
-        marginTop: "5%",
+        marginTop: "2.5%",
         display: "flex",
         justifyContent: "center",
       }}

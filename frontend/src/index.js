@@ -22,6 +22,7 @@ const Main = () => {
   const [counter, setCounter] = useState(0);
   const [projectNames, setProjectNames] = useState({});
   const [showError, setShowError] = useState(false);
+  const [showInputError, setShowInputError] = useState(false);
   const [step, setStep] = useState(1);
   const [monthBudget, setMonthBudget] = useState([
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -60,6 +61,7 @@ const Main = () => {
   const closeForm = () => {
     setshowingForm(false);
     setShowError(false);
+    setShowInputError(false);
     setStep(1);
     setMonthBudget([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   };
@@ -202,20 +204,38 @@ const Main = () => {
                 {projectData["projbudget"] -
                   monthBudget.reduce((a, b) => (a ? a : 0) + (b ? b : 0), 0)}
               </h1>
-              {months.map((month, index) => (
-                <div className="month-inputs" key={index}>
-                  <label htmlFor={month}>{month}</label>
-                  <input
-                    type="number"
-                    defaultValue={monthBudget[index]}
-                    onChange={(event) => {
-                      let temp = [...monthBudget];
-                      temp[index] = parseInt(event.target.value);
-                      setMonthBudget(temp);
-                    }}
-                  />
-                </div>
-              ))}
+              <div className="form-2">
+                {months.map((month, index) => (
+                  <div className="month-inputs" key={index}>
+                    <label
+                      // className={showInputError ? "labelError" : "tempclass"}
+                      htmlFor={month}
+                    >
+                      {month}
+                    </label>
+                    <input
+                      // className={showInputError ? "labelError" : "tempclass"}
+                      name="month-input"
+                      type="number"
+                      defaultValue={
+                        monthBudget[index] ? monthBudget[index] : ""
+                      }
+                      onChange={(event) => {
+                        // if (event.target.name === "month-input") {
+                        //   if (event.target.value[0] === "-") {
+                        //     setShowInputError(true);
+                        //   } else {
+                        //     setShowInputError(false);
+                        //   }
+                        // }
+                        let temp = [...monthBudget];
+                        temp[index] = parseInt(event.target.value);
+                        setMonthBudget(temp);
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
               <button className="back" onClick={() => setStep(1)}>
                 Back
               </button>
