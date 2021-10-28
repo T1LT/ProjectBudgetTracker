@@ -77,10 +77,10 @@ const Dashboard = () => {
               }}
             >
               <CardContent sx={{ display: "grid", placeItems: "center" }}>
-                <h1 id="percentamt">
+                <h1 id="cvamt">
                   {((data.incurred_expenses / data.budget) * 100).toFixed(2)}%
                 </h1>
-                <h2 id="percenttext">Cost Variance</h2>
+                <h2 id="cvtext">Cost Variance</h2>
               </CardContent>
             </Card>
             <Card
@@ -94,10 +94,10 @@ const Dashboard = () => {
               }}
             >
               <CardContent sx={{ display: "grid", placeItems: "center" }}>
-                <h1 id="percentamt">
+                <h1 id="cpiamt">
                   {((data.incurred_expenses / data.budget) * 100).toFixed(2)}%
                 </h1>
-                <h2 id="percenttext">Cost Performance Index</h2>
+                <h2 id="cpitext">Cost Performance Index</h2>
               </CardContent>
             </Card>
             <Card
@@ -128,10 +128,10 @@ const Dashboard = () => {
               }}
             >
               <CardContent sx={{ display: "grid", placeItems: "center" }}>
-                <h1 id="percentamt">
+                <h1 id="eacamt">
                   {((data.incurred_expenses / data.budget) * 100).toFixed(2)}%
                 </h1>
-                <h2 id="percenttext">Estimate at Completion</h2>
+                <h2 id="eactext">Estimate at Completion</h2>
               </CardContent>
             </Card>
             <Card
@@ -145,10 +145,10 @@ const Dashboard = () => {
               }}
             >
               <CardContent sx={{ display: "grid", placeItems: "center" }}>
-                <h1 id="percentamt">
+                <h1 id="vacamt">
                   {((data.incurred_expenses / data.budget) * 100).toFixed(2)}%
                 </h1>
-                <h2 id="percenttext">Variance at Completion</h2>
+                <h2 id="vactext">Variance at Completion</h2>
               </CardContent>
             </Card>
           </div>

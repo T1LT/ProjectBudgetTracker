@@ -7,14 +7,14 @@
   width: 20vw;
 }
 
-/* #left {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-} */
-
-#totaltext {
-  font-size: 2em;
+#totaltext,
+#inctext,
+#percenttext,
+#cvtext,
+#eactext,
+#vactext,
+#cpitext {
+  font-size: 1.5em;
 }
 
 #totalamt {
@@ -24,26 +24,11 @@
   font-weight: bold;
 }
 
-#inctext {
-  font-size: 2em;
-}
-
 #incamt {
   color: red;
   font-size: 4em;
   padding: 2.5%;
   font-weight: bold;
-}
-
-#percentamt {
-  color: #00bfff;
-  font-size: 4em;
-  padding: 2.5%;
-  font-weight: bold;
-}
-
-#percenttext {
-  font-size: 2em;
 }
 
 #percentage {
@@ -68,6 +53,17 @@
   font-size: 1.75rem;
 }
 
+#cvamt,
+#eacamt,
+#vacamt,
+#cpiamt,
+#percentamt {
+  color: #00bfff;
+  font-size: 4em;
+  padding: 2.5%;
+  font-weight: bold;
+}
+
 /* IMPORTANT: ADD !important TO OVERRIDE CHARTJS RESPONSIVENESS*/
 #donut {
   width: 500px !important;
@@ -81,40 +77,92 @@
   grid-template-columns: 1.75fr 1fr;
 }
 
-@media (max-width: 1400px) {
-  #totaltext {
-    font-size: 1.5em;
-  }
-
-  #inctext {
-    font-size: 1.5em;
-  }
-
-  #percenttext {
-    font-size: 1.5em;
+@media (max-width: 1750px) {
+  #cvamt,
+  #eacamt,
+  #vacamt,
+  #cpiamt,
+  #percentamt,
+  #incamt,
+  #totalamt {
+    font-size: 3.5em;
   }
 }
 
-@media (max-width: 1200px) {
-  #donut {
-    width: 500px !important;
-    height: 500px !important;
+@media (max-width: 1550px) {
+  #totaltext,
+  #inctext,
+  #percenttext,
+  #cvtext,
+  #eactext,
+  #vactext,
+  #cpitext {
+    font-size: 1.25em;
   }
 
+  #cvamt,
+  #eacamt,
+  #vacamt,
+  #cpiamt,
+  #percentamt,
+  #incamt,
+  #totalamt {
+    font-size: 3.25em;
+  }
+}
+
+@media (max-width: 1500px) {
+  #cvamt,
+  #eacamt,
+  #vacamt,
+  #cpiamt,
+  #percentamt,
+  #incamt,
   #totalamt {
     font-size: 3em;
   }
+}
 
-  #incamt {
-    font-size: 3em;
+@media (max-width: 1400px) {
+  #cvamt,
+  #eacamt,
+  #vacamt,
+  #cpiamt,
+  #percentamt,
+  #incamt,
+  #totalamt {
+    font-size: 2.75em;
   }
 
-  #percentamt {
-    font-size: 3em;
+  #totaltext,
+  #inctext,
+  #percenttext,
+  #cvtext,
+  #eactext,
+  #vactext,
+  #cpitext {
+    font-size: 1.15em;
   }
 
-  #left {
-    height: 500px;
+  #donut {
+    width: 400px !important;
+    height: 400px !important;
+  }
+
+  #dash {
+    margin-top: 5%;
+  }
+}
+
+@media (max-width: 1250px) {
+  #cvamt,
+  #eacamt,
+  #vacamt,
+  #cpiamt,
+  #percentamt,
+  #incamt,
+  #totalamt {
+    font-size: 2.5em;
   }
 
   #dash {
@@ -122,91 +170,115 @@
   }
 }
 
-@media (max-width: 1000px) {
-  #donut {
-    width: 400px !important;
-    height: 400px !important;
+@media (max-width: 1200px) {
+  #cvamt,
+  #eacamt,
+  #vacamt,
+  #cpiamt,
+  #percentamt,
+  #incamt,
+  #totalamt {
+    font-size: 2.25em;
   }
 
+  #totaltext,
+  #inctext,
+  #percenttext,
+  #cvtext,
+  #eactext,
+  #vactext,
+  #cpitext {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 1100px) {
+  #cvamt,
+  #eacamt,
+  #vacamt,
+  #cpiamt,
+  #percentamt,
+  #incamt,
+  #totalamt {
+    font-size: 2.25em;
+  }
+
+  #totaltext,
+  #inctext,
+  #percenttext,
+  #cvtext,
+  #eactext,
+  #vactext,
+  #cpitext {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 1050px) {
   #dash {
-    margin-top: 15%;
+    margin: 2% 0;
+    display: flex;
+    flex-direction: column;
   }
 
   #left {
     height: 400px;
-  }
-
-  #totaltext {
-    font-size: 1.25em;
-  }
-
-  #inctext {
-    font-size: 1.25em;
-  }
-
-  #percenttext {
-    font-size: 1.25em;
-  }
-}
-
-@media (max-width: 850px) {
-  #totaltext {
-    font-size: 1em;
-  }
-
-  #inctext {
-    font-size: 1em;
-  }
-
-  #percenttext {
-    font-size: 1em;
-  }
-
-  #totalamt {
-    font-size: 2.5em;
-  }
-
-  #incamt {
-    font-size: 2.5em;
-  }
-
-  #percentamt {
-    font-size: 2.5em;
-  }
-
-  #dash {
-    margin-top: 17.5%;
-  }
-}
-
-@media (max-width: 700px) {
-  #dash {
-    flex-direction: column;
-    margin-top: 10%;
-  }
-
-  #left {
-    height: 250px;
+    margin-bottom: 2%;
   }
 }
 
 @media (max-width: 675px) {
-  #budgettext {
-    width: 40vw;
+  #cvamt,
+  #eacamt,
+  #vacamt,
+  #cpiamt,
+  #percentamt,
+  #incamt,
+  #totalamt {
+    font-size: 2em;
   }
 
-  #percentage {
-    width: 40vw;
+  #totaltext,
+  #inctext,
+  #percenttext,
+  #cvtext,
+  #eactext,
+  #vactext,
+  #cpitext {
+    font-size: 0.8em;
+  }
+}
+
+@media (max-width: 600px) {
+  #left {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 400px) {
-  #donut {
-    width: 300px !important;
-    height: 300px !important;
+  #cvamt,
+  #eacamt,
+  #vacamt,
+  #cpiamt,
+  #percentamt,
+  #incamt,
+  #totalamt {
+    font-size: 1.75em;
   }
 
-  #left {
-    height: 300px;
+  #totaltext,
+  #inctext,
+  #percenttext,
+  #cvtext,
+  #eactext,
+  #vactext,
+  #cpitext {
+    font-size: 0.75em;
+  }
+
+  #donut {
+    width: 350px !important;
+    height: 350px !important;
   }
 }
