@@ -158,6 +158,14 @@ const Main = () => {
               onChange={handleChange}
               required
             />
+            {/* <label htmlFor="projdate">End Date: </label>
+            <input
+              type="date"
+              id="projdate"
+              name="projdate"
+              onChange={handleChange}
+              required
+            /> */}
             <label htmlFor="projmanager">Project Manager: </label>
             <input
               type="text"

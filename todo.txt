@@ -4,16 +4,14 @@ Team
     - start work
 
 NR
-- add media queries
 - error when submitted/next page with no data
-- prep frontend with monthly inputs etc
 
 --------------------------------------------------
 
 bk
 - prep backend acc to frontend
 - download from api link filename stunt
-- after deleting a project, api stunt
+- after deleting a project, BIG api stunt
 
 --------------------------------------------------
 
