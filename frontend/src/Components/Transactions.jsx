@@ -14,6 +14,7 @@ import {
   Typography,
   IconButton,
   Paper,
+  useMediaQuery,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -227,6 +228,9 @@ const Transactions = () => {
     }
   };
 
+  // for media queries with MUI
+  const matches = useMediaQuery("(max-width: 600px)");
+
   const emptyRows =
     page > 0
       ? Math.max(0, (1 + page) * rowsPerPage - transactionData.length)
@@ -282,7 +286,6 @@ const Transactions = () => {
                     { responseType: "blob" }
                   )
                   .then((response) => {
-                    console.log(response);
                     const url = window.URL.createObjectURL(
                       new Blob([response.data])
                     );
@@ -301,7 +304,7 @@ const Transactions = () => {
               }}
             >
               <DownloadIcon sx={{ opacity: "70%" }} />
-              <Typography>Export CSV</Typography>
+              {!matches && <Typography>Export CSV</Typography>}
             </IconButton>
             <IconButton
               onClick={() => {
@@ -311,7 +314,7 @@ const Transactions = () => {
               sx={{ borderRadius: 0, color: "black" }}
             >
               <AddIcon sx={{ opacity: "70%" }} />
-              <Typography>Add Transaction</Typography>
+              {!matches && <Typography>Add Transaction</Typography>}
             </IconButton>
           </Toolbar>
           <TableContainer>

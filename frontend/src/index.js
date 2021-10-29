@@ -22,11 +22,9 @@ const Main = () => {
   const [counter, setCounter] = useState(0);
   const [projectNames, setProjectNames] = useState({});
   const [showError, setShowError] = useState(false);
-  const [showInputError, setShowInputError] = useState(false);
+  const [showInputError, setShowInputError] = useState(Array(12).fill(false));
   const [step, setStep] = useState(1);
-  const [monthBudget, setMonthBudget] = useState([
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-  ]);
+  const [monthBudget, setMonthBudget] = useState(Array(12).fill(0));
   const [projectData, setProjectData] = useState({
     projname: "",
     projdate: "",
@@ -61,14 +59,20 @@ const Main = () => {
   const closeForm = () => {
     setshowingForm(false);
     setShowError(false);
-    setShowInputError(false);
+    setShowInputError(Array(12).fill(false));
     setStep(1);
-    setMonthBudget([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    setProjectData({
+      projname: "",
+      projdate: "",
+      projmanager: "",
+      projbudget: 0,
+    });
+    setMonthBudget(Array(12).fill(0));
   };
 
   const handleChange = (event) => {
     if (event.target.name === "projbudget") {
-      if (event.target.value[0] === "-") {
+      if (!/^[0-9]+$/.test(event.target.value)) {
         setShowError(true);
       } else {
         setShowError(false);
@@ -83,14 +87,9 @@ const Main = () => {
     event.preventDefault();
     if (!showError) {
       const url = "http://localhost:8000/api/projects/modify-project/";
-      axios
-        .post(url, projectData)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      axios.post(url, projectData).catch((error) => {
+        console.log(error);
+      });
       setCounter(counter + 1);
       closeForm();
     }
@@ -128,7 +127,6 @@ const Main = () => {
           </Link>
         </div>
       </div>
-
       <Modal
         isOpen={showingForm}
         onRequestClose={closeForm}
@@ -196,10 +194,30 @@ const Main = () => {
               </Alert>
             )}
             <center>
-              <button className="next" onClick={() => setStep(2)}>
+              <button
+                className="next"
+                onClick={() => setStep(2)}
+                // disabled={
+                //   projectData["projname"] === "" ||
+                //   projectData["projdate"] === "" ||
+                //   projectData["projmanager"] === "" ||
+                //   projectData["projbudget"] === "" ||
+                //   projectData["projbudget"] === 0
+                // }
+              >
                 Next
               </button>
-              <button type="reset" value="Reset">
+              <button
+                type="reset"
+                onClick={() =>
+                  setProjectData({
+                    projname: "",
+                    projdate: "",
+                    projmanager: "",
+                    projbudget: 0,
+                  })
+                }
+              >
                 Reset
               </button>
             </center>
@@ -216,29 +234,37 @@ const Main = () => {
                 {months.map((month, index) => (
                   <div className="month-inputs" key={index}>
                     <label
-                      // className={showInputError ? "labelError" : "tempclass"}
+                      className={
+                        showInputError[index] ? `labelError` : "month-class"
+                      }
                       htmlFor={month}
                     >
                       {month}
                     </label>
                     <input
-                      // className={showInputError ? "labelError" : "tempclass"}
+                      className={
+                        showInputError[index] ? `errorClass` : "month-class"
+                      }
                       name="month-input"
                       type="number"
                       defaultValue={
                         monthBudget[index] ? monthBudget[index] : ""
                       }
                       onChange={(event) => {
-                        // if (event.target.name === "month-input") {
-                        //   if (event.target.value[0] === "-") {
-                        //     setShowInputError(true);
-                        //   } else {
-                        //     setShowInputError(false);
-                        //   }
-                        // }
+                        if (!/^[0-9]*$/.test(event.target.value)) {
+                          let temp = showInputError;
+                          temp[index] = true;
+                          setShowInputError(temp);
+                        } else {
+                          let temp = showInputError;
+                          temp[index] = false;
+                          setShowInputError(temp);
+                        }
                         let temp = [...monthBudget];
                         temp[index] = parseInt(event.target.value);
                         setMonthBudget(temp);
+                        console.log(monthBudget);
+                        // console.log(showInputError);
                       }}
                     />
                   </div>
@@ -247,7 +273,12 @@ const Main = () => {
               <button className="back" onClick={() => setStep(1)}>
                 Back
               </button>
-              <button type="submit" onClick={addProject} id="projsubmit">
+              <button
+                type="submit"
+                onClick={addProject}
+                id="projsubmit"
+                disabled={!showInputError.every((e) => e === false)}
+              >
                 Submit
               </button>
             </center>

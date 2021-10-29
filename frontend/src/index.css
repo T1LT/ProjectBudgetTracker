@@ -59,6 +59,7 @@ form h1 {
 
 .next,
 .back {
+  margin-top: 2%;
   margin-right: 5%;
 }
 
@@ -87,10 +88,6 @@ label {
 #projsubmit {
   margin-top: 5%;
   margin-right: 5%;
-}
-
-.tempclass {
-  margin: inherit;
 }
 
 .errorClass:focus {
@@ -237,10 +234,6 @@ input {
 
   .projectheader {
     font-size: 2em;
-  }
-
-  form {
-    width: 70%;
   }
 
   .Modal {

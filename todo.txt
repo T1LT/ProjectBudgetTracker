@@ -5,6 +5,7 @@ Team
 
 NR
 - error when submitted/next page with no data
+- add project drop down list not re-rendering
 
 --------------------------------------------------
 

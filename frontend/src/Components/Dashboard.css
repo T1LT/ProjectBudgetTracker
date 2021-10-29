@@ -50,7 +50,7 @@
 }
 
 .no-data {
-  font-size: 1.75rem;
+  font-size: 1.65rem;
 }
 
 #cvamt,
@@ -152,6 +152,10 @@
   #dash {
     margin-top: 5%;
   }
+
+  .no-data {
+    font-size: 1.5rem;
+  }
 }
 
 @media (max-width: 1250px) {
@@ -190,6 +194,10 @@
   #cpitext {
     font-size: 1em;
   }
+
+  .no-data {
+    font-size: 1.25rem;
+  }
 }
 
 @media (max-width: 1100px) {
@@ -224,6 +232,10 @@
   #left {
     height: 400px;
     margin-bottom: 2%;
+  }
+
+  .no-data {
+    margin-top: 10%;
   }
 }
 
@@ -280,5 +292,9 @@
   #donut {
     width: 350px !important;
     height: 350px !important;
+  }
+
+  .no-data {
+    font-size: 1rem;
   }
 }
