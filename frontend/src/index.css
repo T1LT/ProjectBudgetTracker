@@ -78,10 +78,12 @@ label {
   font-weight: bold;
 }
 
-#projname,
-#projdate,
-#projmanager,
-#projbudget {
+#projectName,
+#projectStartDate,
+#projectEndDate,
+#projectManager,
+#projectBudget,
+#projectMonthlyBudgets {
   margin: 5% 0 5% 0;
 }
 

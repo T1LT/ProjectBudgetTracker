@@ -38,6 +38,12 @@ const TransactionModal = ({
     }
   };
 
+  let today = new Date();
+  let dd = String(today.getDate()).padStart(2, "0");
+  let mm = String(today.getMonth() + 1).padStart(2, "0");
+  let yyyy = today.getFullYear();
+  today = yyyy + "-" + mm + "-" + dd;
+
   const handleTransactionType = (event) => {
     setTransactionType(event.target.value);
     handleChange(event);
@@ -74,8 +80,9 @@ const TransactionModal = ({
           defaultValue={
             caller === "Edit"
               ? formTransactionData["transaction-date"].slice(0, 10)
-              : ""
+              : today
           }
+          max={today}
           onChange={handleChange}
           required
         />

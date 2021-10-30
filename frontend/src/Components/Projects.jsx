@@ -252,7 +252,7 @@ const Projects = () => {
               Projects Table
             </Typography>
           </Toolbar>
-
+          {/* CHANGE THIS TOO */}
           {isOpen && (
             <Modal
               isOpen={isOpen}
@@ -342,6 +342,7 @@ const Projects = () => {
                 onRequestSort={handleRequestSort}
               />
               <TableBody>
+                {/* CHANGE THIS */}
                 {stableSort(projectData, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {

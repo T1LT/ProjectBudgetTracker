@@ -26,10 +26,12 @@ const Main = () => {
   const [step, setStep] = useState(1);
   const [monthBudget, setMonthBudget] = useState(Array(12).fill(0));
   const [projectData, setProjectData] = useState({
-    projname: "",
-    projdate: "",
-    projmanager: "",
-    projbudget: 0,
+    projectName: "",
+    projectStartDate: "",
+    projectEndDate: "",
+    projectManager: "",
+    projectBudget: 0,
+    projectMonthlyBudgets: monthBudget,
   });
 
   useEffect(() => {
@@ -61,17 +63,19 @@ const Main = () => {
     setShowError(false);
     setShowInputError(Array(12).fill(false));
     setStep(1);
-    setProjectData({
-      projname: "",
-      projdate: "",
-      projmanager: "",
-      projbudget: 0,
-    });
     setMonthBudget(Array(12).fill(0));
+    setProjectData({
+      projectName: "",
+      projectStartDate: "",
+      projectEndDate: "",
+      projectManager: "",
+      projectBudget: 0,
+      projectMonthlyBudgets: monthBudget,
+    });
   };
 
   const handleChange = (event) => {
-    if (event.target.name === "projbudget") {
+    if (event.target.name === "projectBudget") {
       if (!/^[0-9]+$/.test(event.target.value)) {
         setShowError(true);
       } else {
@@ -140,40 +144,45 @@ const Main = () => {
             <center>
               <h1>Add a Project</h1>
             </center>
-            <label htmlFor="projname">Project Name: </label>
+            <label htmlFor="projectName">Project Name: </label>
             <input
               type="text"
-              id="projname"
-              name="projname"
+              id="projectName"
+              name="projectName"
+              value={projectData["projectName"]}
               onChange={handleChange}
               required
             />
-            <label htmlFor="projdate">Start Date: </label>
+            <label htmlFor="projectStartDate">Start Date: </label>
             <input
               type="date"
-              id="projdate"
-              name="projdate"
+              id="projectStartDate"
+              name="projectStartDate"
+              value={projectData["projectStartDate"]}
               onChange={handleChange}
               required
             />
-            {/* <label htmlFor="projdate">End Date: </label>
+            <label htmlFor="projectEndDate">End Date: </label>
             <input
               type="date"
-              id="projdate"
-              name="projdate"
+              id="projectEndDate"
+              name="projectEndDate"
+              min={projectData["projectStartDate"]}
+              value={projectData["projectEndDate"]}
               onChange={handleChange}
               required
-            /> */}
-            <label htmlFor="projmanager">Project Manager: </label>
+            />
+            <label htmlFor="projectManager">Project Manager: </label>
             <input
               type="text"
-              id="projmanager"
-              name="projmanager"
+              id="projectManager"
+              name="projectManager"
+              value={projectData["projectManager"]}
               onChange={handleChange}
               required
             />
             <label
-              htmlFor="projbudget"
+              htmlFor="projectBudget"
               className={showError ? "labelError" : "tempclass"}
             >
               Project Budget:{" "}
@@ -181,8 +190,11 @@ const Main = () => {
             <input
               type="number"
               step="any"
-              id="projbudget"
-              name="projbudget"
+              id="projectBudget"
+              name="projectBudget"
+              defaultValue={
+                projectData["projectBudget"] ? projectData["projectBudget"] : ""
+              }
               onChange={handleChange}
               className={showError ? "errorClass" : "tempclass"}
               required
@@ -197,13 +209,14 @@ const Main = () => {
               <button
                 className="next"
                 onClick={() => setStep(2)}
-                // disabled={
-                //   projectData["projname"] === "" ||
-                //   projectData["projdate"] === "" ||
-                //   projectData["projmanager"] === "" ||
-                //   projectData["projbudget"] === "" ||
-                //   projectData["projbudget"] === 0
-                // }
+                disabled={
+                  projectData["projectName"] === "" ||
+                  projectData["projectStartDate"] === "" ||
+                  projectData["projectEndDate"] === "" ||
+                  projectData["projectManager"] === "" ||
+                  projectData["projectBudget"] === "" ||
+                  projectData["projectBudget"] === 0
+                }
               >
                 Next
               </button>
@@ -211,10 +224,12 @@ const Main = () => {
                 type="reset"
                 onClick={() =>
                   setProjectData({
-                    projname: "",
-                    projdate: "",
-                    projmanager: "",
-                    projbudget: 0,
+                    projectName: "",
+                    projectStartDate: "",
+                    projectEndDate: "",
+                    projectManager: "",
+                    projectBudget: 0,
+                    projectMonthlyBudgets: [Array(12).fill(0)],
                   })
                 }
               >
@@ -227,7 +242,7 @@ const Main = () => {
             <center>
               <h1>
                 Total Budget:{" "}
-                {projectData["projbudget"] -
+                {projectData["projectBudget"] -
                   monthBudget.reduce((a, b) => (a ? a : 0) + (b ? b : 0), 0)}
               </h1>
               <div className="form-2">
@@ -263,8 +278,6 @@ const Main = () => {
                         let temp = [...monthBudget];
                         temp[index] = parseInt(event.target.value);
                         setMonthBudget(temp);
-                        console.log(monthBudget);
-                        // console.log(showInputError);
                       }}
                     />
                   </div>
@@ -277,7 +290,10 @@ const Main = () => {
                 type="submit"
                 onClick={addProject}
                 id="projsubmit"
-                disabled={!showInputError.every((e) => e === false)}
+                disabled={
+                  !showInputError.every((e) => e === false) ||
+                  monthBudget.every((e) => e === 0)
+                }
               >
                 Submit
               </button>

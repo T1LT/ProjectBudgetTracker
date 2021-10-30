@@ -329,6 +329,7 @@ const Transactions = () => {
                 onRequestSort={handleRequestSort}
               />
               <TableBody>
+                {/* CHANGE THIS */}
                 {stableSort(transactionData, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
