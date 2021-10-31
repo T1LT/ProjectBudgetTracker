@@ -4,18 +4,21 @@ Team
     - start work
 
 NR
-- error when submitted/next page with no data
-- add project drop down list not re-rendering
+- edit project modal changes
+- handle the regex stunts in budget inputs
 
 --------------------------------------------------
 
 bk
 - prep backend acc to frontend
 - download from api link filename stunt
-- after deleting a project, BIG api stunt
 
 --------------------------------------------------
 
 adarsh
 - chartjs double bar (https://stackoverflow.com/questions/28180871/grouped-bar-charts-in-chart-js)
 
+--------------------------------------------------
+
+doubts
+- setProjectId in Projects.jsx isn't working (line: )

@@ -1,12 +1,13 @@
+import datetime
 from django.db.models.aggregates import Sum
 from django.http import HttpResponse, response
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from .models import Project, Transaction, TransactionType
+from .models import MonthlyBudget, Project, Transaction, TransactionType
 from .serializers import ProjectSerializer, TransactionSerializer
 
-from datetime import datetime
+from datetime import date
 import csv
 
 
@@ -70,20 +71,38 @@ def project_names(request):
 
 
 @api_view(["POST", "PUT", "DELETE"])
-def modify_project(request):
+def handle_project(request):
     if request.method == 'POST':
+        print(type(request.data["projectMonthlyBudgets"]))
+        monthly_budget_details = MonthlyBudget(
+            january = request.data["projectMonthlyBudgets"][0],
+            february = request.data["projectMonthlyBudgets"][1],
+            march = request.data["projectMonthlyBudgets"][2],
+            april = request.data["projectMonthlyBudgets"][3],
+            may = request.data["projectMonthlyBudgets"][4],
+            june = request.data["projectMonthlyBudgets"][5],
+            july = request.data["projectMonthlyBudgets"][6],
+            august = request.data["projectMonthlyBudgets"][7],
+            september = request.data["projectMonthlyBudgets"][8],
+            october = request.data["projectMonthlyBudgets"][9],
+            november = request.data["projectMonthlyBudgets"][10],
+            december = request.data["projectMonthlyBudgets"][11],
+        )
+        monthly_budget_details.save()
         project_details = Project(
-            name=request.data['projname'],
-            start_date=datetime(*map(int, request.data['projdate'].split('-'))),
-            manager=request.data['projmanager'],
-            budget=request.data['projbudget']
+            name=request.data['projectName'],
+            start_date = date(*map(int, request.data['projectStartDate'].split('-'))),
+            end_date = date(*map(int, request.data['projectEndDate'].split('-'))),
+            manager = request.data['projectManager'],
+            budget = request.data['projectBudget'],
+            monthly_budget = MonthlyBudget.objects.get(id = monthly_budget_details.id)
         )
         project_details.save()
 
     elif request.method == "PUT":
         project_details = Project.objects.get(id = request.data["id"])
         project_details.name = request.data["projname"]
-        project_details.start_date = datetime(*map(int, request.data['projdate'][:10].split('-')))
+        project_details.start_date = date(*map(int, request.data['projdate'][:10].split('-')))
         project_details.manager = request.data["projmanager"]
         project_details.budget = request.data["projbudget"]
         project_details.save()
@@ -94,13 +113,13 @@ def modify_project(request):
 
 
 @api_view(["POST", "PUT", "DELETE"])
-def add_transaction(request):
+def handle_transaction(request):
     if request.method == 'POST':
         transaction_details = Transaction(
             name=request.data["transaction-name"],
             type=TransactionType.objects.get(name = request.data["transaction-type"]),
             amount=request.data["transaction-amount"],
-            date=datetime(*map(int, request.data['transaction-date'].split('-'))),
+            date=date(*map(int, request.data['transaction-date'].split('-'))),
             project=Project.objects.get(id=request.data["project_id"]),
         )
         transaction_details.save()
@@ -109,7 +128,7 @@ def add_transaction(request):
         transaction_details.name = request.data["transaction-name"]
         transaction_details.amount = request.data["transaction-amount"]
         transaction_details.type = TransactionType.objects.get(name = request.data["transaction-type"])
-        transaction_details.date = datetime(*map(int, request.data['transaction-date'][:10].split('-')))
+        transaction_details.date = date(*map(int, request.data['transaction-date'][:10].split('-')))
         transaction_details.save()
     elif request.method == "DELETE":
         Transaction.objects.get(id = request.data["transaction-id"]).delete()
