@@ -87,6 +87,7 @@ const Main = () => {
 			[event.target.name]: event.target.value,
 		});
 	};
+
 	const addProject = (event) => {
 		event.preventDefault();
 		if (!showError) {
@@ -209,14 +210,14 @@ const Main = () => {
 							<button
 								className="next"
 								onClick={() => setStep(2)}
-								disabled={
-									projectData["projectName"] === "" ||
-									projectData["projectStartDate"] === "" ||
-									projectData["projectEndDate"] === "" ||
-									projectData["projectManager"] === "" ||
-									projectData["projectBudget"] === "" ||
-									projectData["projectBudget"] === 0
-								}
+								// disabled={
+								// 	projectData["projectName"] === "" ||
+								// 	projectData["projectStartDate"] === "" ||
+								// 	projectData["projectEndDate"] === "" ||
+								// 	projectData["projectManager"] === "" ||
+								// 	projectData["projectBudget"] === "" ||
+								// 	projectData["projectBudget"] === 0
+								// }
 							>
 								Next
 							</button>
@@ -250,7 +251,7 @@ const Main = () => {
 									<div className="month-inputs" key={index}>
 										<label
 											className={
-												showInputError[index] ? `labelError` : "month-class"
+												showInputError[index] ? "labelError" : "month-class"
 											}
 											htmlFor={month}
 										>
@@ -258,15 +259,20 @@ const Main = () => {
 										</label>
 										<input
 											className={
-												showInputError[index] ? `errorClass` : "month-class"
+												showInputError[index] ? "errorClass" : "month-class"
 											}
 											name="month-input"
-											type="number"
-											defaultValue={
-												monthBudget[index] ? monthBudget[index] : ""
+											type="text"
+											value={
+												monthBudget[index] ? Math.abs(monthBudget[index]) : ""
 											}
+											min="0"
 											onChange={(event) => {
-												if (!/^[0-9]*$/.test(event.target.value)) {
+												console.log(event.target.value);
+												if (
+													event.target.validity.badInput ||
+													!/^[0-9]*$/.test(event.target.value)
+												) {
 													let temp = showInputError;
 													temp[index] = true;
 													setShowInputError(temp);
@@ -280,6 +286,10 @@ const Main = () => {
 													event.target.value ? event.target.value : 0
 												);
 												setMonthBudget(temp);
+												setProjectData(() => ({
+													...projectData,
+													projectMonthlyBudgets: temp,
+												}));
 											}}
 										/>
 									</div>

@@ -3,7 +3,7 @@
 - divide the budget by months
 - AC - actual cost = inc exp
 - PV - planned value - comes from the monthly planned budget (assuming PV = EV)
-- BAC - budget at completion - total budget
+- BAC - budget at completion = total budget
 - EAC - estimate at completion
 - VAC - variance at completion
 - CV = EV - AC

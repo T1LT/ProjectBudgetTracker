@@ -26,6 +26,7 @@ import "./Transactions.css";
 import "../reset.css";
 import { tabContext } from "../index";
 import TransactionModal from "./TransactionModal";
+import { today } from "../utils";
 
 function descendingComparator(a, b, orderBy) {
 	if (orderBy === "amount") {
@@ -183,11 +184,10 @@ const Transactions = () => {
 		setRowsPerPage(parseInt(event.target.value, 10));
 		setPage(0);
 	};
-
 	const [transactionType, setTransactionType] = useState("Architect");
 	const [formTransactionData, setFormTransactionData] = useState({
 		"transaction-name": "",
-		"transaction-type": "",
+		"transaction-type": "Architect",
 		"transaction-amount": 0,
 		"transaction-date": "",
 		project_id: projectId,
@@ -199,6 +199,7 @@ const Transactions = () => {
 		setisopen(true);
 		setFormTransactionData({
 			...formTransactionData,
+			"transaction-date": today,
 			project_id: projectId,
 		});
 	};
@@ -209,7 +210,7 @@ const Transactions = () => {
 
 	const handleTransaction = (event) => {
 		event.preventDefault();
-
+		console.log(formTransactionData);
 		if (!showError) {
 			const url = "http://localhost:8000/api/projects/add-transaction/";
 

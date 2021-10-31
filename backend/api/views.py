@@ -23,6 +23,9 @@ def dashboard(request, id):
         project__id=id).aggregate(incurred_expenses=Sum('amount'))
     expenses = {}
 
+    monthly_budget = MonthlyBudget.objects.values_list().get(id = id)[1:]
+    monthly_budget_sum = {"monthly_budget_sum": sum(monthly_budget)}
+
     for x in TransactionType.objects.all():
         expenses[x.name] = Transaction.objects.filter(project=id).filter(
             type=x.id).aggregate(Sum('amount')).get('amount__sum', 0)
@@ -31,7 +34,7 @@ def dashboard(request, id):
             expenses[x] = float(expenses[x])
         else:
             expenses[x] = 0
-    return Response({**budget, **incurred_expenses, **{"expenses": expenses}})
+    return Response({**budget, **incurred_expenses, **monthly_budget_sum, **{"expenses": expenses}})
 
 
 @api_view(["GET"])
@@ -73,7 +76,7 @@ def project_names(request):
 @api_view(["POST", "PUT", "DELETE"])
 def handle_project(request):
     if request.method == 'POST':
-        print(type(request.data["projectMonthlyBudgets"]))
+        print(request.data["projectMonthlyBudgets"])
         monthly_budget_details = MonthlyBudget(
             january = request.data["projectMonthlyBudgets"][0],
             february = request.data["projectMonthlyBudgets"][1],
@@ -114,6 +117,7 @@ def handle_project(request):
 
 @api_view(["POST", "PUT", "DELETE"])
 def handle_transaction(request):
+    print(request.data)
     if request.method == 'POST':
         transaction_details = Transaction(
             name=request.data["transaction-name"],
@@ -128,7 +132,7 @@ def handle_transaction(request):
         transaction_details.name = request.data["transaction-name"]
         transaction_details.amount = request.data["transaction-amount"]
         transaction_details.type = TransactionType.objects.get(name = request.data["transaction-type"])
-        transaction_details.date = date(*map(int, request.data['transaction-date'][:10].split('-')))
+        transaction_details.date = date(*map(int, request.data['transaction-date'].split('-')))
         transaction_details.save()
     elif request.method == "DELETE":
         Transaction.objects.get(id = request.data["transaction-id"]).delete()

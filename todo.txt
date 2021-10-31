@@ -1,11 +1,9 @@
-Team
-- add formulae
-- settings
-    - start work
 
 NR
+- parameters when no transactions
 - edit project modal changes
-- handle the regex stunts in budget inputs
+- re: media queries
+- buttons css
 
 --------------------------------------------------
 
@@ -16,9 +14,10 @@ bk
 --------------------------------------------------
 
 adarsh
-- chartjs double bar (https://stackoverflow.com/questions/28180871/grouped-bar-charts-in-chart-js)
+- integrate api data in double chart
 
 --------------------------------------------------
 
 doubts
-- setProjectId in Projects.jsx isn't working (line: )
+- setProjectId in Projects.jsx isn't working
+- <input type = "number"/> is taking 34-343 as empty string, and accepting 2 -ve signs
