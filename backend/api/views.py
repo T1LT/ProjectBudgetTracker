@@ -1,6 +1,7 @@
-import datetime
+from django import http
 from django.db.models.aggregates import Sum
-from django.http import HttpResponse, response
+from django.http import HttpResponse
+from rest_framework import serializers
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -14,6 +15,9 @@ import csv
 def home(request):
     return HttpResponse("<h1>nice</h1>")
 
+def get_monthly_budget_data(id):
+    monthly_budget_data = MonthlyBudget.objects.values_list().get(id = id)[1:]
+    return monthly_budget_data
 
 @api_view(["GET"])
 def dashboard(request, id):
@@ -21,11 +25,19 @@ def dashboard(request, id):
 
     incurred_expenses = Transaction.objects.filter(
         project__id=id).aggregate(incurred_expenses=Sum('amount'))
+
+    monthly_budget_data = get_monthly_budget_data(id)
+    try:
+        max_month = Transaction.objects.filter(project = id).latest('date').date.month
+        min_month = Transaction.objects.filter(project = id).earliest('date').date.month
+        if min_month > max_month:
+            monthly_budget_sum = {"monthly_budget_sum": sum(monthly_budget_data[min_month-1:]) + sum(monthly_budget_data[:max_month])}
+        else:
+            monthly_budget_sum = {"monthly_budget_sum": sum(monthly_budget_data[min_month-1:max_month])}
+    except:
+        monthly_budget_sum = {"monthly_budget_sum": sum(monthly_budget_data)}
+
     expenses = {}
-
-    monthly_budget = MonthlyBudget.objects.values_list().get(id = id)[1:]
-    monthly_budget_sum = {"monthly_budget_sum": sum(monthly_budget)}
-
     for x in TransactionType.objects.all():
         expenses[x.name] = Transaction.objects.filter(project=id).filter(
             type=x.id).aggregate(Sum('amount')).get('amount__sum', 0)
@@ -34,6 +46,7 @@ def dashboard(request, id):
             expenses[x] = float(expenses[x])
         else:
             expenses[x] = 0
+    # return HttpResponse("nice")
     return Response({**budget, **incurred_expenses, **monthly_budget_sum, **{"expenses": expenses}})
 
 
@@ -56,13 +69,18 @@ def reports(request, id):
             reports[month] = float(reports[month])
         else:
             reports[month] = 0
-    return Response(reports)
+    reports = {"expenses": reports}
+    monthly_budget_data = {"monthly_budgets": get_monthly_budget_data(id)}
+    return Response({**reports, **monthly_budget_data})
 
 
 @api_view(["GET"])
 def projects(request):
     serializer = ProjectSerializer(Project.objects.all(), many=True)
-    return Response(serializer.data)
+    project_data = serializer.data
+    for i, x in enumerate(serializer.data):
+        project_data[i]["monthly_budget"] = get_monthly_budget_data(project_data[i]["id"])
+    return Response(project_data)
 
 
 @api_view(["GET"])
@@ -76,7 +94,6 @@ def project_names(request):
 @api_view(["POST", "PUT", "DELETE"])
 def handle_project(request):
     if request.method == 'POST':
-        print(request.data["projectMonthlyBudgets"])
         monthly_budget_details = MonthlyBudget(
             january = request.data["projectMonthlyBudgets"][0],
             february = request.data["projectMonthlyBudgets"][1],

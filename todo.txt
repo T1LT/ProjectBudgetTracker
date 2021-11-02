@@ -3,18 +3,19 @@ NR
 - change dashboard parameters colors
 - edit project modal changes
 - transactions submit when no values given
+- reports colors
+- reduce button opacity
 
 --------------------------------------------------
 
 bk
-- change monthly budget sum to monthly budget sum upto current transactions
-- prep backend acc to frontend
 - download from api link filename stunt
+- check why on_delete = models.CASCADE isn't working
 
 --------------------------------------------------
 
 adarsh
-- integrate api data in double chart
+-
 
 --------------------------------------------------
 
