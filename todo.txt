@@ -1,13 +1,13 @@
 
 NR
-- parameters when no transactions
+- change dashboard parameters colors
 - edit project modal changes
-- re: media queries
-- buttons css
+- transactions submit when no values given
 
 --------------------------------------------------
 
 bk
+- change monthly budget sum to monthly budget sum upto current transactions
 - prep backend acc to frontend
 - download from api link filename stunt
 
@@ -19,5 +19,4 @@ adarsh
 --------------------------------------------------
 
 doubts
-- setProjectId in Projects.jsx isn't working
 - <input type = "number"/> is taking 34-343 as empty string, and accepting 2 -ve signs

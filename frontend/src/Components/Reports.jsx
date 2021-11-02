@@ -19,7 +19,6 @@ const Reports = () => {
         console.log(error);
       });
   }, [settab, projectId]);
-  console.log(reportData);
   var data = {
     labels: [
       "Jan",
@@ -40,14 +39,14 @@ const Reports = () => {
         label: "Param 1",
         backgroundColor: "rgba(255, 99, 132, 0.2)",
         borderColor: "rgb(255, 99, 132)",
-        data: [1,2,3,4,5,6,7,8,9,10,11,12],
+        data: reportData,
         borderWidth: 1,
       },
       {
         label: "Param 2",
         backgroundColor: "rgba(255, 159, 64, 0.2)",
         borderColor: "rgba(255, 159, 64)",
-        data: [1,2,3,4,5,6,7,8,9,10,11,12],
+        data: reportData,
         borderWidth: 1,
       },
     ],
