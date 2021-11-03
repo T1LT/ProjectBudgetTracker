@@ -1,7 +1,7 @@
 
 NR
-- change dashboard parameters colors
-- edit project modal changes
+- add project, edit project modals disable months beyond the project scope
+- disable next button when negative budget in add project modal
 
 --------------------------------------------------
 
