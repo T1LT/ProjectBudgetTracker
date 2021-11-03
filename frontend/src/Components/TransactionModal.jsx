@@ -132,6 +132,9 @@ const TransactionModal = ({
           <Alert severity="error">Enter a positive value for amount!</Alert>
         )}
         <center>
+          <button type="reset" value="Reset">
+            Reset
+          </button>
           <button
             type="submit"
             onClick={handleTransaction}
@@ -144,9 +147,6 @@ const TransactionModal = ({
             }
           >
             Submit
-          </button>
-          <button type="reset" value="Reset">
-            Reset
           </button>
         </center>
       </form>

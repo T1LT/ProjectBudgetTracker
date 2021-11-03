@@ -24,6 +24,7 @@ import axios from "axios";
 import "./Transactions.css";
 import "../reset.css";
 import { tabContext } from "../index";
+import { months } from "../utils.js";
 
 function descendingComparator(a, b, orderBy) {
   if (orderBy === "budget") {
@@ -156,6 +157,8 @@ const Projects = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showError, setShowError] = useState(false);
   const [formProjectData, setFormProjectData] = useState({});
+  const [step, setStep] = useState(1);
+  const [showInputError, setShowInputError] = useState(Array(12).fill(false));
 
   useEffect(() => {
     (async () => {
@@ -207,6 +210,8 @@ const Projects = () => {
   const closeModal = () => {
     setIsOpen(false);
     setShowError(false);
+    setStep(1);
+    setShowInputError(Array(12).fill(false));
   };
 
   const updateProject = (event) => {
@@ -271,76 +276,173 @@ const Projects = () => {
               overlayClassName="Overlay"
               ariaHideApp={false}
             >
-              <form>
-                <center>
-                  <h1>Edit Project</h1>
-                </center>
-                <label htmlFor="projectName">Project Name: </label>
-                <input
-                  type="text"
-                  id="projectName"
-                  name="projectName"
-                  defaultValue={formProjectData["projectName"]}
-                  onChange={handleChange}
-                  required
-                />
-                <label htmlFor="projectStartDate">Start Date: </label>
-                <input
-                  type="date"
-                  id="projectStartDate"
-                  name="projectStartDate"
-                  defaultValue={formProjectData["projectStartDate"]}
-                  onChange={handleChange}
-                  required
-                />
-                <label htmlFor="projectEndDate">End Date: </label>
-                <input
-                  type="date"
-                  id="projectEndDate"
-                  name="projectEndDate"
-                  defaultValue={formProjectData["projectEndDate"]}
-                  onChange={handleChange}
-                  required
-                />
-                <label htmlFor="projectManager">Project Manager: </label>
-                <input
-                  type="text"
-                  id="projectManager"
-                  name="projectManager"
-                  defaultValue={formProjectData["projectManager"]}
-                  onChange={handleChange}
-                  required
-                />
-                <label
-                  htmlFor="projectBudget"
-                  className={showError ? "labelError" : "tempclass"}
-                >
-                  Project Budget:{" "}
-                </label>
-                <input
-                  type="number"
-                  step="any"
-                  id="projectBudget"
-                  name="projectBudget"
-                  defaultValue={Number.parseFloat(
-                    formProjectData["projectBudget"]
+              {step === 1 ? (
+                <form>
+                  <center>
+                    <h1>Edit Project</h1>
+                  </center>
+                  <label htmlFor="projectName">Project Name: </label>
+                  <input
+                    type="text"
+                    id="projectName"
+                    name="projectName"
+                    defaultValue={formProjectData["projectName"]}
+                    onChange={handleChange}
+                    required
+                  />
+                  <label htmlFor="projectStartDate">Start Date: </label>
+                  <input
+                    type="date"
+                    id="projectStartDate"
+                    name="projectStartDate"
+                    defaultValue={formProjectData["projectStartDate"]}
+                    onChange={handleChange}
+                    required
+                  />
+                  <label htmlFor="projectEndDate">End Date: </label>
+                  <input
+                    type="date"
+                    id="projectEndDate"
+                    name="projectEndDate"
+                    defaultValue={formProjectData["projectEndDate"]}
+                    onChange={handleChange}
+                    required
+                  />
+                  <label htmlFor="projectManager">Project Manager: </label>
+                  <input
+                    type="text"
+                    id="projectManager"
+                    name="projectManager"
+                    defaultValue={formProjectData["projectManager"]}
+                    onChange={handleChange}
+                    required
+                  />
+                  <label
+                    htmlFor="projectBudget"
+                    className={showError ? "labelError" : "tempclass"}
+                  >
+                    Project Budget:{" "}
+                  </label>
+                  <input
+                    type="number"
+                    step="any"
+                    id="projectBudget"
+                    name="projectBudget"
+                    defaultValue={Number.parseFloat(
+                      formProjectData["projectBudget"]
+                    )}
+                    onChange={handleChange}
+                    className={showError ? "errorClass" : "tempclass"}
+                    required
+                  />
+                  {showError && (
+                    <Alert severity="error">
+                      Enter a positive value for amount!
+                    </Alert>
                   )}
-                  onChange={handleChange}
-                  className={showError ? "errorClass" : "tempclass"}
-                  required
-                />
-                {showError && (
-                  <Alert severity="error">
-                    Enter a positive value for amount!
-                  </Alert>
-                )}
-                <center>
-                  <button type="submit" onClick={updateProject} id="projsubmit">
-                    Submit
-                  </button>
-                  <button type="reset">Reset</button>
-                </center>
-              </form>
+                  <center>
+                    <button type="reset">Reset</button>
+                    <button className="next" onClick={() => setStep(2)}>
+                      Next
+                    </button>
+                  </center>
+                </form>
+              ) : (
+                <form className="form-step-2">
+                  <center>
+                    <h1>Remaining Budget:</h1>
+                    <h1>
+                      $
+                      {new Intl.NumberFormat().format(
+                        Number.parseFloat(formProjectData["projectBudget"]) -
+                          formProjectData["projectMonthlyBudgets"].reduce(
+                            (a, b) => (a ? a : 0) + (b ? b : 0),
+                            0
+                          )
+                      )}
+                    </h1>
+                    <div className="form-2">
+                      {months.map((month, index) => (
+                        <div className="month-inputs" key={index}>
+                          <label
+                            className={
+                              showInputError[index]
+                                ? "labelError2"
+                                : "month-class"
+                            }
+                            htmlFor={month}
+                          >
+                            {month}
+                          </label>
+                          <input
+                            className={
+                              showInputError[index]
+                                ? "errorClass2"
+                                : "month-class"
+                            }
+                            name="month-input"
+                            type="text"
+                            defaultValue={
+                              formProjectData["projectMonthlyBudgets"][index]
+                                ? formProjectData["projectMonthlyBudgets"][
+                                    index
+                                  ]
+                                : 0
+                            }
+                            min="0"
+                            onChange={(event) => {
+                              if (
+                                event.target.validity.badInput ||
+                                !/^[0-9]*$/.test(event.target.value)
+                              ) {
+                                let temp = showInputError;
+                                temp[index] = true;
+                                setShowInputError(temp);
+                              } else {
+                                let temp = showInputError;
+                                temp[index] = false;
+                                setShowInputError(temp);
+                              }
+                              let temp = [
+                                ...formProjectData["projectMonthlyBudgets"],
+                              ];
+                              temp[index] = parseInt(
+                                event.target.value ? event.target.value : 0
+                              );
+                              setFormProjectData(() => ({
+                                ...formProjectData,
+                                projectMonthlyBudgets: temp,
+                              }));
+                            }}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                    <button className="back" onClick={() => setStep(1)}>
+                      Back
+                    </button>
+                    <button
+                      type="submit"
+                      onClick={updateProject}
+                      id="projectSubmit"
+                      disabled={
+                        !showInputError.every((e) => e === false) ||
+                        formProjectData["projectMonthlyBudgets"].every(
+                          (e) => e === 0
+                        ) ||
+                        Number.parseFloat(formProjectData["projectBudget"]) -
+                          formProjectData["projectMonthlyBudgets"].reduce(
+                            (a, b) => (a ? a : 0) + (b ? b : 0),
+                            0
+                          ) <
+                          0
+                      }
+                    >
+                      Submit
+                    </button>
+                  </center>
+                </form>
+              )}
               <button onClick={closeModal} id="closeButton">
                 &times;
               </button>
@@ -393,6 +495,7 @@ const Projects = () => {
                                 projectEndDate: row.end_date,
                                 projectManager: row.manager,
                                 projectBudget: row.budget,
+                                projectMonthlyBudgets: row.monthly_budget,
                               });
                             }}
                           >

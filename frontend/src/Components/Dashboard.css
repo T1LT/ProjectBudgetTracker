@@ -19,14 +19,14 @@
 
 #totalamt {
   color: green;
-  font-size: 4em;
+  font-size: 3.6em;
   padding: 2.5%;
   font-weight: bold;
 }
 
 #incamt {
   color: red;
-  font-size: 4em;
+  font-size: 3.6em;
   padding: 2.5%;
   font-weight: bold;
 }
@@ -53,13 +53,20 @@
   font-size: 1.65rem;
 }
 
+#erroramt {
+  color: rgb(255, 87, 87);
+  font-size: 3.6em;
+  padding: 2.5%;
+  font-weight: bold;
+}
+
 #cvamt,
 #eacamt,
 #vacamt,
 #cpiamt,
 #percentamt {
   color: #00bfff;
-  font-size: 4em;
+  font-size: 3.6em;
   padding: 2.5%;
   font-weight: bold;
 }
@@ -84,7 +91,8 @@
   #cpiamt,
   #percentamt,
   #incamt,
-  #totalamt {
+  #totalamt,
+  #erroramt {
     font-size: 3.5em;
   }
 }
@@ -106,7 +114,8 @@
   #cpiamt,
   #percentamt,
   #incamt,
-  #totalamt {
+  #totalamt,
+  #erroramt {
     font-size: 3.25em;
   }
 }
@@ -118,7 +127,8 @@
   #cpiamt,
   #percentamt,
   #incamt,
-  #totalamt {
+  #totalamt,
+  #erroramt {
     font-size: 3em;
   }
 }
@@ -130,7 +140,8 @@
   #cpiamt,
   #percentamt,
   #incamt,
-  #totalamt {
+  #totalamt,
+  #erroramt {
     font-size: 2.75em;
   }
 
@@ -165,7 +176,8 @@
   #cpiamt,
   #percentamt,
   #incamt,
-  #totalamt {
+  #totalamt,
+  #erroramt {
     font-size: 2.5em;
   }
 
@@ -181,7 +193,8 @@
   #cpiamt,
   #percentamt,
   #incamt,
-  #totalamt {
+  #totalamt,
+  #erroramt {
     font-size: 2.25em;
   }
 
@@ -207,7 +220,8 @@
   #cpiamt,
   #percentamt,
   #incamt,
-  #totalamt {
+  #totalamt,
+  #erroramt {
     font-size: 2.25em;
   }
 
@@ -246,7 +260,8 @@
   #cpiamt,
   #percentamt,
   #incamt,
-  #totalamt {
+  #totalamt,
+  #erroramt {
     font-size: 2em;
   }
 
@@ -275,7 +290,8 @@
   #cpiamt,
   #percentamt,
   #incamt,
-  #totalamt {
+  #totalamt,
+  #erroramt {
     font-size: 1.75em;
   }
 

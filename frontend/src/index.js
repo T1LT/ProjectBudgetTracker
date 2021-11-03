@@ -120,7 +120,7 @@ const Main = () => {
           <Link
             to="/transactions"
             style={tab === "tran" ? style2 : style1}
-            onClick={() => settab("tran")} //remove
+            onClick={() => settab("tran")}
           >
             Transactions
           </Link>
@@ -130,7 +130,7 @@ const Main = () => {
           <Link
             to="/projects"
             style={tab === "proj" ? style2 : style1}
-            onClick={() => settab("proj")} //remove
+            onClick={() => settab("proj")}
           >
             Projects
           </Link>
@@ -209,20 +209,6 @@ const Main = () => {
             )}
             <center>
               <button
-                className="next"
-                onClick={() => setStep(2)}
-                // disabled={
-                //   projectData["projectName"] === "" ||
-                //   projectData["projectStartDate"] === "" ||
-                //   projectData["projectEndDate"] === "" ||
-                //   projectData["projectManager"] === "" ||
-                //   projectData["projectBudget"] === "" ||
-                //   projectData["projectBudget"] === 0
-                // }
-              >
-                Next
-              </button>
-              <button
                 type="reset"
                 onClick={() =>
                   setProjectData({
@@ -236,6 +222,20 @@ const Main = () => {
                 }
               >
                 Reset
+              </button>
+              <button
+                className="next"
+                onClick={() => setStep(2)}
+                disabled={
+                  projectData["projectName"] === "" ||
+                  projectData["projectStartDate"] === "" ||
+                  projectData["projectEndDate"] === "" ||
+                  projectData["projectManager"] === "" ||
+                  projectData["projectBudget"] === "" ||
+                  projectData["projectBudget"] === 0
+                }
+              >
+                Next
               </button>
             </center>
           </form>

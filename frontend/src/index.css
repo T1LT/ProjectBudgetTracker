@@ -149,9 +149,9 @@ label {
 
 button {
   font-family: "Manrope", sans-serif;
-  background: black;
+  background: rgb(44, 44, 44);
   color: white;
-  border: 0.125em solid black;
+  border: 0.125em solid rgb(44, 44, 44);
   margin-right: 5%;
   padding: 2% 5%;
   border-radius: 25px;

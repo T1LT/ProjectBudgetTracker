@@ -2,9 +2,6 @@
 NR
 - change dashboard parameters colors
 - edit project modal changes
-- transactions submit when no values given
-- reports colors
-- reduce button opacity
 
 --------------------------------------------------
 

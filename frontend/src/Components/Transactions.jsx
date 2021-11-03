@@ -205,6 +205,13 @@ const Transactions = () => {
   const closeModal = () => {
     setisopen(false);
     setShowError(false);
+    setFormTransactionData({
+      "transaction-name": "",
+      "transaction-type": "Architect",
+      "transaction-amount": 0,
+      "transaction-date": "",
+      project_id: projectId,
+    });
   };
 
   const handleTransaction = (event) => {
@@ -328,7 +335,6 @@ const Transactions = () => {
                 onRequestSort={handleRequestSort}
               />
               <TableBody>
-                {/* CHANGE THIS */}
                 {stableSort(transactionData, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {

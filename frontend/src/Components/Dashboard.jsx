@@ -58,11 +58,11 @@ const Dashboard = () => {
               <CardContent sx={{ display: "grid", placeItems: "center" }}>
                 <h2 id="totaltext">Total Budget</h2>
                 <h1 id="totalamt">
-                  ${new Intl.NumberFormat().format(data.budget)}
+                  ${new Intl.NumberFormat().format(data["budget"])}
                 </h1>
                 <h2 id="inctext">Incurred Expenses</h2>
                 <h1 id="incamt">
-                  ${new Intl.NumberFormat().format(data.incurred_expenses)}
+                  ${new Intl.NumberFormat().format(data["incurred_expenses"])}
                 </h1>
               </CardContent>
             </Card>
@@ -77,10 +77,16 @@ const Dashboard = () => {
               }}
             >
               <CardContent sx={{ display: "grid", placeItems: "center" }}>
-                <h1 id="cvamt">
+                <h1
+                  id={
+                    data["monthly_budget_sum"] - data["incurred_expenses"] < 0
+                      ? "erroramt"
+                      : "cvamt"
+                  }
+                >
                   $
                   {new Intl.NumberFormat().format(
-                    data.monthly_budget_sum - data.incurred_expenses
+                    data["monthly_budget_sum"] - data["incurred_expenses"]
                   )}
                 </h1>
                 <h2 id="cvtext">Cost Variance</h2>
@@ -97,10 +103,16 @@ const Dashboard = () => {
               }}
             >
               <CardContent sx={{ display: "grid", placeItems: "center" }}>
-                <h1 id="cpiamt">
-                  {(data.monthly_budget_sum / data.incurred_expenses).toFixed(
-                    2
-                  )}
+                <h1
+                  id={
+                    data["monthly_budget_sum"] / data["incurred_expenses"] < 1
+                      ? "erroramt"
+                      : "cpiamt"
+                  }
+                >
+                  {(
+                    data["monthly_budget_sum"] / data["incurred_expenses"]
+                  ).toFixed(2)}
                 </h1>
                 <h2 id="cpitext">Cost Performance Index</h2>
               </CardContent>
@@ -117,7 +129,10 @@ const Dashboard = () => {
             >
               <CardContent sx={{ display: "grid", placeItems: "center" }}>
                 <h1 id="percentamt">
-                  {((data.incurred_expenses / data.budget) * 100).toFixed(2)}%
+                  {((data["incurred_expenses"] / data["budget"]) * 100).toFixed(
+                    2
+                  )}
+                  %
                 </h1>
                 <h2 id="percenttext">spent</h2>
               </CardContent>
@@ -137,8 +152,8 @@ const Dashboard = () => {
                   $
                   {new Intl.NumberFormat().format(
                     (
-                      data.budget /
-                      (data.monthly_budget_sum / data.incurred_expenses)
+                      data["budget"] /
+                      (data["monthly_budget_sum"] / data["incurred_expenses"])
                     ).toFixed(2)
                   )}
                 </h1>
@@ -156,13 +171,23 @@ const Dashboard = () => {
               }}
             >
               <CardContent sx={{ display: "grid", placeItems: "center" }}>
-                <h1 id="vacamt">
+                <h1
+                  id={
+                    data["budget"] -
+                      data["budget"] /
+                        (data["monthly_budget_sum"] /
+                          data["incurred_expenses"]) <
+                    0
+                      ? "erroramt"
+                      : "vacamt"
+                  }
+                >
                   $
                   {new Intl.NumberFormat().format(
                     (
-                      data.budget -
-                      data.budget /
-                        (data.monthly_budget_sum / data.incurred_expenses)
+                      data["budget"] -
+                      data["budget"] /
+                        (data["monthly_budget_sum"] / data["incurred_expenses"])
                     ).toFixed(2)
                   )}
                 </h1>
