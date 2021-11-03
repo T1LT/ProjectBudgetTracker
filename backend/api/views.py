@@ -121,10 +121,27 @@ def handle_project(request):
 
     elif request.method == "PUT":
         project_details = Project.objects.get(id = request.data["id"])
-        project_details.name = request.data["projname"]
-        project_details.start_date = date(*map(int, request.data['projdate'][:10].split('-')))
-        project_details.manager = request.data["projmanager"]
-        project_details.budget = request.data["projbudget"]
+        project_details.name = request.data["projectName"]
+        project_details.start_date = date(*map(int, request.data['projectStartDate'].split('-')))
+        project_details.end_date = date(*map(int, request.data["projectEndDate"].split('-')))
+        project_details.manager = request.data["projectManager"]
+        project_details.budget = request.data["projectBudget"]
+
+        monthly_budget_details = MonthlyBudget.objects.get(id = project_details.monthly_budget.id)
+        monthly_budget_details.january = request.data["projectMonthlyBudgets"][0]
+        monthly_budget_details.february = request.data["projectMonthlyBudgets"][1]
+        monthly_budget_details.march = request.data["projectMonthlyBudgets"][2]
+        monthly_budget_details.april = request.data["projectMonthlyBudgets"][3]
+        monthly_budget_details.may = request.data["projectMonthlyBudgets"][4]
+        monthly_budget_details.june = request.data["projectMonthlyBudgets"][5]
+        monthly_budget_details.july = request.data["projectMonthlyBudgets"][6]
+        monthly_budget_details.august = request.data["projectMonthlyBudgets"][7]
+        monthly_budget_details.september = request.data["projectMonthlyBudgets"][8]
+        monthly_budget_details.october = request.data["projectMonthlyBudgets"][9]
+        monthly_budget_details.november = request.data["projectMonthlyBudgets"][10]
+        monthly_budget_details.december = request.data["projectMonthlyBudgets"][11]
+        monthly_budget_details.save()
+
         project_details.save()
 
     elif request.method == "DELETE":
