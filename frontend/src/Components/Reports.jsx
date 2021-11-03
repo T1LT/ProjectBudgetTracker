@@ -18,7 +18,6 @@ const Reports = () => {
         );
         setExpenseData(data);
         data = response.data["monthly_budgets"];
-        setPlannedData(data);
       })
       .catch((error) => {
         console.log(error);
@@ -41,17 +40,17 @@ const Reports = () => {
     ],
     datasets: [
       {
-        label: "Actual Cost",
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
-        borderColor: "rgb(255, 99, 132)",
-        data: expenseData,
-        borderWidth: 1,
-      },
-      {
         label: "Planned Value",
         backgroundColor: "rgba(54, 162, 235, 0.2)",
         borderColor: "rgb(54, 162, 235)",
         data: plannedData,
+        borderWidth: 1,
+      },
+      {
+        label: "Actual Cost",
+        backgroundColor: "rgba(255, 99, 132, 0.2)",
+        borderColor: "rgb(255, 99, 132)",
+        data: expenseData,
         borderWidth: 1,
       },
     ],
