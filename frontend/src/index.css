@@ -43,6 +43,10 @@ form h1 {
   font-size: 2.45rem;
 }
 
+#hideprojectselect {
+  display: none;
+}
+
 #projectselect option {
   font-size: 0.9rem;
 }

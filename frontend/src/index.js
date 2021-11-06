@@ -226,14 +226,15 @@ const Main = () => {
               <button
                 className="next"
                 onClick={() => setStep(2)}
-                disabled={
-                  projectData["projectName"] === "" ||
-                  projectData["projectStartDate"] === "" ||
-                  projectData["projectEndDate"] === "" ||
-                  projectData["projectManager"] === "" ||
-                  projectData["projectBudget"] === "" ||
-                  projectData["projectBudget"] === 0
-                }
+                // disabled={
+                //   projectData["projectName"] === "" ||
+                //   projectData["projectStartDate"] === "" ||
+                //   projectData["projectEndDate"] === "" ||
+                //   projectData["projectManager"] === "" ||
+                //   projectData["projectBudget"] === "" ||
+                //   projectData["projectBudget"] === 0 ||
+                //   showError
+                // }
               >
                 Next
               </button>
@@ -245,6 +246,7 @@ const Main = () => {
               <h1>Remaining Budget:</h1>
               <h1>${new Intl.NumberFormat().format(remainingBudget)}</h1>
               <div className="form-2">
+                {/* {(projectData["projectStartDate"] = "2021-12-15")} */}
                 {months.map((month, index) => (
                   <div className="month-inputs" key={index}>
                     <label
@@ -317,7 +319,7 @@ const Main = () => {
       <center>
         <div id="projectdiv">
           <select
-            id="projectselect"
+            id={tab === "proj" ? "hideprojectselect" : "projectselect"}
             value={projectId}
             onChange={handleProjectId}
           >

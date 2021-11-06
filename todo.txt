@@ -1,7 +1,6 @@
 
 NR
-- change dashboard parameters colors
-- edit project modal changes
+- add project, edit project modals disable months beyond the project scope
 
 --------------------------------------------------
 

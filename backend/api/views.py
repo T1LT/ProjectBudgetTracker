@@ -11,7 +11,7 @@ from .serializers import ProjectSerializer, TransactionSerializer
 from datetime import date
 import csv
 
-
+months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 def home(request):
     return HttpResponse("<h1>nice</h1>")
 
@@ -61,17 +61,31 @@ def transactions(request, id):
 
 @api_view(["GET"])
 def reports(request, id):
-    reports = {}
-    for month in range(1, 13):
-        reports[month] = Transaction.objects.filter(project=id).filter(
+    min_date = Project.objects.get(id = id).start_date
+    labels = months[min_date.month - 1:] + months[:min_date.month-1]
+    curr_year = str(min_date.year)
+    for i in range(12):
+        labels[i] += "'" + curr_year[2:]
+        if labels[i][:3] == "Dec":
+            curr_year = str(int(curr_year) + 1)
+    labels = {"labels": labels}
+
+    expenses = []
+    for month in range(min_date.month, min_date.month + 12):
+        month = month % 12
+        expenses.append(
+            Transaction.objects.filter(project=id).filter(
             date__month=month).aggregate(Sum('amount')).get('amount__sum', 0)
-        if reports[month]:
-            reports[month] = float(reports[month])
-        else:
-            reports[month] = 0
-    reports = {"expenses": reports}
-    monthly_budget_data = {"monthly_budgets": get_monthly_budget_data(id)}
-    return Response({**reports, **monthly_budget_data})
+        )
+        expenses[-1] = float(expenses[-1]) if expenses[-1] else 0
+    expenses = {"expenses": expenses}
+
+
+    monthly_budget_data = list(get_monthly_budget_data(id))
+    monthly_budget_data = monthly_budget_data[min_date.month - 1:] + monthly_budget_data[:min_date.month-1]
+    monthly_budget_data = {"monthly_budgets": monthly_budget_data}
+
+    return Response({**expenses, **monthly_budget_data, **labels})
 
 
 @api_view(["GET"])
@@ -151,7 +165,6 @@ def handle_project(request):
 
 @api_view(["POST", "PUT", "DELETE"])
 def handle_transaction(request):
-    print(request.data)
     if request.method == 'POST':
         transaction_details = Transaction(
             name=request.data["transaction-name"],

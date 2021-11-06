@@ -54,7 +54,7 @@
 }
 
 #erroramt {
-  color: rgb(255, 87, 87);
+  color: red;
   font-size: 3.6em;
   padding: 2.5%;
   font-weight: bold;

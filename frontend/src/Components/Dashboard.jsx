@@ -11,28 +11,43 @@ const Dashboard = () => {
   const [data, setData] = useState({});
   const [labels, setLabels] = useState([]);
   const [chartData, setChartData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loader, setLoader] = useState(0);
 
   useEffect(() => {
-    (async () => {
+    (() => {
       let temp1 = [];
       let temp2 = [];
+      let apiData = {
+        expenses: {},
+      };
       const url = `http://localhost:8000/api/project/${projectId}/`;
-      const response = await axios.get(url);
-      const apiData = response.data;
-      setData(apiData);
-      setIsLoading(false);
-      setLabels([]);
-      setChartData([]);
-      Object.keys(apiData["expenses"]).map((expense) => {
-        if (apiData["expenses"][expense] !== 0) {
-          temp1.push(expense);
-          temp2.push(apiData["expenses"][expense]);
-        }
-        return null;
-      });
-      setLabels(temp1);
-      setChartData(temp2);
+      axios
+        .get(url)
+        .then((response) => {
+          console.log(response.data);
+          apiData = response.data;
+          setData(apiData);
+          setLabels([]);
+          setChartData([]);
+          Object.keys(apiData["expenses"]).map((expense) => {
+            if (apiData["expenses"][expense] !== 0) {
+              temp1.push(expense);
+              temp2.push(apiData["expenses"][expense]);
+            }
+            return null;
+          });
+          setLabels(temp1);
+          setChartData(temp2);
+          setLoader(1);
+        })
+        .catch((error) => {
+          console.log(error.response.status);
+          if (error.response.status === 500) {
+            setLoader(2);
+          } else {
+            setLoader(0);
+          }
+        });
     })();
   }, [projectId]);
 
@@ -42,7 +57,19 @@ const Dashboard = () => {
 
   return (
     <>
-      {!isLoading ? (
+      {loader === 0 && (
+        <div
+          style={{
+            height: "70vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress />
+        </div>
+      )}
+      {loader === 1 && (
         <div id="dash">
           <div id="left">
             <Card
@@ -86,7 +113,9 @@ const Dashboard = () => {
                 >
                   $
                   {new Intl.NumberFormat().format(
-                    data["monthly_budget_sum"] - data["incurred_expenses"]
+                    Math.round(
+                      data["monthly_budget_sum"] - data["incurred_expenses"]
+                    )
                   )}
                 </h1>
                 <h2 id="cvtext">Cost Variance</h2>
@@ -151,10 +180,10 @@ const Dashboard = () => {
                 <h1 id="eacamt">
                   $
                   {new Intl.NumberFormat().format(
-                    (
+                    Math.round(
                       data["budget"] /
-                      (data["monthly_budget_sum"] / data["incurred_expenses"])
-                    ).toFixed(2)
+                        (data["monthly_budget_sum"] / data["incurred_expenses"])
+                    )
                   )}
                 </h1>
                 <h2 id="eactext">Estimate at Completion</h2>
@@ -184,11 +213,12 @@ const Dashboard = () => {
                 >
                   $
                   {new Intl.NumberFormat().format(
-                    (
+                    Math.round(
                       data["budget"] -
-                      data["budget"] /
-                        (data["monthly_budget_sum"] / data["incurred_expenses"])
-                    ).toFixed(2)
+                        data["budget"] /
+                          (data["monthly_budget_sum"] /
+                            data["incurred_expenses"])
+                    )
                   )}
                 </h1>
                 <h2 id="vactext">Variance at Completion</h2>
@@ -223,16 +253,12 @@ const Dashboard = () => {
             )}
           </div>
         </div>
-      ) : (
-        <div
-          style={{
-            height: "70vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <CircularProgress />
+      )}
+      {loader === 2 && (
+        <div>
+          <center>
+            <h1>Add a project to get started.</h1>
+          </center>
         </div>
       )}
     </>
