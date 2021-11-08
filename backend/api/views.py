@@ -12,21 +12,24 @@ from datetime import date
 import csv
 
 months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+full_months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+
 def home(request):
     return HttpResponse("<h1>nice</h1>")
 
 def get_monthly_budget_data(id):
     monthly_budget_data = MonthlyBudget.objects.values_list().get(id = id)[1:]
-    return monthly_budget_data
+    return list(monthly_budget_data)
 
 @api_view(["GET"])
 def dashboard(request, id):
-    budget = {"budget": Project.objects.get(id=id).budget}
+    project_details = Project.objects.get(id=id)
+    budget = {"budget": project_details.budget}
 
     incurred_expenses = Transaction.objects.filter(
         project__id=id).aggregate(incurred_expenses=Sum('amount'))
 
-    monthly_budget_data = get_monthly_budget_data(id)
+    monthly_budget_data = get_monthly_budget_data(project_details.monthly_budget.id)
     try:
         max_month = Transaction.objects.filter(project = id).latest('date').date.month
         min_month = Transaction.objects.filter(project = id).earliest('date').date.month
@@ -61,7 +64,8 @@ def transactions(request, id):
 
 @api_view(["GET"])
 def reports(request, id):
-    min_date = Project.objects.get(id = id).start_date
+    project_details = Project.objects.get(id = id)
+    min_date = project_details.start_date
     labels = months[min_date.month - 1:] + months[:min_date.month-1]
     curr_year = str(min_date.year)
     for i in range(12):
@@ -81,7 +85,7 @@ def reports(request, id):
     expenses = {"expenses": expenses}
 
 
-    monthly_budget_data = list(get_monthly_budget_data(id))
+    monthly_budget_data = get_monthly_budget_data(project_details.monthly_budget.id)
     monthly_budget_data = monthly_budget_data[min_date.month - 1:] + monthly_budget_data[:min_date.month-1]
     monthly_budget_data = {"monthly_budgets": monthly_budget_data}
 
@@ -93,7 +97,9 @@ def projects(request):
     serializer = ProjectSerializer(Project.objects.all(), many=True)
     project_data = serializer.data
     for i, x in enumerate(serializer.data):
-        project_data[i]["monthly_budget"] = get_monthly_budget_data(project_data[i]["id"])
+        start_date = Project.objects.get(id = project_data[i]["id"]).start_date
+        monthly_budget_data = get_monthly_budget_data(project_data[i]["monthly_budget"])
+        project_data[i]["monthly_budget"] = monthly_budget_data[start_date.month - 1:] + monthly_budget_data[:start_date.month-1]
     return Response(project_data)
 
 
@@ -107,21 +113,12 @@ def project_names(request):
 
 @api_view(["POST", "PUT", "DELETE"])
 def handle_project(request):
+    start_month = int(request.data["projectStartDate"].split("-")[1])
+    monthly_budget_details = {}
+    for i in range(12):
+        monthly_budget_details[full_months[i]] = request.data["projectMonthlyBudgets"][(12 - start_month + 1 + i)%12 ]
     if request.method == 'POST':
-        monthly_budget_details = MonthlyBudget(
-            january = request.data["projectMonthlyBudgets"][0],
-            february = request.data["projectMonthlyBudgets"][1],
-            march = request.data["projectMonthlyBudgets"][2],
-            april = request.data["projectMonthlyBudgets"][3],
-            may = request.data["projectMonthlyBudgets"][4],
-            june = request.data["projectMonthlyBudgets"][5],
-            july = request.data["projectMonthlyBudgets"][6],
-            august = request.data["projectMonthlyBudgets"][7],
-            september = request.data["projectMonthlyBudgets"][8],
-            october = request.data["projectMonthlyBudgets"][9],
-            november = request.data["projectMonthlyBudgets"][10],
-            december = request.data["projectMonthlyBudgets"][11],
-        )
+        monthly_budget_details = MonthlyBudget(**monthly_budget_details)
         monthly_budget_details.save()
         project_details = Project(
             name=request.data['projectName'],
@@ -141,25 +138,15 @@ def handle_project(request):
         project_details.manager = request.data["projectManager"]
         project_details.budget = request.data["projectBudget"]
 
-        monthly_budget_details = MonthlyBudget.objects.get(id = project_details.monthly_budget.id)
-        monthly_budget_details.january = request.data["projectMonthlyBudgets"][0]
-        monthly_budget_details.february = request.data["projectMonthlyBudgets"][1]
-        monthly_budget_details.march = request.data["projectMonthlyBudgets"][2]
-        monthly_budget_details.april = request.data["projectMonthlyBudgets"][3]
-        monthly_budget_details.may = request.data["projectMonthlyBudgets"][4]
-        monthly_budget_details.june = request.data["projectMonthlyBudgets"][5]
-        monthly_budget_details.july = request.data["projectMonthlyBudgets"][6]
-        monthly_budget_details.august = request.data["projectMonthlyBudgets"][7]
-        monthly_budget_details.september = request.data["projectMonthlyBudgets"][8]
-        monthly_budget_details.october = request.data["projectMonthlyBudgets"][9]
-        monthly_budget_details.november = request.data["projectMonthlyBudgets"][10]
-        monthly_budget_details.december = request.data["projectMonthlyBudgets"][11]
-        monthly_budget_details.save()
+        _monthly_budget_details = MonthlyBudget.objects.filter(id = project_details.monthly_budget.id)
+        _monthly_budget_details.update(**monthly_budget_details)
 
         project_details.save()
 
     elif request.method == "DELETE":
-        Project.objects.get(id = request.data["id"]).delete()
+        project_details = Project.objects.get(id = request.data["id"])
+        MonthlyBudget.objects.get(id = project_details.monthly_budget.id).delete()
+        project_details.delete()
     return HttpResponse(status=200)
 
 

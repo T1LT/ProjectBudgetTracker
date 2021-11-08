@@ -5,8 +5,8 @@ NR
 --------------------------------------------------
 
 bk
+- modal isopen parameter in projects.jsx
 - download from api link filename stunt
-- check why on_delete = models.CASCADE isn't working
 
 --------------------------------------------------
 
