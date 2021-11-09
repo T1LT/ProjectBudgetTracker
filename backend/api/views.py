@@ -1,18 +1,18 @@
-from django import http
 from django.db.models.aggregates import Sum
 from django.http import HttpResponse
-from rest_framework import serializers
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from .models import MonthlyBudget, Project, Transaction, TransactionType
-from .serializers import ProjectSerializer, TransactionSerializer
+from .serializers import MonthlyBudgetSerializer, ProjectSerializer, TransactionSerializer
 
+from decimal import Decimal
 from datetime import date
 import csv
 
-months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-full_months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+
+_months = {'Jan': 'january', 'Feb': 'february', 'Mar': 'march', 'Apr': 'april', 'May': 'may', 'Jun': 'june', 'Jul': 'july', 'Aug': 'august', 'Sep': 'september', 'Oct': 'october', 'Nov': 'november', 'Dec': 'december'}
+a_months = {'january': 'Jan', 'february': 'Feb', 'march': 'Mar', 'april': 'Apr', 'may': 'May', 'june': 'Jun', 'july': 'Jul', 'august': 'Aug', 'september': 'Sep', 'october': 'Oct', 'november': 'Nov', 'december': 'Dec'}
 
 def home(request):
     return HttpResponse("<h1>nice</h1>")
@@ -56,16 +56,18 @@ def dashboard(request, id):
 @api_view(["GET"])
 def transactions(request, id):
     records = Transaction.objects.filter(project=id)
+    project_details = Project.objects.get(id = id)
     serializer = TransactionSerializer(records, many=True)
     for x in serializer.data:
         x['type'] = TransactionType.objects.get(id=x['type']).name
-    return Response(serializer.data)
+    return Response({"transactions": serializer.data, "projectStartDate":project_details.start_date, "projectEndDate": project_details.end_date})
 
 
 @api_view(["GET"])
 def reports(request, id):
     project_details = Project.objects.get(id = id)
     min_date = project_details.start_date
+    months = list(_months.keys())
     labels = months[min_date.month - 1:] + months[:min_date.month-1]
     curr_year = str(min_date.year)
     for i in range(12):
@@ -97,9 +99,12 @@ def projects(request):
     serializer = ProjectSerializer(Project.objects.all(), many=True)
     project_data = serializer.data
     for i, x in enumerate(serializer.data):
-        start_date = Project.objects.get(id = project_data[i]["id"]).start_date
-        monthly_budget_data = get_monthly_budget_data(project_data[i]["monthly_budget"])
-        project_data[i]["monthly_budget"] = monthly_budget_data[start_date.month - 1:] + monthly_budget_data[:start_date.month-1]
+        monthly_budget_data = MonthlyBudgetSerializer(MonthlyBudget.objects.get(id = project_data[i]["monthly_budget"]))
+        monthly_budget_data = monthly_budget_data.data
+        for x in monthly_budget_data:
+            monthly_budget_data[x] = Decimal(monthly_budget_data[x]) if monthly_budget_data[x] else None
+        project_data[i]["monthly_budget"] = monthly_budget_data
+
     return Response(project_data)
 
 
@@ -113,12 +118,9 @@ def project_names(request):
 
 @api_view(["POST", "PUT", "DELETE"])
 def handle_project(request):
-    start_month = int(request.data["projectStartDate"].split("-")[1])
-    monthly_budget_details = {}
-    for i in range(12):
-        monthly_budget_details[full_months[i]] = request.data["projectMonthlyBudgets"][(12 - start_month + 1 + i)%12 ]
+    print(request.data["projectMonthlyBudgets"])
     if request.method == 'POST':
-        monthly_budget_details = MonthlyBudget(**monthly_budget_details)
+        monthly_budget_details = MonthlyBudget(**request.data["projectMonthlyBudgets"])
         monthly_budget_details.save()
         project_details = Project(
             name=request.data['projectName'],
@@ -129,6 +131,7 @@ def handle_project(request):
             monthly_budget = MonthlyBudget.objects.get(id = monthly_budget_details.id)
         )
         project_details.save()
+        pass
 
     elif request.method == "PUT":
         project_details = Project.objects.get(id = request.data["id"])
@@ -139,7 +142,7 @@ def handle_project(request):
         project_details.budget = request.data["projectBudget"]
 
         _monthly_budget_details = MonthlyBudget.objects.filter(id = project_details.monthly_budget.id)
-        _monthly_budget_details.update(**monthly_budget_details)
+        _monthly_budget_details.update(**request.data["projectMonthlyBudgets"])
 
         project_details.save()
 
@@ -147,7 +150,8 @@ def handle_project(request):
         project_details = Project.objects.get(id = request.data["id"])
         MonthlyBudget.objects.get(id = project_details.monthly_budget.id).delete()
         project_details.delete()
-    return HttpResponse(status=200)
+    return HttpResponse("nice")
+    # return HttpResponse(status=200)
 
 
 @api_view(["POST", "PUT", "DELETE"])

@@ -1,18 +1,18 @@
 from django.db import models
 
 class MonthlyBudget(models.Model):
-    january = models.DecimalField(max_digits=32, decimal_places=6)
-    february = models.DecimalField(max_digits=32, decimal_places=6)
-    march = models.DecimalField(max_digits=32, decimal_places=6)
-    april = models.DecimalField(max_digits=32, decimal_places=6)
-    may = models.DecimalField(max_digits=32, decimal_places=6)
-    june = models.DecimalField(max_digits=32, decimal_places=6)
-    july = models.DecimalField(max_digits=32, decimal_places=6)
-    august = models.DecimalField(max_digits=32, decimal_places=6)
-    september = models.DecimalField(max_digits=32, decimal_places=6)
-    october = models.DecimalField(max_digits=32, decimal_places=6)
-    november = models.DecimalField(max_digits=32, decimal_places=6)
-    december = models.DecimalField(max_digits=32, decimal_places=6)
+    january = models.DecimalField(max_digits=32, decimal_places=6, null=True)
+    february = models.DecimalField(max_digits=32, decimal_places=6, null=True)
+    march = models.DecimalField(max_digits=32, decimal_places=6, null=True)
+    april = models.DecimalField(max_digits=32, decimal_places=6, null=True)
+    may = models.DecimalField(max_digits=32, decimal_places=6, null=True)
+    june = models.DecimalField(max_digits=32, decimal_places=6, null=True)
+    july = models.DecimalField(max_digits=32, decimal_places=6, null=True)
+    august = models.DecimalField(max_digits=32, decimal_places=6, null=True)
+    september = models.DecimalField(max_digits=32, decimal_places=6, null=True)
+    october = models.DecimalField(max_digits=32, decimal_places=6, null=True)
+    november = models.DecimalField(max_digits=32, decimal_places=6, null=True)
+    december = models.DecimalField(max_digits=32, decimal_places=6, null=True)
 
 class Project(models.Model):
     name = models.CharField(max_length=32)

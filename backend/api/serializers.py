@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Transaction, Project
+from .models import MonthlyBudget, Transaction, Project
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -13,3 +13,7 @@ class TransactionSerializer(serializers.ModelSerializer):
         model = Transaction
         fields = ['id', 'name', 'amount', 'date', 'type']
 
+class MonthlyBudgetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MonthlyBudget
+        fields = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
