@@ -1,6 +1,8 @@
 
 NR
-- add project, edit project modals disable months beyond the project scope
+- validation for 1 year
+- display months within the project scope
+- reset monthly budgets in edit mode if they change total budget
 
 --------------------------------------------------
 
