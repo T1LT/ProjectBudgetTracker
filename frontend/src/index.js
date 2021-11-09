@@ -248,7 +248,8 @@ const Main = () => {
               <h1>${new Intl.NumberFormat().format(remainingBudget)}</h1>
               <div className="form-2">
                 {(() => {
-                  let currYear = projectData["projectStartDate"].split("-")[0];
+                  {
+                    /* let currYear = projectData["projectStartDate"].split("-")[0];
                   let modifiedMonths = [
                     ...months.slice(
                       projectData["projectStartDate"].split("-")[1] - 1,
@@ -266,7 +267,24 @@ const Main = () => {
                     if (modifiedMonths[i].slice(0, 3) === "Dec") {
                       currYear = String(+currYear + 1);
                     }
+                  } */
                   }
+                  const start = projectData["projectStartDate"];
+                  const end = projectData["projectEndDate"];
+                  let startdate = new Date(start);
+                  let enddate = new Date(end);
+                  let currentYear = startdate.getFullYear();
+                  let modifiedMonths = [
+                    ...months.slice(startdate.getMonth(), 12),
+                    ...months.slice(0, enddate.getMonth()),
+                  ];
+                  modifiedMonths = modifiedMonths.map((e) => {
+                    let x = e + " '" + currentYear.toString().substr(-2);
+                    if (e === "Dec") {
+                      currentYear += 1;
+                    }
+                    return x;
+                  });
                   return modifiedMonths;
                 })().map((month, index) => (
                   <div className="month-inputs" key={index}>
