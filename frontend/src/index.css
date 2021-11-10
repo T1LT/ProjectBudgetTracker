@@ -1,105 +1,105 @@
 #navbar {
-	display: flex;
-	justify-content: space-between;
-	padding: 1% 1%;
-	background-color: #0274d1;
-	color: white;
-	margin-bottom: 1%;
+  display: flex;
+  justify-content: space-between;
+  padding: 1% 1%;
+  background-color: #0274d1;
+  color: white;
+  margin-bottom: 1%;
 }
 
 #navleft {
-	display: flex;
-	justify-content: space-between;
-	width: 50%;
-	font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  font-size: 1rem;
 }
 
 #projectdiv {
-	display: flex;
-	justify-content: center;
-	width: 100%;
-	padding: 1% 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 1% 0;
 }
 
 h6 {
-	font-weight: bold;
-	font-size: 1.25rem;
+  font-weight: bold;
+  font-size: 1.25rem;
 }
 
 .project-h1 {
-	margin-bottom: 7.5%;
+  margin-bottom: 7.5%;
 }
 
 form h1 {
-	font-weight: bold;
-	font-size: 1.75rem;
+  font-weight: bold;
+  font-size: 1.75rem;
 }
 
 #projectselect {
-	border: none;
-	width: 20%;
-	cursor: pointer;
-	margin-right: 5%;
-	font-size: 2.45rem;
-	/* overflow: visible; */
+  border: none;
+  width: 25%;
+  cursor: pointer;
+  margin-right: 5%;
+  font-size: 2.45rem;
+  padding: 0;
 }
 
 #hideprojectselect {
-	display: none;
+  display: none;
 }
 
 #projectselect option {
-	font-size: 0.9rem;
+  font-size: 0.9rem;
 }
 
 #projectselect:active,
 #projectselect:focus {
-	border: none;
-	outline: none;
+  border: none;
+  outline: none;
 }
 
 .month-inputs {
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	margin: 1% 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 1% 0;
 }
 
 .next,
 .back {
-	margin-top: 2%;
-	margin-right: 5%;
+  margin-top: 2%;
+  margin-right: 5%;
 }
 
 form {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50%;
 }
 
 .form-step-2 {
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .form-step-2 h1 {
-	width: 100%;
+  width: 100%;
 }
 
 .form-step-2 input {
-	padding: 0;
+  padding: 0;
 }
 
 .form-2 {
-	margin-top: 5%;
-	width: 100%;
+  margin-top: 5%;
+  width: 100%;
 }
 
 label {
-	font-weight: bold;
+  font-weight: bold;
 }
 
 #projectName,
@@ -108,356 +108,365 @@ label {
 #projectManager,
 #projectBudget,
 #projectMonthlyBudgets {
-	margin: 3% 0 3% 0;
+  margin: 3% 0 3% 0;
 }
 
 #projectSubmit {
-	margin-top: 5%;
-	margin-right: 5%;
+  margin-top: 5%;
+  margin-right: 5%;
 }
 
 .errorClass:focus {
-	padding: 1%;
-	outline: none;
+  padding: 1%;
+  outline: none;
 }
 
 .labelError {
-	color: red;
-	font-weight: bold;
+  color: red;
+  font-weight: bold;
 }
 
 .labelError2 {
-	padding: 1%;
-	color: red;
-	font-weight: bold;
+  padding: 1%;
+  color: red;
+  font-weight: bold;
 }
 
 .errorClass {
-	padding: 1%;
-	border: 2px solid red !important;
-	border-radius: 3px;
+  padding: 1%;
+  border: 2px solid red !important;
+  border-radius: 3px;
 }
 
 .errorClass2 {
-	border: 2px solid red !important;
-	border-radius: 3px;
+  border: 2px solid red !important;
+  border-radius: 3px;
 }
 
 .month-class {
-	padding: 1%;
+  padding: 1%;
 }
 
 .back,
 #projectsubmit {
-	margin-top: 7.5%;
+  margin-top: 7.5%;
 }
 
 button {
-	font-family: "Manrope", sans-serif;
-	background: rgb(44, 44, 44);
-	color: white;
-	border: 0.125em solid rgb(44, 44, 44);
-	margin-right: 5%;
-	padding: 2% 5%;
-	border-radius: 25px;
-	cursor: pointer;
-	transition-duration: 0.4s;
+  font-family: "Manrope", sans-serif;
+  background: rgb(44, 44, 44);
+  color: white;
+  border: 0.125em solid rgb(44, 44, 44);
+  margin-right: 5%;
+  padding: 2% 5%;
+  border-radius: 25px;
+  cursor: pointer;
+  transition-duration: 0.4s;
 }
 
 button:hover {
-	background-color: rgb(71, 71, 71);
-	border-color: rgb(71, 71, 71);
+  background-color: rgb(71, 71, 71);
+  border-color: rgb(71, 71, 71);
 }
 
 button:disabled {
-	border-color: rgb(168, 168, 168);
-	background-color: rgb(168, 168, 168);
-	cursor: not-allowed;
-}
-
-#projectselect {
-	padding: 0;
+  border-color: rgb(168, 168, 168);
+  background-color: rgb(168, 168, 168);
+  cursor: not-allowed;
 }
 
 select,
 input {
-	padding: 1%;
-	font-family: "Manrope", sans-serif;
+  padding: 1%;
+  font-family: "Manrope", sans-serif;
 }
 
 .multi-button {
-	margin-left: -0.5rem;
-	margin-right: -0.5rem;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
 }
 .multi-button button {
-	background: white;
-	color: black;
-	border: 0.125em solid black;
-	cursor: pointer;
-	font: 400 1rem "Manrope", sans-serif;
-	letter-spacing: 0.125em;
-	margin: 0.5rem;
-	padding: 0.75em 1em;
-	position: relative;
-	text-transform: uppercase;
+  background: white;
+  color: black;
+  border: 0.125em solid black;
+  cursor: pointer;
+  font: 400 1rem "Manrope", sans-serif;
+  letter-spacing: 0.125em;
+  margin: 0.5rem;
+  padding: 0.75em 1em;
+  position: relative;
+  text-transform: uppercase;
 }
 .multi-button button:before,
 .multi-button button:after {
-	content: "";
-	position: absolute;
-	transition: all 0.125s ease-in-out;
+  content: "";
+  position: absolute;
+  transition: all 0.125s ease-in-out;
 }
 .multi-button button.cut {
-	background: none;
-	border-color: transparent;
+  background: none;
+  border-color: transparent;
 }
 .multi-button button.cut:before,
 .multi-button button.cut:after {
-	transition: all 0.175s ease-in-out;
+  transition: all 0.175s ease-in-out;
 }
 .multi-button button.cut:before {
-	background: black;
-	border: 0px dashed black;
-	left: -0.125em;
-	top: -0.125em;
-	right: -0.125em;
-	bottom: -0.125em;
-	z-index: -1;
+  background: black;
+  border: 0px dashed black;
+  left: -0.125em;
+  top: -0.125em;
+  right: -0.125em;
+  bottom: -0.125em;
+  z-index: -1;
 }
 .multi-button button.cut:hover:before,
 .multi-button button.cut:focus:before {
-	background: white;
-	border-width: 0.125em;
+  background: white;
+  border-width: 0.125em;
 }
 .multi-button button.cut:after {
-	background: white;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	top: 0;
-	z-index: -1;
+  background: white;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: -1;
 }
 
 #closeButton {
-	position: absolute !important;
-	margin-right: 0 !important;
-	padding: 0 !important;
-	top: 0 !important;
-	right: 10px !important;
-	color: black !important;
-	background-color: transparent !important;
-	border: 0 !important;
-	font-size: x-large !important;
-	cursor: pointer !important;
+  position: absolute !important;
+  margin-right: 0 !important;
+  padding: 0 !important;
+  top: 0 !important;
+  right: 10px !important;
+  color: black !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  font-size: x-large !important;
+  cursor: pointer !important;
 }
 
 .Modal {
-	position: absolute;
-	top: 9%;
-	left: 18%;
-	right: auto;
-	bottom: auto;
-	width: 60%;
-	height: 75%;
-	padding: 2%;
-	background-color: white;
-	border-radius: 3px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+  position: absolute;
+  top: 9%;
+  left: 18%;
+  right: auto;
+  bottom: auto;
+  width: 60%;
+  height: 75%;
+  padding: 2%;
+  background-color: white;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .Overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: rgba(105, 105, 105, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(105, 105, 105, 0.6);
 }
 
 .ReactModal__Overlay {
-	opacity: 0;
-	transition: opacity 200ms ease-in-out;
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
 }
 
 .ReactModal__Overlay--after-open {
-	opacity: 1;
+  opacity: 1;
 }
 
 .ReactModal__Overlay--before-close {
-	opacity: 0;
+  opacity: 0;
 }
 
 @media (max-width: 1400px) {
-	#navleft {
-		width: 70%;
-	}
+  #navleft {
+    width: 70%;
+  }
+
+  #projectselect {
+    width: 30%;
+  }
 }
 
 @media (max-width: 1200px) {
-	#navleft {
-		width: 80%;
-	}
+  #navleft {
+    width: 80%;
+  }
 
-	#projectselect {
-		width: 30%;
-	}
+  #projectselect {
+    width: 35%;
+  }
 
-	.projectheader {
-		font-size: 2em;
-	}
+  .projectheader {
+    font-size: 2em;
+  }
 
-	.Modal {
-		width: 60%;
-		left: 18%;
-	}
+  .Modal {
+    width: 60%;
+    left: 18%;
+  }
 
-	.form-step-2 {
-		width: 60%;
-	}
+  .form-step-2 {
+    width: 60%;
+  }
 }
 
 @media (max-width: 1000px) {
-	#navleft {
-		width: 80%;
-	}
+  #navleft {
+    width: 80%;
+  }
+
+  #projectselect {
+    width: 40%;
+  }
 }
 
 @media (max-width: 900px) {
-	.Modal {
-		width: 70%;
-		left: 13%;
-	}
+  .Modal {
+    width: 70%;
+    left: 13%;
+  }
 
-	.form-step-2 {
-		width: 65%;
-	}
+  .form-step-2 {
+    width: 65%;
+  }
 }
 
 @media (max-width: 850px) {
-	#navleft {
-		width: 95%;
-	}
+  #navleft {
+    width: 95%;
+  }
 
-	#projectselect {
-		width: 40%;
-	}
+  #projectselect {
+    width: 45%;
+  }
 
-	.projectheader {
-		font-size: 1.75em;
-	}
+  .projectheader {
+    font-size: 1.75em;
+  }
 
-	#projectdiv {
-		margin-top: 2%;
-	}
+  #projectdiv {
+    margin-top: 2%;
+  }
 }
 
 @media (max-width: 750px) {
-	.form-2 input {
-		width: 50%;
-	}
+  .form-2 input {
+    width: 50%;
+  }
 
-	.Modal {
-		width: 70%;
-		left: 13%;
-	}
+  .Modal {
+    width: 70%;
+    left: 13%;
+  }
 }
 
 @media (max-width: 700px) {
-	h6 {
-		display: none;
-	}
+  h6 {
+    display: none;
+  }
 
-	#projectselect {
-		width: 40%;
-	}
+  #projectselect {
+    width: 50%;
+    font-size: 1.8rem;
+  }
 
-	.projectheader {
-		font-size: 1.5em;
-	}
+  .projectheader {
+    font-size: 1.5em;
+  }
 
-	#navleft {
-		justify-content: space-around;
-	}
+  #navleft {
+    justify-content: space-around;
+  }
 
-	form h1 {
-		font-size: 1.5rem;
-	}
+  form h1 {
+    font-size: 1.5rem;
+  }
 
-	form {
-		width: 65%;
-	}
+  form {
+    width: 65%;
+  }
 }
 
 @media (max-width: 600px) {
-	#projectselect {
-		width: 50%;
-		font-size: 1.9rem;
-	}
+  #projectselect {
+    width: 50%;
+    font-size: 1.9rem;
+  }
 
-	.projectheader {
-		font-size: 1.25em;
-	}
+  .projectheader {
+    font-size: 1.25em;
+  }
 }
 
 @media (max-width: 500px) {
-	#navleft {
-		font-size: 1em;
-		width: 100%;
-	}
+  #navleft {
+    font-size: 1em;
+    width: 100%;
+  }
 
-	h6 {
-		display: none;
-	}
+  h6 {
+    display: none;
+  }
 
-	form h1 {
-		font-size: 1.25rem;
-	}
+  form h1 {
+    font-size: 1.25rem;
+  }
 
-	.projectheader {
-		font-size: 1em;
-		margin-top: 1%;
-	}
+  .projectheader {
+    font-size: 1em;
+    margin-top: 1%;
+  }
 
-	#projectselect {
-		width: 50%;
-		font-size: 1.8rem;
-	}
+  #projectselect {
+    width: 50%;
+    font-size: 1.6rem;
+  }
 
-	#projectselect option {
-		font-size: 1rem;
-	}
+  #projectselect option {
+    font-size: 1rem;
+  }
 
-	.multi-button button {
-		font-size: 0.8rem;
-	}
+  .multi-button button {
+    font-size: 0.8rem;
+  }
 
-	form {
-		width: 70%;
-	}
+  form {
+    width: 70%;
+  }
 
-	.Modal {
-		width: 80%;
-		left: 8%;
-	}
+  .Modal {
+    width: 80%;
+    left: 8%;
+  }
 }
 
 @media (max-width: 460px) {
-	.projectheader {
-		font-size: 0.8em;
-		margin-top: 1.5%;
-	}
+  .projectheader {
+    font-size: 0.8em;
+    margin-top: 1.5%;
+  }
 }
 
 @media (max-width: 420px) {
-	.projectheader {
-		font-size: 0.7em;
-		margin-top: 2%;
-	}
+  .projectheader {
+    font-size: 0.7em;
+    margin-top: 2%;
+  }
 
-	#navleft {
-		font-size: 0.8em;
-	}
+  #projectselect {
+    font-size: 1.2rem;
+  }
+
+  #navleft {
+    font-size: 0.8em;
+  }
 }
