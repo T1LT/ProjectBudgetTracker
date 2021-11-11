@@ -38,7 +38,7 @@ def dashboard(request, id):
         else:
             monthly_budget_sum = {"monthly_budget_sum": sum(monthly_budget_data[min_month-1:max_month])}
     except:
-        monthly_budget_sum = {"monthly_budget_sum": sum(monthly_budget_data)}
+        monthly_budget_sum = {"monthly_budget_sum": sum([x if x else 0 for x in monthly_budget_data])}
 
     expenses = {}
     for x in TransactionType.objects.all():

@@ -436,13 +436,15 @@ const Projects = () => {
                           }
                           name="month-input"
                           type="text"
-                          defaultValue={
+                          value={
                             formProjectData["projectMonthlyBudgets"][
                               _months[month.slice(0, 3)]
                             ]
-                              ? formProjectData["projectMonthlyBudgets"][
-                                  _months[month.slice(0, 3)]
-                                ]
+                              ? Math.abs(
+                                  formProjectData["projectMonthlyBudgets"][
+                                    _months[month.slice(0, 3)]
+                                  ]
+                                )
                               : 0
                           }
                           min="0"

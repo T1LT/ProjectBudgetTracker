@@ -16,7 +16,7 @@
 
 #projectdiv {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   width: 100%;
   padding: 1% 0;
 }
@@ -37,9 +37,9 @@ form h1 {
 
 #projectselect {
   border: none;
-  width: 25%;
+  width: 35%;
   cursor: pointer;
-  margin-right: 5%;
+  /* margin-right: 5%; */
   font-size: 2.45rem;
   padding: 0;
 }
@@ -292,7 +292,7 @@ input {
   }
 
   #projectselect {
-    width: 30%;
+    font-size: 2.2rem;
   }
 }
 
@@ -302,7 +302,8 @@ input {
   }
 
   #projectselect {
-    width: 35%;
+    width: 40%;
+    font-size: 2.1rem;
   }
 
   .projectheader {
@@ -325,7 +326,8 @@ input {
   }
 
   #projectselect {
-    width: 40%;
+    width: 45%;
+    font-size: 2rem;
   }
 }
 
@@ -346,7 +348,7 @@ input {
   }
 
   #projectselect {
-    width: 45%;
+    width: 50%;
   }
 
   .projectheader {
@@ -375,7 +377,7 @@ input {
   }
 
   #projectselect {
-    width: 50%;
+    width: 55%;
     font-size: 1.8rem;
   }
 
@@ -398,7 +400,7 @@ input {
 
 @media (max-width: 600px) {
   #projectselect {
-    width: 50%;
+    width: 60%;
     font-size: 1.9rem;
   }
 

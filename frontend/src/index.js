@@ -25,7 +25,6 @@ const Main = () => {
   const [showInputError, setShowInputError] = useState(Array(12).fill(false));
   const [step, setStep] = useState(1);
   const [monthBudget, setMonthBudget] = useState({});
-
   const [projectData, setProjectData] = useState({
     projectName: "",
     projectStartDate: "",
@@ -239,15 +238,15 @@ const Main = () => {
               <button
                 className="next"
                 onClick={() => setStep(2)}
-                // disabled={
-                //   projectData["projectName"] === "" ||
-                //   projectData["projectStartDate"] === "" ||
-                //   projectData["projectEndDate"] === "" ||
-                //   projectData["projectManager"] === "" ||
-                //   projectData["projectBudget"] === "" ||
-                //   projectData["projectBudget"] === 0 ||
-                //   showError
-                // }
+                disabled={
+                  projectData["projectName"] === "" ||
+                  projectData["projectStartDate"] === "" ||
+                  projectData["projectEndDate"] === "" ||
+                  projectData["projectManager"] === "" ||
+                  projectData["projectBudget"] === "" ||
+                  projectData["projectBudget"] === 0 ||
+                  showError
+                }
               >
                 Next
               </button>
@@ -309,7 +308,7 @@ const Main = () => {
                       }
                       name="month-input"
                       type="text"
-                      defaultValue={
+                      value={
                         monthBudget[_months[month.slice(0, 3)]]
                           ? Math.abs(monthBudget[_months[month.slice(0, 3)]])
                           : 0
