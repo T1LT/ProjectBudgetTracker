@@ -1,14 +1,11 @@
 
 NR
-- validation for 1 year
-- display months within the project scope
-- reset monthly budgets in edit mode if they change total budget
+- 
 
 --------------------------------------------------
 
 bk
 - download from api link filename stunt
-- check why on_delete = models.CASCADE isn't working
 
 --------------------------------------------------
 
