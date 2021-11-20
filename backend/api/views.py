@@ -118,7 +118,6 @@ def project_names(request):
 
 @api_view(["POST", "PUT", "DELETE"])
 def handle_project(request):
-    print(request.data["projectMonthlyBudgets"])
     if request.method == 'POST':
         monthly_budget_details = MonthlyBudget(**request.data["projectMonthlyBudgets"])
         monthly_budget_details.save()
@@ -184,7 +183,7 @@ def export_csv(request, id):
     response = HttpResponse(content_type = 'text/csv')
     # response['Content-Disposition'] = f'attachment; filename={Project.objects.get(id = id).name}.csv'
     writer = csv.writer(response)
-    writer.writerow(["S.No.","Transaction Name", "Transaction Amount", "Transaction Type"])
+    writer.writerow(["S.No.","Transaction Name", "Transaction Amount", "Transaction Date", "Transaction Type"])
     for ind, x in enumerate(transaction_details):
         writer.writerow([ind+1, x.name, x.amount, x.date, x.type.name])
     return response

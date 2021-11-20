@@ -10,7 +10,7 @@ import axios from "axios";
 import "./index.css";
 import "./reset.css";
 import { Alert } from "@mui/material";
-import { months, addOneYear, _months } from "./utils.js";
+import { months, addOneYear, _months, subtractOneYear } from "./utils.js";
 
 Modal.setAppElement("#root");
 export const tabContext = React.createContext();
@@ -101,7 +101,6 @@ const Main = () => {
 
   const addProject = (event) => {
     event.preventDefault();
-    console.log(projectData);
     if (!showError) {
       const url = "http://localhost:8000/api/projects/modify-project/";
       axios.post(url, projectData).catch((error) => {
@@ -156,7 +155,12 @@ const Main = () => {
         ariaHideApp={false}
       >
         {step === 1 ? (
-          <form className="form-step-1">
+          <form
+            className="form-step-1"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
             <center>
               <h1 className="project-h1">Add a Project</h1>
             </center>
@@ -175,7 +179,10 @@ const Main = () => {
               id="projectStartDate"
               name="projectStartDate"
               value={projectData["projectStartDate"]}
+              min={subtractOneYear(projectData["projectEndDate"])}
+              max={projectData["projectEndDate"]}
               onChange={handleChange}
+              onKeyDown={(e) => e.preventDefault()}
               required
             />
             <label htmlFor="projectEndDate">End Date: </label>
@@ -187,6 +194,7 @@ const Main = () => {
               max={addOneYear(projectData["projectStartDate"])}
               value={projectData["projectEndDate"]}
               onChange={handleChange}
+              onKeyDown={(e) => e.preventDefault()}
               required
             />
             <label htmlFor="projectManager">Project Manager: </label>
@@ -253,7 +261,12 @@ const Main = () => {
             </center>
           </form>
         ) : (
-          <form className="form-step-2">
+          <form
+            className="form-step-2"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
             <center>
               <h1>Remaining Budget:</h1>
               <h1>${new Intl.NumberFormat().format(remainingBudget)}</h1>
@@ -314,6 +327,11 @@ const Main = () => {
                           : 0
                       }
                       min="0"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                        }
+                      }}
                       onChange={(event) => {
                         if (event.target.value === "") {
                           event.target.value = 0;
@@ -334,7 +352,6 @@ const Main = () => {
                         temp[_months[month.slice(0, 3)]] = parseFloat(
                           event.target.value ? event.target.value : 0
                         );
-                        console.log(temp);
                         setMonthBudget(temp);
                         setProjectData(() => ({
                           ...projectData,

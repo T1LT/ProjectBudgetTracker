@@ -221,7 +221,6 @@ const Projects = () => {
 
   const updateProject = (event) => {
     event.preventDefault();
-    console.log(formProjectData);
     if (!showError) {
       const url = "http://localhost:8000/api/projects/modify-project/";
       axios.put(url, formProjectData).catch((error) => {
@@ -289,7 +288,11 @@ const Projects = () => {
             ariaHideApp={false}
           >
             {step === 1 ? (
-              <form>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                }}
+              >
                 <center>
                   <h1>Edit Project</h1>
                 </center>
@@ -309,6 +312,7 @@ const Projects = () => {
                   name="projectStartDate"
                   defaultValue={formProjectData["projectStartDate"]}
                   onChange={handleChange}
+                  onKeyDown={(e) => e.preventDefault()}
                   required
                 />
                 <label htmlFor="projectEndDate">End Date: </label>
@@ -320,6 +324,7 @@ const Projects = () => {
                   max={addOneYear(formProjectData["projectStartDate"])}
                   defaultValue={formProjectData["projectEndDate"]}
                   onChange={handleChange}
+                  onKeyDown={(e) => e.preventDefault()}
                   required
                 />
                 <label htmlFor="projectManager">Project Manager: </label>
@@ -369,7 +374,12 @@ const Projects = () => {
                 </center>
               </form>
             ) : (
-              <form className="form-step-2">
+              <form
+                className="form-step-2"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                }}
+              >
                 <center>
                   <h1>Remaining Budget:</h1>
                   <h1>
@@ -448,6 +458,11 @@ const Projects = () => {
                               : 0
                           }
                           min="0"
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              e.preventDefault();
+                            }
+                          }}
                           onChange={(event) => {
                             if (event.target.value === "") {
                               event.target.value = 0;
